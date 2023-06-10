@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import AuthProvider from './AuthProvider';
 import { authOptions } from './api/auth/[...nextauth]/route';
 import Nav from './components/Nav';
+import Sidenav from './components/SidebarNav/SidebarNav';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,8 +24,9 @@ export default async function RootLayout({
     <AuthProvider>
       <html lang='en'>
         <body className='mx-64'>
-          <Nav/>
-          {children}
+          <Sidenav />
+          <Nav />
+          <div className='main-body'>{children}</div>
         </body>
       </html>
     </AuthProvider>

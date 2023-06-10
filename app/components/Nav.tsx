@@ -8,14 +8,6 @@ import AuthCheck from '../components/AuthCheck';
 export default function Nav() {
   return (
     <nav>
-      <Link href={'/'}>
-        <Image
-          src='/logo.svg' // Route of the image file
-          width={216}
-          height={30}
-          alt='NextSpace Logo'
-        />
-      </Link>
       <ul>
         <li>
           <Link href={'/about'}>About</Link>

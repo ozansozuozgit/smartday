@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   goals         Goal[]
+  completedGoals String[] // An array of IDs of completed goals
 }
 
 model VerificationToken {
@@ -57,18 +58,27 @@ model VerificationToken {
 }
 
 model Activity {
-  id             String  @id @default(cuid())
-  name           String
-  goal           Goal    @relation(fields: [goalId], references: [id])
-  goalId         String
-  percentage     Float
+  id       String  @id @default(cuid())
+  name     String  // Name of the activity
+  percentage Float // Percentage of the day spent on the activity
+  goalId   String // The ID of the goal the activity is associated with
+  goal     Goal   @relation(fields: [goalId], references: [id])
+  categoryId String // The ID of the category the activity is associated with
+  category Category @relation(fields: [categoryId], references: [id])
   alignsWithGoal Boolean @default(false)
 }
 
-model Goal {
-  id         String     @id @default(cuid())
-  date       DateTime   @default(now())
-  user       User       @relation(fields: [userId], references: [id])
-  userId     String
+model Category {
+  id        String     @id @default(cuid())
+  name      String
   activities Activity[]
+}
+model Goal {
+  id          String     @id @default(cuid())
+  name        String     // Name of the goal
+  percentage  Float?      // Total percentage of the goal completed
+  date        DateTime   // Date the goal was created
+  userId      String     // The ID of the user who created the goal
+  user        User       @relation(fields: [userId], references: [id])
+  activities  Activity[] // The activities associated with the goal
 }
