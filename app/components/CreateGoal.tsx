@@ -1,7 +1,8 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { Dialog, Transition } from '@headlessui/react';
-import React, { Fragment, useRef, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import React, { Fragment, useCallback, useState } from 'react';
 import { GoalType } from '../../types/types';
 
 type Props = {
@@ -11,7 +12,9 @@ const CreateGoal = ({ addGoalToState }: Props) => {
   // form inputs
   const [goalName, setGoalName] = useState<string>('');
   let [isOpen, setIsOpen] = useState(false);
-
+  const searchParams = useSearchParams()!;
+  const pathname = usePathname();
+  const router = useRouter();
   function closeModal() {
     setIsOpen(false);
   }
@@ -19,6 +22,15 @@ const CreateGoal = ({ addGoalToState }: Props) => {
   function openModal() {
     setIsOpen(true);
   }
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams();
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   const addGoal = async () => {
     if (!goalName) return;
@@ -32,6 +44,7 @@ const CreateGoal = ({ addGoalToState }: Props) => {
       });
       const goal = await res.json();
       addGoalToState(goal);
+      router.push(pathname + '?' + createQueryString('goal', goal.id));
       closeModal();
       console.log('Goal added!');
     } catch (err) {

@@ -30,7 +30,6 @@ export async function POST(req: Request) {
     data: {
       name: goalName,
       percentage: 0,
-      date: new Date(),
       userId: session?.user?.id,
     },
   });
