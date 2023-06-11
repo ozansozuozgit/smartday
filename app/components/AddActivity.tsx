@@ -14,12 +14,14 @@ const AddActivity = () => {
   // form inputs
   const [activityName, setActivityName] = useState<string>('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
+  const [percentage, setPercentage] = useState<number>(0);
+  const [alignsWithGoal, setAlignsWithGoal] = useState<boolean>(false);
+
   let [isOpen, setIsOpen] = useState(false);
 
   const setSelectedCategoryHandler = (category: string) => {
-    console.log('category', category)
+    console.log('category', category);
     setSelectedCategoryId(category);
-
   };
   function closeModal() {
     setIsOpen(false);
@@ -30,16 +32,19 @@ const AddActivity = () => {
   }
 
   const addActivity = async () => {
-    if (!activityName) return;
+    // add basic validation, don't allow empty fields
+
+
+    if (!activityName || !percentage || !selectedCategoryId) return;
     try {
       const res = await fetch(`${getBaseUrl()}/api/activity`, {
         method: 'POST',
         body: JSON.stringify({
           alignsWithGoal,
-          activityPercentage,
+          percentage,
           goalId,
           activityName,
-          categoryId:selectedCategoryId ,
+          categoryId: selectedCategoryId,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -106,20 +111,50 @@ const AddActivity = () => {
                         className='block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                         value={activityName}
                         onChange={(e) => setActivityName(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
-                            e.preventDefault(); // Prevents form submission
-                            addActivity();
-                          }
-                        }}
                         placeholder='100k per month'
                       />
                       <Categories
                         setSelectedCategoryHandler={setSelectedCategoryHandler}
                         selectedCategory={selectedCategoryId}
                       />
+                      <input
+                        type='text'
+                        name='perentage'
+                        id='perentage'
+                        className='block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                        value={percentage}
+                        onChange={(e) => setPercentage(Number(e.target.value))}
+                        placeholder='Percentage of your day'
+                      />
                     </div>
-
+                    <fieldset>
+                      <legend className='sr-only'>Notifications</legend>
+                      <div className='space-y-5'>
+                        <div className='relative flex items-start'>
+                          <div className='flex h-6 items-center'>
+                            <input
+                              id='comments'
+                              aria-describedby='comments-description'
+                              name='comments'
+                              type='checkbox'
+                              className='h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                              checked={alignsWithGoal}
+                              onChange={() =>
+                                setAlignsWithGoal(!alignsWithGoal)
+                              }
+                            />
+                          </div>
+                          <div className='ml-3 text-sm leading-6'>
+                            <label
+                              htmlFor='comments'
+                              className='font-medium text-gray-900'
+                            >
+                              Aligns With Goal
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
                     <div className='mt-4 space-x-2 flex justify-end'>
                       <button
                         type='button'

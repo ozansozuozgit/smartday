@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const {
     alignsWithGoal,
-    activityPercentage,
+    percentage,
     goalId,
     activityName,
     categoryId,
@@ -28,11 +28,11 @@ export async function POST(req: NextRequest) {
 
   const newActivity = await prisma.activity.create({
     data: {
-      name: activityName, // replace with the actual activity name
-      categoryId: categoryId, // replace with the actual category id
-      percentage: activityPercentage, // replace with the actual activity percentage
-      goalId: goalId, // replace with the actual goal ID
-      alignsWithGoal: alignsWithGoal, // default value
+      name: activityName, 
+      categoryId: categoryId, 
+      percentage: percentage, 
+      goalId: goalId,
+      alignsWithGoal: alignsWithGoal,
     },
   });
 
@@ -43,9 +43,10 @@ export async function POST(req: NextRequest) {
     },
     data: {
       percentage: {
-        increment: activityPercentage, // increment the goal's percentage by the activity's percentage
+        increment: percentage, // increment the goal's percentage by the activity's percentage
       },
     },
   });
+  console.log('updatedGoal', updatedGoal)
   return NextResponse.json(newActivity);
 }
