@@ -3,6 +3,19 @@ import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
 
+export async function GET(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  const allGoalsFromUser = await prisma.goal.findMany({
+    where: { userId: session?.user?.id },
+  });
+
+  // const allGoalsFromUser = res.json();
+  console.log('allGoalsFromUser', allGoalsFromUser);
+  
+
+  return NextResponse.json(allGoalsFromUser);
+}
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -25,23 +38,23 @@ export async function POST(req: Request) {
   return NextResponse.json(newGoal);
 }
 
-export async function DELETE(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  const currentUserEmail = session?.user?.email!;
-  // const targetUserId = req.nextUrl.searchParams.get('targetUserId');
+// export async function DELETE(req: NextRequest) {
+//   const session = await getServerSession(authOptions);
+//   const currentUserEmail = session?.user?.email!;
+//   // const targetUserId = req.nextUrl.searchParams.get('targetUserId');
 
-  // const currentUserId = await prisma.user
-  //   .findUnique({ where: { email: currentUserEmail } })
-  //   .then((user) => user?.id!);
+//   // const currentUserId = await prisma.user
+//   //   .findUnique({ where: { email: currentUserEmail } })
+//   //   .then((user) => user?.id!);
 
-  // const record = await prisma.follows.delete({
-  //   where: {
-  //     followerId_followingId: {
-  //       followerId: currentUserId,
-  //       followingId: targetUserId!,
-  //     },
-  //   },
-  // });
+//   // const record = await prisma.follows.delete({
+//   //   where: {
+//   //     followerId_followingId: {
+//   //       followerId: currentUserId,
+//   //       followingId: targetUserId!,
+//   //     },
+//   //   },
+//   // });
 
-  return NextResponse.json(record);
-}
+//   return NextResponse.json(record);
+// }
