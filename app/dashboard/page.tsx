@@ -8,7 +8,7 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
 import { SignOutButton } from '../components/AuthButtons';
 import Goals from '../components/Goals';
 import { ProfileForm } from './ProfileForm';
-
+import AddActivity from '../components/AddActivity';
 
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
@@ -21,6 +21,7 @@ const Dashboard = async () => {
     <div>
       <section>
         {/* <Goals /> */}
+        <AddActivity />
       </section>
     </div>
   );

@@ -1,17 +1,26 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { Dialog, Transition } from '@headlessui/react';
+import { useSearchParams } from 'next/navigation';
 import React, { Fragment, useRef, useState } from 'react';
 import { GoalType } from '../../types/types';
+import Categories from './Categories';
+import CreateCategory from './CreateCategory';
+const AddActivity = () => {
+  const searchParams = useSearchParams();
 
-type Props = {
-  addGoalToState: (goal: GoalType) => void;
-};
-const CreateGoal = ({ addGoalToState }: Props) => {
+  const goalId = searchParams.get('goal');
+
   // form inputs
-  const [goalName, setGoalName] = useState<string>('');
+  const [activityName, setActivityName] = useState<string>('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
   let [isOpen, setIsOpen] = useState(false);
 
+  const setSelectedCategoryHandler = (category: string) => {
+    console.log('category', category)
+    setSelectedCategoryId(category);
+
+  };
   function closeModal() {
     setIsOpen(false);
   }
@@ -20,18 +29,24 @@ const CreateGoal = ({ addGoalToState }: Props) => {
     setIsOpen(true);
   }
 
-  const addGoal = async () => {
-    if (!goalName) return;
+  const addActivity = async () => {
+    if (!activityName) return;
     try {
-      const res = await fetch(`${getBaseUrl()}/api/goals`, {
+      const res = await fetch(`${getBaseUrl()}/api/activity`, {
         method: 'POST',
-        body: JSON.stringify({ goalName }),
+        body: JSON.stringify({
+          alignsWithGoal,
+          activityPercentage,
+          goalId,
+          activityName,
+          categoryId:selectedCategoryId ,
+        }),
         headers: {
           'Content-Type': 'application/json',
         },
       });
       const goal = await res.json();
-      addGoalToState(goal);
+      //   addGoalToState(goal);
       closeModal();
       console.log('Goal added!');
     } catch (err) {
@@ -81,7 +96,7 @@ const CreateGoal = ({ addGoalToState }: Props) => {
                       as='h3'
                       className='text-lg font-medium leading-6 text-gray-900'
                     >
-                      Enter Goal Name
+                      Enter Activity
                     </Dialog.Title>
                     <div className='mt-2'>
                       <input
@@ -89,15 +104,19 @@ const CreateGoal = ({ addGoalToState }: Props) => {
                         name='price'
                         id='price'
                         className='block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                        value={goalName}
-                        onChange={(e) => setGoalName(e.target.value)}
+                        value={activityName}
+                        onChange={(e) => setActivityName(e.target.value)}
                         onKeyDown={(e) => {
                           if (e.key === 'Enter') {
                             e.preventDefault(); // Prevents form submission
-                            addGoal();
+                            addActivity();
                           }
                         }}
                         placeholder='100k per month'
+                      />
+                      <Categories
+                        setSelectedCategoryHandler={setSelectedCategoryHandler}
+                        selectedCategory={selectedCategoryId}
                       />
                     </div>
 
@@ -112,7 +131,7 @@ const CreateGoal = ({ addGoalToState }: Props) => {
                       <button
                         type='button'
                         className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
-                        onClick={addGoal}
+                        onClick={addActivity}
                       >
                         Submit
                       </button>
@@ -128,4 +147,4 @@ const CreateGoal = ({ addGoalToState }: Props) => {
   );
 };
 
-export default CreateGoal;
+export default AddActivity;
