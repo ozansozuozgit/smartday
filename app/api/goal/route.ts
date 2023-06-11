@@ -12,7 +12,6 @@ export async function GET(req: NextRequest) {
   });
 
   // const allGoalsFromUser = res.json();
-  console.log('allGoalsFromUser', allGoalsFromUser);
 
   return NextResponse.json(allGoalsFromUser);
 }
