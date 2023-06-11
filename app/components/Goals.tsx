@@ -8,6 +8,10 @@ import Goal from './Goal';
 
 const Goals = () => {
   const [goals, setGoals] = useState<GoalType[]>([]);
+
+  const addGoalToState = (goal: GoalType) => {
+    setGoals([...goals, goal]);
+  }
   useEffect(() => {
     const fetchGoals = async () => {
       try {
@@ -30,8 +34,13 @@ const Goals = () => {
 
   return (
     <div>
-      <h1>Goals</h1>
-      {goals && goals.map((goal) => <Goal goal={goal} key={goal?.id} />)}
+      <div className='flex items-center justify-between'>
+        {' '}
+        <h1 className='text-2xl font-bold'>Goals</h1>
+        <CreateGoal addGoalToState={addGoalToState}/>
+      </div>
+
+      {goals && goals.map((goal) => <Goal goal={goal} key={goal?.id}  />)}
     </div>
   );
 };
