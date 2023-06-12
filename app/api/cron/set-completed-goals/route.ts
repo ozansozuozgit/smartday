@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
-export async function GET() {
+export async function POST() {
   const users = await prisma.user.findMany();
 
   // 2. Iterate through each user
