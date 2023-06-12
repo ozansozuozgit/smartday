@@ -13,5 +13,5 @@
 export const getBaseUrl = cache(() =>
   process.env.NODE_ENV === 'development'
     ? `http://localhost:${process.env.PORT ?? 3000}`
-    : `${process.env.HOST_DOMAIN}`
+    : `https://time-spent.vercel.app`
 );
