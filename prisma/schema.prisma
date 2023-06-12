@@ -47,6 +47,8 @@ model User {
   sessions      Session[]
   goals         Goal[]
   completedGoals String[] // An array of IDs of completed goals
+  categories    Category[]
+
 }
 
 model VerificationToken {
@@ -73,6 +75,9 @@ model Category {
   id        String     @id @default(cuid())
   name      String
   activities Activity[]
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
+  
 }
 model Goal {
   id          String     @id @default(cuid())
