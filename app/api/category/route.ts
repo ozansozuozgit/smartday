@@ -19,10 +19,11 @@ import { authOptions } from '../auth/[...nextauth]/route';
 
 export async function POST(req: NextRequest) {
   const { categoryName } = await req.json();
-  const session = await getServerSession(authOptions);
+  const session: any = await getServerSession(authOptions);
   const newCategory = await prisma.category.create({
     data: {
       name: categoryName, // replace with the actual activity name
+      //ts-ignore
       userId: session?.user?.id,
     },
   });

@@ -13,8 +13,8 @@ export async function GET() {
     // 4. Iterate through each goal
     for (const goal of goals) {
       // 5. Check if the goal is complete
-      console.log('goal', goal)
-      if (goal?.percentage >= 100) {
+      console.log('goal', goal);
+      if (goal?.percentage ?? 0 >= 100) {
         // 6. If the goal is complete, add it to the completedGoals array and reset the percentage
         await prisma.$transaction([
           prisma.user.update({

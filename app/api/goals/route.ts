@@ -4,20 +4,19 @@ import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
 
 export async function GET(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session: any = await getServerSession(authOptions);
 
   const allGoalsFromUser = await prisma.goal.findMany({
     where: { userId: session?.user?.id },
   });
 
   // const allGoalsFromUser = res.json();
-  
 
   return NextResponse.json(allGoalsFromUser);
 }
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
+  const session: any = await getServerSession(authOptions);
   console.log('session', session);
   // DO NOT CONSOLE LOG THE REQUEST WITH AWAIT REQUEST.JSON() IN IT
   // IT WILL BREAK THE REQUEST AND YOU WILL GET A 500 ERROR BECAUSE YOU CANNOT READ THE BODY TWICE
