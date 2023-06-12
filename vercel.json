@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/set-completed-goals",
+      "schedule": "59 23 * * *"
+    }
+  ]
+}

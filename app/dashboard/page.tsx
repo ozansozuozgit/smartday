@@ -22,7 +22,7 @@ const Dashboard = async ({
 
   return (
     <div>
-      <section>
+      <section className='bg-gray'>
         {/* <Goals /> */}
         <Activities />
         <AddActivity />

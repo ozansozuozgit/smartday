@@ -17,19 +17,14 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const {
-    alignsWithGoal,
-    percentage,
-    goalId,
-    activityName,
-    categoryId,
-  } = await req.json();
+  const { alignsWithGoal, percentage, goalId, activityName, categoryId } =
+    await req.json();
 
   const newActivity = await prisma.activity.create({
     data: {
-      name: activityName, 
-      categoryId: categoryId, 
-      percentage: percentage, 
+      name: activityName,
+      categoryId: categoryId,
+      percentage: percentage,
       goalId: goalId,
       alignsWithGoal: alignsWithGoal,
     },
@@ -46,6 +41,17 @@ export async function POST(req: NextRequest) {
       },
     },
   });
-  console.log('updatedGoal', updatedGoal)
+  console.log('updatedGoal', updatedGoal);
   return NextResponse.json(newActivity);
+}
+
+export async function DELETE(req: NextRequest) {
+  const { activityId } = await req.json();
+  const response = await prisma.activity.delete({
+    where: {
+      id: activityId,
+    },
+  });
+  return NextResponse.json(response);
+
 }
