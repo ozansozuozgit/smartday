@@ -4,17 +4,17 @@ import { useParams } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
 
-export async function GET(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+// export async function GET(req: NextRequest) {
+//   const session = await getServerSession(authOptions);
 
-  const allGoalsFromUser = await prisma.activity.findMany({
-    where: { userId: session?.user?.id, goalId: req.nextUrl.query.goalId },
-  });
+//   const allGoalsFromUser = await prisma.activity.findMany({
+//     where: { userId: session?.user?.id, goalId: req.nextUrl.query.goalId },
+//   });
 
-  // const allGoalsFromUser = res.json();
+//   // const allGoalsFromUser = res.json();
 
-  return NextResponse.json(allGoalsFromUser);
-}
+//   return NextResponse.json(allGoalsFromUser);
+// }
 
 export async function POST(req: NextRequest) {
   const { alignsWithGoal, percentage, goalId, activityName, categoryId } =
