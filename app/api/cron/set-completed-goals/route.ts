@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
+
 export async function GET() {
+  // 1. Retrieve all users
   const users = await prisma.user.findMany();
 
   // 2. Iterate through each user
@@ -28,8 +30,14 @@ export async function GET() {
             data: { percentage: 0 },
           }),
         ]);
+      } else {
+        // If the goal is not complete, reset the goal percentage
+        await prisma.goal.update({
+          where: { id: goal.id },
+          data: { percentage: 0 },
+        });
       }
     }
   }
-  return NextResponse.json({ message: 'Completed goals updated' });
+  return NextResponse.json({ message: 'Goals reset' });
 }

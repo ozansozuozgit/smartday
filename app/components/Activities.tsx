@@ -1,13 +1,18 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import AddActivity from '../components/AddActivity';
 import Activity from './Activity';
-const Activities = ({ activities }: any) => {
+
+const Activities = ({ activities, goal,setTriggerRefresh }: any) => {
   const [allActivities, setAllActivities] = useState<any>([]);
 
   const searchParams = useSearchParams();
-
+  const router = useRouter();
+  const addActivityToState = (activity: any) => {
+    setAllActivities([...allActivities, activity]);
+  };
   useEffect(() => {
     setAllActivities([]);
     const goalId = searchParams.get('goal');
@@ -46,6 +51,7 @@ const Activities = ({ activities }: any) => {
 
   return (
     <div className='p-12'>
+      <h2>{goal?.percentage}</h2>
       {allActivities && (
         <ul
           role='list'
@@ -56,6 +62,8 @@ const Activities = ({ activities }: any) => {
           ))}
         </ul>
       )}
+      <AddActivity goal={goal} addActivityToState={addActivityToState} setTriggerRefresh={setTriggerRefresh}/>
+
       <button onClick={addGoalToUser}>Add Goal to User</button>
     </div>
   );

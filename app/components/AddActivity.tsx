@@ -1,21 +1,19 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { Dialog, Transition } from '@headlessui/react';
-import { useSearchParams } from 'next/navigation';
-import React, { Fragment, useRef, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { GoalType } from '../../types/types';
 import Categories from './Categories';
-import CreateCategory from './CreateCategory';
-const AddActivity = () => {
-  const searchParams = useSearchParams();
 
-  const goalId = searchParams.get('goal');
-
+const AddActivity = ({ goal, addActivityToState, setTriggerRefresh }: any) => {
+  console.log('goal percentage', goal?.percentage);
   // form inputs
   const [activityName, setActivityName] = useState<string>('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
   const [percentage, setPercentage] = useState<number>(0);
   const [alignsWithGoal, setAlignsWithGoal] = useState<boolean>(false);
+  const router = useRouter();
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -31,18 +29,27 @@ const AddActivity = () => {
     setIsOpen(true);
   }
 
+  // reset input fields
+  useEffect(() => {
+    setActivityName('');
+    setPercentage(0);
+    setAlignsWithGoal(false);
+  }, []);
+
   const addActivity = async () => {
     // add basic validation, don't allow empty fields
 
-
     if (!activityName || !percentage || !selectedCategoryId) return;
+    if (percentage > 100) return alert('Percentage cannot be greater than 100');
+    if (percentage + goal?.percentage > 100)
+      return alert('Percentage cannot be greater than 100');
     try {
       const res = await fetch(`${getBaseUrl()}/api/activity`, {
         method: 'POST',
         body: JSON.stringify({
           alignsWithGoal,
           percentage,
-          goalId,
+          goalId: goal?.id,
           activityName,
           categoryId: selectedCategoryId,
         }),
@@ -50,8 +57,11 @@ const AddActivity = () => {
           'Content-Type': 'application/json',
         },
       });
-      const goal = await res.json();
+      const activity = await res.json();
+      console.log('activity', activity);
+      addActivityToState(activity);
       //   addGoalToState(goal);
+      setTriggerRefresh((prevState: boolean) => !prevState);
       closeModal();
       console.log('Goal added!');
     } catch (err) {
@@ -67,7 +77,7 @@ const AddActivity = () => {
             onClick={openModal}
             className='rounded-md bg-teal px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
           >
-            Create Goal
+            Add Activity
           </button>
         </div>
 
@@ -117,15 +127,20 @@ const AddActivity = () => {
                         setSelectedCategoryHandler={setSelectedCategoryHandler}
                         selectedCategory={selectedCategoryId}
                       />
-                      <input
-                        type='text'
-                        name='perentage'
-                        id='perentage'
-                        className='block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                        value={percentage}
-                        onChange={(e) => setPercentage(Number(e.target.value))}
-                        placeholder='Percentage of your day'
-                      />
+                      <div className='flex items-center gap-3'>
+                        <input
+                          type='text'
+                          name='perentage'
+                          id='perentage'
+                          className='block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                          value={percentage}
+                          onChange={(e) =>
+                            setPercentage(Number(e.target.value))
+                          }
+                          placeholder='Percentage of your day'
+                        />
+                        <span>{goal?.percentage}/100%</span>
+                      </div>
                     </div>
                     <fieldset>
                       <legend className='sr-only'>Notifications</legend>

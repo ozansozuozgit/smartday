@@ -21,6 +21,11 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
 
   //   const [selectedCategory, setSelectedCategory] = useState(null);
   useEffect(() => {
+  
+    setSelectedCategoryHandler(null);
+    setSelected(null);
+    setQuery('');
+
     const fetchCategories = async () => {
       try {
         const res = await fetch(`${getBaseUrl()}/api/categories`, {
