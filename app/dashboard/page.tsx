@@ -9,9 +9,19 @@ const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [goal, setGoal] = useState<any>(null);
-  const [triggerRefresh, setTriggerRefresh] = useState(false);
 
   const searchParams = useSearchParams();
+
+  const updateGoalPercentage = async (action: string, percentage: number) => {
+    if (action === 'add') {
+      const newPercentage = goal.percentage + percentage;
+      setGoal({ ...goal, percentage: newPercentage });
+    }
+    if (action === 'subtract') {
+      const newPercentage = goal.percentage - percentage;
+      setGoal({ ...goal, percentage: newPercentage });
+    }
+  };
 
   useEffect(() => {
     const getGoals = async () => {
@@ -23,7 +33,7 @@ const Dashboard = () => {
       console.log('the goal fetch was', goal);
     };
     getGoals();
-  }, [searchParams,triggerRefresh]);
+  }, [searchParams]);
 
   if (status === 'unauthenticated') {
     router.push(`/`);
@@ -33,7 +43,10 @@ const Dashboard = () => {
     <div>
       <section className='bg-gray'>
         {/* <Goals /> */}
-        <Activities goal={goal}  setTriggerRefresh={setTriggerRefresh} />
+        <Activities
+          goal={goal}
+          updateGoalPercentage={updateGoalPercentage}
+        />
       </section>
     </div>
   );

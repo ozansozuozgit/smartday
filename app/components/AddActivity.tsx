@@ -6,7 +6,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { GoalType } from '../../types/types';
 import Categories from './Categories';
 
-const AddActivity = ({ goal, addActivityToState, setTriggerRefresh }: any) => {
+const AddActivity = ({ goal, addActivityToState }: any) => {
   console.log('goal percentage', goal?.percentage);
   // form inputs
   const [activityName, setActivityName] = useState<string>('');
@@ -61,7 +61,7 @@ const AddActivity = ({ goal, addActivityToState, setTriggerRefresh }: any) => {
       console.log('activity', activity);
       addActivityToState(activity);
       //   addGoalToState(goal);
-      setTriggerRefresh((prevState: boolean) => !prevState);
+      // setTriggerRefresh((prevState: boolean) => !prevState);
       closeModal();
       console.log('Goal added!');
     } catch (err) {

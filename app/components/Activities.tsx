@@ -5,13 +5,26 @@ import React, { useEffect, useState } from 'react';
 import AddActivity from '../components/AddActivity';
 import Activity from './Activity';
 
-const Activities = ({ activities, goal,setTriggerRefresh }: any) => {
+const Activities = ({
+  activities,
+  goal,
+  updateGoalPercentage,
+}: any) => {
   const [allActivities, setAllActivities] = useState<any>([]);
 
   const searchParams = useSearchParams();
   const router = useRouter();
+
   const addActivityToState = (activity: any) => {
     setAllActivities([...allActivities, activity]);
+    updateGoalPercentage('add', activity.percentage);
+  };
+  const deleteActivityFromState = async (activity: any) => {
+    console.log('activityId', activity?.id);
+    setAllActivities(
+      allActivities.filter((a: any) => a.id !== activity.id)
+    );
+    updateGoalPercentage('subtract', activity?.percentage);
   };
   useEffect(() => {
     setAllActivities([]);
@@ -58,11 +71,18 @@ const Activities = ({ activities, goal,setTriggerRefresh }: any) => {
           className='divide-y divide-gray-100 bg-white max-w-md p-4 rounded max-h-[200px] overflow-y-scroll'
         >
           {allActivities.map((activity: any) => (
-            <Activity activity={activity} key={activity?.id} />
+            <Activity
+              activity={activity}
+              key={activity?.id}
+              deleteActivityFromState={deleteActivityFromState}
+            />
           ))}
         </ul>
       )}
-      <AddActivity goal={goal} addActivityToState={addActivityToState} setTriggerRefresh={setTriggerRefresh}/>
+      <AddActivity
+        goal={goal}
+        addActivityToState={addActivityToState}
+      />
 
       <button onClick={addGoalToUser}>Add Goal to User</button>
     </div>

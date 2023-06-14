@@ -3,10 +3,17 @@
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import React, { useEffect, useState } from 'react';
 
-const Activity = ({ activity }: any) => {
+const Activity = ({ activity, deleteActivityFromState }: any) => {
+  const today = new Date().toISOString().split('T')[0];
+
+  const isToday = (date: any) => {
+    const activityDate = date.split('T')[0];
+
+    return activityDate === today;
+  };
   const deleteActivity = async () => {
     try {
-      const res = await fetch(`/api/activities/${activity.id}`, {
+      const res = await fetch(`/api/activity?activityId=${activity.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -14,6 +21,7 @@ const Activity = ({ activity }: any) => {
       });
       const deletedActivity = await res.json();
       console.log('deletedActivity', deletedActivity);
+      deleteActivityFromState(deletedActivity);
     } catch (err) {
       console.log(err);
     }
@@ -33,12 +41,19 @@ const Activity = ({ activity }: any) => {
             {new Date(activity.createdAt).toLocaleString()}
           </time>
         )}
+        {activity?.percentage && (
+          <p className='text-sm font-semibold leading-6 text-gray-900'>
+            {activity.percentage}%
+          </p>
+        )}
       </div>
-      <XMarkIcon
-        className='h-5 w-5 text-gray-400'
-        aria-hidden='true'
-        onClick={deleteActivity}
-      />
+      {isToday(activity.createdAt) && ( // Show the delete icon only if it's today
+        <XMarkIcon
+          className='h-5 w-5 text-gray-400'
+          aria-hidden='true'
+          onClick={deleteActivity}
+        />
+      )}
     </li>
   );
 };
