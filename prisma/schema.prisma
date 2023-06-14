@@ -48,6 +48,8 @@ model User {
   goals         Goal[]
   completedGoals String[] // An array of IDs of completed goals
   categories    Category[]
+  updatedAt DateTime? @updatedAt
+  createdAt DateTime? @default(now()) // New field for the creation timestamp
 
 }
 
@@ -69,6 +71,8 @@ model Activity {
   category Category @relation(fields: [categoryId], references: [id])
   alignsWithGoal Boolean @default(false)
   createdAt DateTime @default(now()) // New field for the creation timestamp
+  updatedAt DateTime? @updatedAt
+
 }
 
 model Category {
@@ -77,14 +81,16 @@ model Category {
   activities Activity[]
   userId    String
   user      User       @relation(fields: [userId], references: [id])
-  
+  createdAt DateTime? @default(now())
 }
 model Goal {
   id          String     @id @default(cuid())
   name        String     // Name of the goal
   percentage  Float?      // Total percentage of the goal completed
-  createdAt        DateTime @default(now()) // New field for the creation timestamp
+  createdAt   DateTime @default(now()) // New field for the creation timestamp
   userId      String     // The ID of the user who created the goal
   user        User       @relation(fields: [userId], references: [id])
   activities  Activity[] // The activities associated with the goal
+  updatedAt DateTime? @updatedAt
+
 }
