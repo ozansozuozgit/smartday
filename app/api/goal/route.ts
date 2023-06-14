@@ -7,7 +7,7 @@ import { authOptions } from '../auth/[...nextauth]/route';
 export async function GET(req: NextRequest) {
   try {
     const goalId = req.nextUrl.searchParams.get('goalId') as string;
-    
+
     // Validate goalId
     if (!goalId) {
       return NextResponse.json(
@@ -39,4 +39,23 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function DELETE(req: NextRequest) {}
+export async function PATCH(req: NextRequest) {
+  const goalId = req.nextUrl.searchParams.get('goalId') as string;
+  console.log('goalId', goalId);
+  const goal = await prisma.goal.findUnique({
+    where: { id: goalId },
+  });
+
+  if (!goal) {
+    throw new Error('Goal not found');
+  }
+
+  console.log('goal', goal);
+  // delete the activity
+  const response = await prisma.goal.update({
+    where: { id: goalId },
+    data: { deletedAt: new Date() },
+  });
+
+  return NextResponse.json(response);
+}

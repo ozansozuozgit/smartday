@@ -7,7 +7,8 @@ export async function GET(req: NextRequest) {
   const session: any = await getServerSession(authOptions);
 
   const allGoalsFromUser = await prisma.goal.findMany({
-    where: { userId: session?.user?.id },
+    where: { userId: session?.user?.id, deletedAt: null },
+    orderBy: { updatedAt: 'desc' },
   });
 
   // const allGoalsFromUser = res.json();

@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
 
   const allCategoriesFromUser = await prisma.category.findMany({
     where: { userId: session?.user?.id },
+    orderBy: { createdAt: 'desc' },
   });
 
   // const allCategoriesFromUser = res.json();

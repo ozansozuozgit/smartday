@@ -92,5 +92,6 @@ model Goal {
   user        User       @relation(fields: [userId], references: [id])
   activities  Activity[] // The activities associated with the goal
   updatedAt DateTime? @updatedAt
+  deletedAt  DateTime?  // Soft delete field
 
 }

@@ -10,7 +10,11 @@ const Goals = () => {
   const [goals, setGoals] = useState<GoalType[]>([]);
 
   const addGoalToState = (goal: GoalType) => {
-    setGoals([...goals, goal]);
+    setGoals([goal, ...goals]);
+  };
+  const deleteGoalFromState = async (goal: GoalType) => {
+    console.log('goalId', goal?.id);
+    setGoals(goals.filter((g: GoalType) => g.id !== goal.id));
   }
   useEffect(() => {
     const fetchGoals = async () => {
@@ -37,10 +41,10 @@ const Goals = () => {
       <div className='flex items-center justify-between'>
         {' '}
         <h1 className='text-2xl font-bold'>Goals</h1>
-        <CreateGoal addGoalToState={addGoalToState}/>
+        <CreateGoal addGoalToState={addGoalToState} />
       </div>
 
-      {goals && goals.map((goal) => <Goal goal={goal} key={goal?.id}  />)}
+      {goals && goals.map((goal) => <Goal goal={goal} key={goal?.id} deleteGoalFromState={deleteGoalFromState}/>)}
     </div>
   );
 };

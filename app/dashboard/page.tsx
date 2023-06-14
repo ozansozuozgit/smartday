@@ -43,10 +43,23 @@ const Dashboard = () => {
     <div>
       <section className='bg-gray'>
         {/* <Goals /> */}
-        <Activities
-          goal={goal}
-          updateGoalPercentage={updateGoalPercentage}
-        />
+        {goal && (
+          <div className='flex items-center justify-center'>
+            <div className='flex flex-col items-center justify-center w-1/2 p-12 bg-white rounded-lg shadow-lg'>
+              <h1 className='text-2xl font-bold'>Goal: {goal?.name}</h1>
+              <p className='text-xl font-bold'>
+                Percentage: {goal?.percentage}%
+              </p>
+            </div>
+          </div>
+        )}
+        {/* Display time in EST */}
+        {/* <p className='text-xl font-bold'>
+          {new Date().toLocaleString('en-US', {
+            timeZone: 'America/New_York',
+          })}
+        </p> */}
+        <Activities goal={goal} updateGoalPercentage={updateGoalPercentage} />
       </section>
     </div>
   );

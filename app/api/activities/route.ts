@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
 
   const allActivitiesFromGoal = await prisma.activity.findMany({
     where: { goalId: goalId },
+    orderBy: { updatedAt: 'desc' },
   });
 
   return NextResponse.json(allActivitiesFromGoal);

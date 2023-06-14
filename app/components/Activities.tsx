@@ -5,25 +5,19 @@ import React, { useEffect, useState } from 'react';
 import AddActivity from '../components/AddActivity';
 import Activity from './Activity';
 
-const Activities = ({
-  activities,
-  goal,
-  updateGoalPercentage,
-}: any) => {
+const Activities = ({ activities, goal, updateGoalPercentage }: any) => {
   const [allActivities, setAllActivities] = useState<any>([]);
 
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const addActivityToState = (activity: any) => {
-    setAllActivities([...allActivities, activity]);
+    setAllActivities([activity, ...allActivities]);
     updateGoalPercentage('add', activity.percentage);
   };
   const deleteActivityFromState = async (activity: any) => {
     console.log('activityId', activity?.id);
-    setAllActivities(
-      allActivities.filter((a: any) => a.id !== activity.id)
-    );
+    setAllActivities(allActivities.filter((a: any) => a.id !== activity.id));
     updateGoalPercentage('subtract', activity?.percentage);
   };
   useEffect(() => {
@@ -79,10 +73,7 @@ const Activities = ({
           ))}
         </ul>
       )}
-      <AddActivity
-        goal={goal}
-        addActivityToState={addActivityToState}
-      />
+      <AddActivity goal={goal} addActivityToState={addActivityToState} />
 
       <button onClick={addGoalToUser}>Add Goal to User</button>
     </div>

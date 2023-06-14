@@ -4,12 +4,23 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 import React, { useEffect, useState } from 'react';
 
 const Activity = ({ activity, deleteActivityFromState }: any) => {
-  const today = new Date().toISOString().split('T')[0];
-
+  const now = new Date();
+  const todayEST = new Date(
+    now.toLocaleString('en-US', { timeZone: 'America/New_York' })
+  )
+    .toISOString()
+    .split('T')[0];
   const isToday = (date: any) => {
-    const activityDate = date.split('T')[0];
+    const activityDate = new Date(
+      new Date(date).toLocaleString('en-US', { timeZone: 'America/New_York' })
+    )
+      .toISOString()
+      .split('T')[0];
 
-    return activityDate === today;
+    console.log('activityDate', activityDate);
+    console.log('todayEST', todayEST);
+
+    return activityDate === todayEST;
   };
   const deleteActivity = async () => {
     try {
@@ -44,6 +55,12 @@ const Activity = ({ activity, deleteActivityFromState }: any) => {
         {activity?.percentage && (
           <p className='text-sm font-semibold leading-6 text-gray-900'>
             {activity.percentage}%
+          </p>
+        )}
+        {activity?.alignsWithGoal && (
+          <p className='text-sm font-semibold leading-6 text-gray-900'>
+            {/* No doesnt show yet */}
+            {activity?.alignsWithGoal? 'Yes' : 'No'}
           </p>
         )}
       </div>
