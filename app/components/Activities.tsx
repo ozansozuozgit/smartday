@@ -57,25 +57,30 @@ const Activities = ({ activities, goal, updateGoalPercentage }: any) => {
   };
 
   return (
-    <div className='p-12'>
-      <h2>{goal?.percentage}</h2>
-      {allActivities && (
-        <ul
-          role='list'
-          className='divide-y divide-gray-100 bg-white max-w-md p-4 rounded max-h-[200px] overflow-y-scroll'
-        >
-          {allActivities.map((activity: any) => (
-            <Activity
-              activity={activity}
-              key={activity?.id}
-              deleteActivityFromState={deleteActivityFromState}
-            />
-          ))}
-        </ul>
-      )}
-      <AddActivity goal={goal} addActivityToState={addActivityToState} />
+    <div className='p-12 flex flex-col max-w-lg'>
+      <div className='flex justify-between pb-5'>
+        {' '}
+        <h2>{goal?.percentage}</h2>
+        <AddActivity goal={goal} addActivityToState={addActivityToState} />
+      </div>
 
-      <button onClick={addGoalToUser}>Add Goal to User</button>
+      <div className='flex flex-col'>
+        {allActivities && (
+          <ul
+            role='list'
+            className='divide-y divide-gray-100 bg-white max-w-md p-4 rounded max-h-[200px] overflow-y-scroll'
+          >
+            {allActivities.map((activity: any) => (
+              <Activity
+                activity={activity}
+                key={activity?.id}
+                deleteActivityFromState={deleteActivityFromState}
+              />
+            ))}
+          </ul>
+        )}
+      </div>
+      {/* <button onClick={addGoalToUser}>Add Goal to User</button> */}
     </div>
   );
 };

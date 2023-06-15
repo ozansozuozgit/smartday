@@ -1,10 +1,9 @@
 'use client';
-import { getBaseUrl } from '@/lib/getBaseUrl';
 import { GoalType } from '@/types/types';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useCallback, useMemo } from 'react';
-
+import React, { useCallback, useState } from 'react';
+import DeleteGoal from './DeleteGoal';
 const Goal = ({
   goal,
   deleteGoalFromState,
@@ -15,6 +14,8 @@ const Goal = ({
   const searchParams = useSearchParams()!;
   const pathname = usePathname();
   const router = useRouter();
+  const [isDeleteGoalOpen, setIsDeleteGoalOpen] = useState(false);
+
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams();
@@ -25,18 +26,15 @@ const Goal = ({
     [searchParams]
   );
 
-  const deleteGoal = async () => {
-    try {
-      const res = await fetch(`${getBaseUrl()}/api/goal/?goalId=${goal.id}`, {
-        method: 'PATCH',
-      });
-      const deletedGoal = await res.json();
-      deleteGoalFromState(deletedGoal);
-      router.push(pathname);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  function openDeleteGoal() {
+    console.log('clocked');
+    setIsDeleteGoalOpen(true);
+  }
+
+  function closeDeleteGoal() {
+    setIsDeleteGoalOpen(false);
+  }
+
 
   return (
     <div className='flex items-center'>
@@ -47,11 +45,19 @@ const Goal = ({
       >
         {goal.name}
       </h2>
+
       <XMarkIcon
         className='h-5 w-5 text-gray-400'
         aria-hidden='true'
-        onClick={deleteGoal}
+        onClick={openDeleteGoal}
       />
+      {isDeleteGoalOpen && (
+        <DeleteGoal
+        closeDeleteGoal={closeDeleteGoal}
+          goal={goal}
+          deleteGoalFromState={deleteGoalFromState}
+        />
+      )}
     </div>
   );
 };

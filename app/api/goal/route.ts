@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     });
 
     if (!goal) {
-      return NextResponse.json({ error: 'Goal not found' }, { status: 404 });
+      return NextResponse.json(null, { status: 404 });
     }
 
     // Return the goal

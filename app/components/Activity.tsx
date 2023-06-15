@@ -2,8 +2,19 @@
 
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import React, { useEffect, useState } from 'react';
-
+import DeleteActivity from './DeleteActivity';
 const Activity = ({ activity, deleteActivityFromState }: any) => {
+  const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
+
+  function openDeleteActivity() {
+    console.log('clocked');
+    setIsDeleteActivityOpen(true);
+  }
+
+  function closeDeleteActivity() {
+    setIsDeleteActivityOpen(false);
+  }
+
   const now = new Date();
   const todayEST = new Date(
     now.toLocaleString('en-US', { timeZone: 'America/New_York' })
@@ -22,21 +33,7 @@ const Activity = ({ activity, deleteActivityFromState }: any) => {
 
     return activityDate === todayEST;
   };
-  const deleteActivity = async () => {
-    try {
-      const res = await fetch(`/api/activity?activityId=${activity.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const deletedActivity = await res.json();
-      console.log('deletedActivity', deletedActivity);
-      deleteActivityFromState(deletedActivity);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   return (
     <li key={activity.id} className='flex justify-between gap-x-6 py-5'>
       <div className='flex gap-x-4'>
@@ -57,18 +54,24 @@ const Activity = ({ activity, deleteActivityFromState }: any) => {
             {activity.percentage}%
           </p>
         )}
-        {activity?.alignsWithGoal && (
-          <p className='text-sm font-semibold leading-6 text-gray-900'>
-            {/* No doesnt show yet */}
-            {activity?.alignsWithGoal? 'Yes' : 'No'}
-          </p>
-        )}
+        <p className='text-sm font-semibold leading-6 text-gray-900'>
+          {/* No doesnt show yet */}
+          Aligns with goal: {activity?.alignsWithGoal ? 'Yes' : 'No'}
+        </p>
       </div>
-      {isToday(activity.createdAt) && ( // Show the delete icon only if it's today
+      {isToday(activity.createdAt) && (
         <XMarkIcon
           className='h-5 w-5 text-gray-400'
           aria-hidden='true'
-          onClick={deleteActivity}
+          onClick={openDeleteActivity}
+        />
+      )}
+      {isDeleteActivityOpen && (
+        <DeleteActivity
+          closeDeleteActivity={closeDeleteActivity}
+          activity={activity}
+          deleteActivityFromState={deleteActivityFromState}
+          isDeleteActivityOpen={isDeleteActivityOpen}
         />
       )}
     </li>

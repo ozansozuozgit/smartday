@@ -59,7 +59,9 @@ const Dashboard = () => {
             timeZone: 'America/New_York',
           })}
         </p> */}
-        <Activities goal={goal} updateGoalPercentage={updateGoalPercentage} />
+        {goal && (
+          <Activities goal={goal} updateGoalPercentage={updateGoalPercentage} />
+        )}
       </section>
     </div>
   );
