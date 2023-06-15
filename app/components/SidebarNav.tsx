@@ -8,7 +8,7 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import Goals from './Goals';
 import NavAuth from './NavAuth';
-
+import Clock from './Clock';
 export function SidebarNav() {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
@@ -22,7 +22,8 @@ export function SidebarNav() {
           onClick={close}
         >
           <div className='h-7 w-7 rounded-full border border-white/30 group-hover:border-white/50'></div>
-
+          {/* Clock display */}
+          <Clock />
           <h3 className='font-semibold tracking-wide text-gray-400 group-hover:text-gray-50'>
             App Router
           </h3>
