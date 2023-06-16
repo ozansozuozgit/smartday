@@ -20,6 +20,12 @@ export async function GET(req: NextRequest) {
       where: {
         id: goalId,
       },
+      include: {
+        activities: {
+          orderBy: { updatedAt: 'desc' },
+        }
+
+      },
     });
 
     if (!goal) {

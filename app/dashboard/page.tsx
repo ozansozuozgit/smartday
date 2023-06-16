@@ -4,11 +4,13 @@ import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Activities from '../components/Activities';
-
+import ChartLine from '../components/ChartLine';
+import PieChart from '../components/PieChart';
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [goal, setGoal] = useState<any>(null);
+  const [allActivities, setAllActivities] = useState<any>([]);
 
   const searchParams = useSearchParams();
 
@@ -30,11 +32,13 @@ const Dashboard = () => {
       );
       const goal = await res.json();
       setGoal(goal);
+      setAllActivities(goal?.activities);
       console.log('the goal fetch was', goal);
     };
     getGoals();
   }, [searchParams]);
 
+  console.log('session', session);
   if (status === 'unauthenticated') {
     router.push(`/`);
   }
@@ -55,8 +59,14 @@ const Dashboard = () => {
         )}
 
         {goal && (
-          <Activities goal={goal} updateGoalPercentage={updateGoalPercentage} />
+          <Activities
+            goal={goal}
+            allActivities={allActivities}
+            updateGoalPercentage={updateGoalPercentage}
+          />
         )}
+        {goal && <ChartLine goal={goal} />}
+        {goal && <PieChart goal={goal} />}
       </section>
     </div>
   );
