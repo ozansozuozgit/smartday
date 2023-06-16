@@ -6,8 +6,10 @@ const Clock = () => {
   const [currentTime, setCurrentTime] = useState(
     moment().tz('America/New_York')
   );
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    setHydrated(true);
     const timer = setInterval(() => {
       setCurrentTime(moment().tz('America/New_York'));
     }, 1000);
@@ -19,11 +21,7 @@ const Clock = () => {
 
   const formattedTime = currentTime.format('dddd, MMMM D, YYYY h:mm:ss A');
 
-  return (
-    <div>
-      <h2>{formattedTime}</h2>
-    </div>
-  );
+  return <div>{hydrated && <h2>{formattedTime}</h2>}</div>;
 };
 
 export default Clock;

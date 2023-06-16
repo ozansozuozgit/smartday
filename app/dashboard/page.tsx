@@ -53,12 +53,7 @@ const Dashboard = () => {
             </div>
           </div>
         )}
-        {/* Display time in EST */}
-        {/* <p className='text-xl font-bold'>
-          {new Date().toLocaleString('en-US', {
-            timeZone: 'America/New_York',
-          })}
-        </p> */}
+
         {goal && (
           <Activities goal={goal} updateGoalPercentage={updateGoalPercentage} />
         )}
