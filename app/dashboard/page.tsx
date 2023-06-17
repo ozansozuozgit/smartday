@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import Activities from '../components/Activities';
 import ChartLine from '../components/ChartLine';
 import PieChart from '../components/PieChart';
+import BarChart from '../components/BarChart';
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -67,6 +68,7 @@ const Dashboard = () => {
         )}
         {goal && <ChartLine goal={goal} />}
         {goal && <PieChart goal={goal} />}
+        {goal && <BarChart goal={goal} />}
       </section>
     </div>
   );
