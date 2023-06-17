@@ -10,6 +10,8 @@ type UserState = {
   updatedAt: Date | string;
   goals: any;
   selectedGoal: any;
+  startDate: Date | string;
+  endDate: Date | string;
 };
 
 const initialState = {
@@ -22,6 +24,10 @@ const initialState = {
   updatedAt: '',
   goals: [],
   selectedGoal: null,
+  startDate: new Date().toISOString().split('T')[0], // Set start date to today
+  endDate: new Date(new Date().getTime() - 86400000)
+    .toISOString()
+    .split('T')[0], // Set end date to yesterday
 } as UserState;
 
 export const userSlice = createSlice({
@@ -72,6 +78,12 @@ export const userSlice = createSlice({
         (activity: any) => activity.id !== action.payload
       );
     },
+    setStartDate: (state, action: PayloadAction<any>) => {
+      state.startDate = action.payload;
+    },
+    setEndDate: (state, action: PayloadAction<any>) => {
+      state.endDate = action.payload;
+    },
   },
 });
 
@@ -85,5 +97,7 @@ export const {
   updateSelectedGoalPercentage,
   addActivityToSelectedGoal,
   removeActivityFromSelectedGoal,
+  setStartDate,
+  setEndDate,
 } = userSlice.actions;
 export default userSlice.reducer;

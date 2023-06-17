@@ -7,8 +7,8 @@ import React, { useEffect } from 'react';
 import Activities from '../components/Activities';
 import BarChart from '../components/BarChart';
 import ChartLine from '../components/ChartLine';
+import DatePicker from '../components/DatePicker';
 import PieChart from '../components/PieChart';
-
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -39,7 +39,7 @@ const Dashboard = () => {
             </div>
           </div>
         )}
-
+        <DatePicker />
         {selectedGoal && <Activities goal={selectedGoal} />}
         {selectedGoal && <ChartLine goal={selectedGoal} />}
         {selectedGoal && <PieChart goal={selectedGoal} />}
