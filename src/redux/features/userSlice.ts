@@ -9,7 +9,7 @@ type UserState = {
   image: string;
   updatedAt: Date | string;
   goals: any;
-  selectedGoal:any;
+  selectedGoal: any;
 };
 
 const initialState = {
@@ -55,10 +55,35 @@ export const userSlice = createSlice({
     },
     setSelectedGoal: (state, action: PayloadAction<any>) => {
       state.selectedGoal = action.payload;
-    }
+    },
+    updateSelectedGoalPercentage: (state, action: PayloadAction<any>) => {
+      state.selectedGoal.percentage = action.payload;
+    },
+    addActivityToSelectedGoal: (state, action: PayloadAction<any>) => {
+      // Add it to the selected goals activity
+      state.selectedGoal.activities = [
+        action.payload,
+        ...state.selectedGoal.activities,
+      ];
+    },
+    removeActivityFromSelectedGoal: (state, action: PayloadAction<any>) => {
+      // Remove it from the selected goals activity
+      state.selectedGoal.activities = state.selectedGoal.activities.filter(
+        (activity: any) => activity.id !== action.payload
+      );
+    },
   },
 });
 
-export const { setUserAuth, reset, setUserGoals, addGoal, removeGoal,setSelectedGoal } =
-  userSlice.actions;
+export const {
+  setUserAuth,
+  reset,
+  setUserGoals,
+  addGoal,
+  removeGoal,
+  setSelectedGoal,
+  updateSelectedGoalPercentage,
+  addActivityToSelectedGoal,
+  removeActivityFromSelectedGoal,
+} = userSlice.actions;
 export default userSlice.reducer;

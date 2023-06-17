@@ -1,18 +1,24 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
+import {
+  addActivityToSelectedGoal,
+  updateSelectedGoalPercentage,
+} from '@/src/redux/features/userSlice';
+import { useAppDispatch } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { GoalType } from '../../../types/types';
 import Categories from './Categories';
 
-const AddActivity = ({ goal, addActivityToState }: any) => {
+const AddActivity = ({ goal }: any) => {
   console.log('goal percentage', goal?.percentage);
   // form inputs
   const [activityName, setActivityName] = useState<string>('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
   const [percentage, setPercentage] = useState<number>(0);
   const [alignsWithGoal, setAlignsWithGoal] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   let [isOpen, setIsOpen] = useState(false);
@@ -59,7 +65,10 @@ const AddActivity = ({ goal, addActivityToState }: any) => {
       });
       const activity = await res.json();
       console.log('activity', activity);
-      addActivityToState(activity);
+      const newPercentage = goal.percentage + percentage;
+      dispatch(updateSelectedGoalPercentage(newPercentage));
+
+      dispatch(addActivityToSelectedGoal(activity));
       //   addGoalToState(goal);
       // setTriggerRefresh((prevState: boolean) => !prevState);
       closeModal();

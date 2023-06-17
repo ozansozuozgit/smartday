@@ -1,13 +1,12 @@
 'use client';
 
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DeleteActivity from './DeleteActivity';
-const Activity = ({ activity, deleteActivityFromState }: any) => {
+const Activity = ({ activity }: any) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
 
   function openDeleteActivity() {
-    console.log('clocked');
     setIsDeleteActivityOpen(true);
   }
 
@@ -70,7 +69,6 @@ const Activity = ({ activity, deleteActivityFromState }: any) => {
         <DeleteActivity
           closeDeleteActivity={closeDeleteActivity}
           activity={activity}
-          deleteActivityFromState={deleteActivityFromState}
           isDeleteActivityOpen={isDeleteActivityOpen}
         />
       )}

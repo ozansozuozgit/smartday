@@ -1,58 +1,27 @@
 'use client';
-import { getBaseUrl } from '@/lib/getBaseUrl';
-import { setSelectedGoal, setUserAuth } from '@/src/redux/features/userSlice';
+import { setUserAuth } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { useSession } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
 import Activities from '../components/Activities';
 import BarChart from '../components/BarChart';
 import ChartLine from '../components/ChartLine';
 import PieChart from '../components/PieChart';
+
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [goal, setGoal] = useState<any>(null);
-  const [allActivities, setAllActivities] = useState<any>([]);
 
   const dispatch = useAppDispatch();
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
-
-  const searchParams = useSearchParams();
-
-  const updateGoalPercentage = async (action: string, percentage: number) => {
-    if (action === 'add') {
-      const newPercentage = goal.percentage + percentage;
-      setGoal({ ...goal, percentage: newPercentage });
-    }
-    if (action === 'subtract') {
-      const newPercentage = goal.percentage - percentage;
-      setGoal({ ...goal, percentage: newPercentage });
-    }
-  };
-
-  useEffect(() => {
-    const getGoalandActivities = async () => {
-      const res = await fetch(
-        `${getBaseUrl()}/api/goal?goalId=${searchParams.get('goal')}`
-      );
-      const goal = await res.json();
-      dispatch(setSelectedGoal(goal));
-      setGoal(goal);
-      setAllActivities(goal?.activities);
-      console.log('the goal fetch was', goal);
-    };
-    getGoalandActivities();
-  }, [searchParams]);
-
-  console.log('session', session);
 
   useEffect(() => {
     if (!session) return;
     // @ts-ignore
     dispatch(setUserAuth(session.user));
   }, [session]);
-  
+
   if (status === 'unauthenticated') {
     router.push(`/`);
   }
@@ -60,7 +29,6 @@ const Dashboard = () => {
   return (
     <div>
       <section className='bg-gray'>
-        {/* <Goals /> */}
         {selectedGoal && (
           <div className='flex items-center justify-center'>
             <div className='flex flex-col items-center justify-center w-1/2 p-12 bg-white rounded-lg shadow-lg'>
@@ -72,13 +40,7 @@ const Dashboard = () => {
           </div>
         )}
 
-        {selectedGoal && (
-          <Activities
-            goal={goal}
-            allActivities={allActivities}
-            updateGoalPercentage={updateGoalPercentage}
-          />
-        )}
+        {selectedGoal && <Activities goal={selectedGoal} />}
         {selectedGoal && <ChartLine goal={selectedGoal} />}
         {selectedGoal && <PieChart goal={selectedGoal} />}
         {selectedGoal && <BarChart goal={selectedGoal} />}

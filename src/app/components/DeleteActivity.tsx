@@ -1,12 +1,19 @@
+import {
+  removeActivityFromSelectedGoal,
+  updateSelectedGoalPercentage,
+} from '@/src/redux/features/userSlice';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 
 export default function DeleteActivity({
   closeDeleteActivity,
   activity,
-  deleteActivityFromState,
   isDeleteActivityOpen,
 }: any) {
+  const dispatch = useAppDispatch();
+  const goal = useAppSelector((state) => state.user.selectedGoal);
+
   const deleteActivity = async () => {
     try {
       const res = await fetch(`/api/activity?activityId=${activity.id}`, {
@@ -17,7 +24,9 @@ export default function DeleteActivity({
       });
       const deletedActivity = await res.json();
       console.log('deletedActivity', deletedActivity);
-      deleteActivityFromState(deletedActivity);
+      const newPercentage = goal.percentage - activity?.percentage;
+      dispatch(updateSelectedGoalPercentage(newPercentage));
+      dispatch(removeActivityFromSelectedGoal(deletedActivity?.id));
       closeDeleteActivity();
     } catch (err) {
       console.log(err);

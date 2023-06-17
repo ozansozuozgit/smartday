@@ -1,10 +1,15 @@
 'use client';
+import { getBaseUrl } from '@/lib/getBaseUrl';
+import { setSelectedGoal } from '@/src/redux/features/userSlice';
+import { useAppDispatch } from '@/src/redux/hooks';
 import { GoalType } from '@/types/types';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useCallback, useState } from 'react';
 import DeleteGoal from './DeleteGoal';
+
 const Goal = ({ goal }: { goal: GoalType }) => {
+  const dispatch = useAppDispatch();
   const searchParams = useSearchParams()!;
   const pathname = usePathname();
   const router = useRouter();
@@ -21,7 +26,6 @@ const Goal = ({ goal }: { goal: GoalType }) => {
   );
 
   function openDeleteGoal() {
-    console.log('clocked');
     setIsDeleteGoalOpen(true);
   }
 
@@ -29,16 +33,16 @@ const Goal = ({ goal }: { goal: GoalType }) => {
     setIsDeleteGoalOpen(false);
   }
 
+  const getGoalandActivities = async () => {
+    const res = await fetch(`${getBaseUrl()}/api/goal?goalId=${goal?.id}`);
+    const goalResult = await res.json();
+    dispatch(setSelectedGoal(goalResult));
+    console.log('the goal fetch was', goal);
+  };
+
   return (
     <div className='flex items-center'>
-      <h2
-        onClick={() => {
-          router.push(pathname + '?' + createQueryString('goal', goal.id));
-        }}
-      >
-        {goal.name}
-      </h2>
-
+      <h2 onClick={getGoalandActivities}>{goal.name}</h2>
       <XMarkIcon
         className='h-5 w-5 text-gray-400'
         aria-hidden='true'
