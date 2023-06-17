@@ -4,13 +4,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useCallback, useState } from 'react';
 import DeleteGoal from './DeleteGoal';
-const Goal = ({
-  goal,
-  deleteGoalFromState,
-}: {
-  goal: GoalType;
-  deleteGoalFromState: (goal: GoalType) => void;
-}) => {
+const Goal = ({ goal }: { goal: GoalType }) => {
   const searchParams = useSearchParams()!;
   const pathname = usePathname();
   const router = useRouter();
@@ -35,7 +29,6 @@ const Goal = ({
     setIsDeleteGoalOpen(false);
   }
 
-
   return (
     <div className='flex items-center'>
       <h2
@@ -52,11 +45,7 @@ const Goal = ({
         onClick={openDeleteGoal}
       />
       {isDeleteGoalOpen && (
-        <DeleteGoal
-        closeDeleteGoal={closeDeleteGoal}
-          goal={goal}
-          deleteGoalFromState={deleteGoalFromState}
-        />
+        <DeleteGoal closeDeleteGoal={closeDeleteGoal} goal={goal} />
       )}
     </div>
   );

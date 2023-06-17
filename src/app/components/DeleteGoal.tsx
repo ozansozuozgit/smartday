@@ -1,23 +1,23 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
 import { getBaseUrl } from '@/lib/getBaseUrl';
+import { removeGoal } from '@/src/redux/features/userSlice';
+import { useAppDispatch } from '@/src/redux/hooks';
+import { Dialog, Transition } from '@headlessui/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-
-export default function DeleteGoal({
-  closeDeleteGoal,
-  goal,
-  deleteGoalFromState,
-}: any) {
+import { Fragment, useState } from 'react';
+export default function DeleteGoal({ closeDeleteGoal, goal }: any) {
   let [isOpen, setIsOpen] = useState(true);
+
   const pathname = usePathname();
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const deleteGoal = async () => {
     try {
       const res = await fetch(`${getBaseUrl()}/api/goal/?goalId=${goal.id}`, {
         method: 'PATCH',
       });
       const deletedGoal = await res.json();
-      deleteGoalFromState(deletedGoal);
+      dispatch(removeGoal(deletedGoal?.id));
       router.push(pathname);
     } catch (err) {
       console.log(err);
@@ -27,11 +27,7 @@ export default function DeleteGoal({
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as='div'
-          className='relative z-10'
-          onClose={closeDeleteGoal}
-        >
+        <Dialog as='div' className='relative z-10' onClose={closeDeleteGoal}>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'

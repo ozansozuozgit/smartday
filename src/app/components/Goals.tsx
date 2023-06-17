@@ -1,21 +1,17 @@
 'use client';
 // import { checkEnvironment } from '@/lib/getBaseUrl';
 import { getBaseUrl } from '@/lib/getBaseUrl';
+import { setUserGoals } from '@/src/redux/features/userSlice';
+import { useAppDispatch } from '@/src/redux/hooks';
 import { useEffect, useState } from 'react';
 import { GoalType } from '../../../types/types';
 import CreateGoal from './CreateGoal';
 import Goal from './Goal';
 
-const Goals = () => {
-  const [goals, setGoals] = useState<GoalType[]>([]);
+const Goals = ({ goals }: any) => {
+  // const [goals, setGoals] = useState<GoalType[]>([]);
+  const dispatch = useAppDispatch();
 
-  const addGoalToState = (goal: GoalType) => {
-    setGoals([goal, ...goals]);
-  };
-  const deleteGoalFromState = async (goal: GoalType) => {
-    console.log('goalId', goal?.id);
-    setGoals(goals.filter((g: GoalType) => g.id !== goal.id));
-  };
   useEffect(() => {
     const fetchGoals = async () => {
       try {
@@ -26,7 +22,8 @@ const Goals = () => {
           },
         });
         const allGoals = await res.json();
-        setGoals(allGoals);
+        dispatch(setUserGoals(allGoals));
+        // setGoals(allGoals);
         console.log('goals', allGoals);
       } catch (err) {
         console.log(err);
@@ -41,17 +38,10 @@ const Goals = () => {
       <div className='flex items-center justify-between'>
         {' '}
         <h1 className='text-2xl font-bold'>Goals</h1>
-        <CreateGoal addGoalToState={addGoalToState} />
+        <CreateGoal />
       </div>
 
-      {goals &&
-        goals.map((goal) => (
-          <Goal
-            goal={goal}
-            key={goal?.id}
-            deleteGoalFromState={deleteGoalFromState}
-          />
-        ))}
+      {goals && goals.map((goal: any) => <Goal goal={goal} key={goal?.id} />)}
     </div>
   );
 };

@@ -6,12 +6,14 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
+import { useAppSelector } from '@/src/redux/hooks';
 import Goals from './Goals';
 import NavAuth from './NavAuth';
 import Clock from './Clock';
 export function SidebarNav() {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
+  const goals = useAppSelector((state) => state.user.goals);
 
   return (
     <div className='fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-white lg:bottom-0 lg:z-auto lg:w-72 shadow-lg '>
@@ -51,7 +53,7 @@ export function SidebarNav() {
         })}
       >
         <nav className='space-y-6 px-2 py-5'>
-          <Goals />
+          <Goals goals={goals}/>
           <NavAuth />
         </nav>
       </div>

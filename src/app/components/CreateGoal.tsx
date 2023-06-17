@@ -1,17 +1,19 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
+import { addGoal } from '@/src/redux/features/userSlice';
+import { useAppDispatch } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { Fragment, useCallback, useState } from 'react';
 import { GoalType } from '../../../types/types';
-
 type Props = {
   addGoalToState: (goal: GoalType) => void;
 };
-const CreateGoal = ({ addGoalToState }: Props) => {
+const CreateGoal = () => {
   // form inputs
   const [goalName, setGoalName] = useState<string>('');
   let [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
   const searchParams = useSearchParams()!;
   const pathname = usePathname();
   const router = useRouter();
@@ -32,7 +34,7 @@ const CreateGoal = ({ addGoalToState }: Props) => {
     [searchParams]
   );
 
-  const addGoal = async () => {
+  const createGoal = async () => {
     if (!goalName) return;
     try {
       const res = await fetch(`${getBaseUrl()}/api/goals`, {
@@ -43,7 +45,8 @@ const CreateGoal = ({ addGoalToState }: Props) => {
         },
       });
       const goal = await res.json();
-      addGoalToState(goal);
+
+      dispatch(addGoal(goal));
       router.push(pathname + '?' + createQueryString('goal', goal.id));
       closeModal();
       console.log('Goal added!');
@@ -107,7 +110,7 @@ const CreateGoal = ({ addGoalToState }: Props) => {
                         onKeyDown={(e) => {
                           if (e.key === 'Enter') {
                             e.preventDefault(); // Prevents form submission
-                            addGoal();
+                            createGoal();
                           }
                         }}
                         placeholder='100k per month'
@@ -125,7 +128,7 @@ const CreateGoal = ({ addGoalToState }: Props) => {
                       <button
                         type='button'
                         className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
-                        onClick={addGoal}
+                        onClick={createGoal}
                       >
                         Submit
                       </button>
