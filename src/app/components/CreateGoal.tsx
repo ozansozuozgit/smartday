@@ -3,7 +3,7 @@ import { getBaseUrl } from '@/lib/getBaseUrl';
 import { Dialog, Transition } from '@headlessui/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { Fragment, useCallback, useState } from 'react';
-import { GoalType } from '../../types/types';
+import { GoalType } from '../../../types/types';
 
 type Props = {
   addGoalToState: (goal: GoalType) => void;

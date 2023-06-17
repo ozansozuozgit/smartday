@@ -3,8 +3,8 @@
 import { Session } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SignInButton, SignOutButton } from '../components/AuthButtons';
-import AuthCheck from '../components/AuthCheck';
+import { SignInButton, SignOutButton } from './AuthButtons';
+import AuthCheck from './AuthCheck';
 export default function Nav() {
   return (
     <nav>

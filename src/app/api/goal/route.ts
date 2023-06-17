@@ -23,8 +23,7 @@ export async function GET(req: NextRequest) {
       include: {
         activities: {
           orderBy: { updatedAt: 'desc' },
-        }
-
+        },
       },
     });
 

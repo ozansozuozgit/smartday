@@ -3,7 +3,7 @@ import { getBaseUrl } from '@/lib/getBaseUrl';
 import { Dialog, Transition } from '@headlessui/react';
 import { useSearchParams } from 'next/navigation';
 import React, { Fragment, useRef, useState } from 'react';
-import { GoalType } from '../../types/types';
+import { GoalType } from '../../../types/types';
 
 const CreateCategory = ({ addCategoryToState }: any) => {
   // form inputs
@@ -34,7 +34,7 @@ const CreateCategory = ({ addCategoryToState }: any) => {
       addCategoryToState(category);
       //   addGoalToState(goal);
       closeModal();
-      console.log('Category added!',category);
+      console.log('Category added!', category);
     } catch (err) {
       console.log(err);
     }

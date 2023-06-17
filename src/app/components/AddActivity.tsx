@@ -3,7 +3,7 @@ import { getBaseUrl } from '@/lib/getBaseUrl';
 import { Dialog, Transition } from '@headlessui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { GoalType } from '../../types/types';
+import { GoalType } from '../../../types/types';
 import Categories from './Categories';
 
 const AddActivity = ({ goal, addActivityToState }: any) => {

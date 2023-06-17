@@ -2,8 +2,8 @@
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import AddActivity from '../components/AddActivity';
 import Activity from './Activity';
+import AddActivity from './AddActivity';
 
 // TODO: Activities will not be used from the dashboard, update the state there
 const Activities = ({ activities, goal, updateGoalPercentage }: any) => {

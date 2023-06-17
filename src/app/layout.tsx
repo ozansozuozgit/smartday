@@ -4,7 +4,7 @@ import AuthProvider from './AuthProvider';
 import { authOptions } from './api/auth/[...nextauth]/route';
 import Nav from './components/Nav';
 
-
+import { ReduxProvider } from '../redux/provider';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,13 +22,15 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
   console.log(session);
   return (
-    <AuthProvider>
-      <html lang='en'>
-        <body>
-          {/* <Nav /> */}
-          <div className='main-body'>{children}</div>
-        </body>
-      </html>
-    </AuthProvider>
+    <ReduxProvider>
+      <AuthProvider>
+        <html lang='en'>
+          <body>
+            {/* <Nav /> */}
+            <div className='main-body'>{children}</div>
+          </body>
+        </html>
+      </AuthProvider>
+    </ReduxProvider>
   );
 }

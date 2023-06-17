@@ -45,7 +45,7 @@ const BarChart = ({ goal }: any) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-        //   legend: 'count',
+          //   legend: 'count',
           legendPosition: 'middle',
           legendOffset: -40,
         }}

@@ -45,8 +45,6 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(newActivity);
 }
 
-
-
 export async function DELETE(req: NextRequest) {
   const activityId = req.nextUrl.searchParams.get('activityId') as string;
 
@@ -69,7 +67,7 @@ export async function DELETE(req: NextRequest) {
     activityDate.getMonth() === today.getMonth() &&
     activityDate.getFullYear() === today.getFullYear()
   ) {
-    if(!activity?.goal?.percentage) {
+    if (!activity?.goal?.percentage) {
       throw new Error('No percentage found for this goal');
     }
     // if the activity is from today, subtract its percentage from the goal

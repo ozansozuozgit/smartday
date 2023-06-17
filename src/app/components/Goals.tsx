@@ -2,7 +2,7 @@
 // import { checkEnvironment } from '@/lib/getBaseUrl';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { useEffect, useState } from 'react';
-import { GoalType } from '../../types/types';
+import { GoalType } from '../../../types/types';
 import CreateGoal from './CreateGoal';
 import Goal from './Goal';
 
@@ -15,7 +15,7 @@ const Goals = () => {
   const deleteGoalFromState = async (goal: GoalType) => {
     console.log('goalId', goal?.id);
     setGoals(goals.filter((g: GoalType) => g.id !== goal.id));
-  }
+  };
   useEffect(() => {
     const fetchGoals = async () => {
       try {
@@ -44,7 +44,14 @@ const Goals = () => {
         <CreateGoal addGoalToState={addGoalToState} />
       </div>
 
-      {goals && goals.map((goal) => <Goal goal={goal} key={goal?.id} deleteGoalFromState={deleteGoalFromState}/>)}
+      {goals &&
+        goals.map((goal) => (
+          <Goal
+            goal={goal}
+            key={goal?.id}
+            deleteGoalFromState={deleteGoalFromState}
+          />
+        ))}
     </div>
   );
 };

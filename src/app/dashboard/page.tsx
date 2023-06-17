@@ -1,17 +1,21 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
+import { setUserAuth } from '@/src/redux/features/userSlice';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Activities from '../components/Activities';
+import BarChart from '../components/BarChart';
 import ChartLine from '../components/ChartLine';
 import PieChart from '../components/PieChart';
-import BarChart from '../components/BarChart';
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [goal, setGoal] = useState<any>(null);
   const [allActivities, setAllActivities] = useState<any>([]);
+
+  const dispatch = useAppDispatch();
 
   const searchParams = useSearchParams();
 
@@ -40,6 +44,13 @@ const Dashboard = () => {
   }, [searchParams]);
 
   console.log('session', session);
+
+  useEffect(() => {
+    if (!session) return;
+
+    // @ts-ignore
+    dispatch(setUserAuth(session.user));
+  }, []);
   if (status === 'unauthenticated') {
     router.push(`/`);
   }
