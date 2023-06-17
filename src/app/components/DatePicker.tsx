@@ -1,5 +1,10 @@
 'use client';
-import { setEndDate, setStartDate } from '@/src/redux/features/userSlice';
+import { getBaseUrl } from '@/lib/getBaseUrl';
+import {
+  setEndDate,
+  setSelectedGoal,
+  setStartDate,
+} from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
@@ -8,9 +13,11 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../calendar.css';
 
+getBaseUrl;
 const DatePicker = () => {
   const startDate = useAppSelector((state) => state.user.startDate);
   const endDate = useAppSelector((state) => state.user.endDate);
+  const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState<Date | Date[] | null | string>([
@@ -23,7 +30,17 @@ const DatePicker = () => {
 
     dispatch(setStartDate(startDate.toISOString()));
     dispatch(setEndDate(endDate.toISOString()));
+    getGoalandActivities(startDate.toISOString(), endDate.toISOString());
     setValue(newValue);
+  };
+  const getGoalandActivities = async (start: any, end: any) => {
+    const res = await fetch(
+      `${getBaseUrl()}/api/goal?goalId=${
+        selectedGoal?.id
+      }&startDate=${start}&endDate=${end}`
+    );
+    const goalResult = await res.json();
+    dispatch(setSelectedGoal(goalResult));
   };
 
   return (

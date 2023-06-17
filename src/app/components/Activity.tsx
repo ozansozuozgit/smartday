@@ -15,6 +15,7 @@ const Activity = ({ activity }: any) => {
   }
 
   const now = new Date();
+  now.setHours(0, 0, 0, 0);
   const todayEST = new Date(
     now.toLocaleString('en-US', { timeZone: 'America/New_York' })
   )
@@ -29,6 +30,16 @@ const Activity = ({ activity }: any) => {
 
     console.log('activityDate', activityDate);
     console.log('todayEST', todayEST);
+
+    console.log('now', now);
+    console.log('now.toLocaleString()', now.toLocaleString());
+    console.log('todayEST', todayEST);
+    console.log('date', date);
+    console.log('new Date(date)', new Date(date));
+    console.log(
+      'new Date(date).toLocaleString()',
+      new Date(date).toLocaleString()
+    );
 
     return activityDate === todayEST;
   };

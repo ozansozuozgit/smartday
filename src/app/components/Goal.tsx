@@ -1,15 +1,17 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { setSelectedGoal } from '@/src/redux/features/userSlice';
-import { useAppDispatch } from '@/src/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { GoalType } from '@/types/types';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import DeleteGoal from './DeleteGoal';
 
 const Goal = ({ goal }: { goal: GoalType }) => {
   const dispatch = useAppDispatch();
+  const startDate = useAppSelector((state) => state.user.startDate);
+  const endDate = useAppSelector((state) => state.user.endDate);
   const searchParams = useSearchParams()!;
   const pathname = usePathname();
   const router = useRouter();
@@ -34,11 +36,19 @@ const Goal = ({ goal }: { goal: GoalType }) => {
   }
 
   const getGoalandActivities = async () => {
-    const res = await fetch(`${getBaseUrl()}/api/goal?goalId=${goal?.id}`);
+    console.log('startDate', startDate);
+    console.log('endDate', endDate);
+    const res = await fetch(
+      `${getBaseUrl()}/api/goal?goalId=${
+        goal?.id
+      }&startDate=${startDate}&endDate=${endDate}`
+    );
     const goalResult = await res.json();
     dispatch(setSelectedGoal(goalResult));
     console.log('the goal fetch was', goal);
   };
+
+
 
   return (
     <div className='flex items-center'>

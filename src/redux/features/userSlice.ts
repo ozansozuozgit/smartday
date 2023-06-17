@@ -25,7 +25,7 @@ const initialState = {
   goals: [],
   selectedGoal: null,
   startDate: new Date().toISOString().split('T')[0], // Set start date to today
-  endDate: new Date(new Date().getTime() - 86400000)
+  endDate: new Date(new Date().getTime() + 86400000)
     .toISOString()
     .split('T')[0], // Set end date to yesterday
 } as UserState;

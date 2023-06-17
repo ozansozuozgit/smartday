@@ -7,6 +7,8 @@ import { authOptions } from '../auth/[...nextauth]/route';
 export async function GET(req: NextRequest) {
   try {
     const goalId = req.nextUrl.searchParams.get('goalId') as string;
+    const startDate = req.nextUrl.searchParams.get('startDate') as string;
+    const endDate = req.nextUrl.searchParams.get('endDate') as string;
 
     // Validate goalId
     if (!goalId) {
@@ -22,6 +24,12 @@ export async function GET(req: NextRequest) {
       },
       include: {
         activities: {
+          where: {
+            createdAt: {
+              gte: new Date(startDate), // Filter activities with createdAt greater than or equal to startDate
+              lte: new Date(endDate), // Filter activities with createdAt less than or equal to endDate
+            },
+          },
           orderBy: { updatedAt: 'desc' },
         },
       },
