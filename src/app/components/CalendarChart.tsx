@@ -6,10 +6,14 @@ import debounce from 'lodash.debounce';
 import moment from 'moment-timezone';
 import React, { useCallback, useEffect, useState } from 'react';
 
-const CalendarChart = ({ goal }: any) => {
+const CalendarChart = () => {
   const [goalData, setGoalData] = useState<any>([]);
-  const startDate = useAppSelector((state) => state.user.startDate);
-  const endDate = useAppSelector((state) => state.user.endDate);
+  const startDate = useAppSelector((state) =>
+    state.user.startDate ? moment(state.user.startDate).toISOString() : ''
+  );
+  const endDate = useAppSelector((state) =>
+    state.user.endDate ? moment(state.user.endDate).toISOString() : ''
+  );
   const now = moment();
   const cstTimezone = 'America/Chicago';
   const estTimezone = 'America/New_York';
@@ -32,15 +36,22 @@ const CalendarChart = ({ goal }: any) => {
       const parsedData = goalResult.map((goal: any) => ({
         day: moment(goal.completedAt).format('YYYY-MM-DD'),
         value: 50,
+        name: goal.name, // Add the 'name' property
       }));
       setGoalData(parsedData);
     },
     []
   );
-
+  const CustomTooltip = ({ day }: any) => {
+    const goal = goalData.find((item: any) => item.day === day);
+    return (
+      <div>
+        <div>Date: {day}</div>
+        {goal && <div>Goal: {goal.name}</div>}
+      </div>
+    );
+  };
   useEffect(() => {
-    console.log('startDate', startDate);
-    console.log('endDate', endDate);
     const debounceTimer = setTimeout(() => {
       getCompletedGoals(startDate, endDate);
     }, 500); // Adjust the debounce delay as needed
@@ -49,14 +60,6 @@ const CalendarChart = ({ goal }: any) => {
       clearTimeout(debounceTimer);
     };
   }, [startDate, endDate, getCompletedGoals]);
-
-  // useffect with startDate and endDate
-
-  useEffect(() => {
-    console.log('startDate', startDate);
-    console.log('endDate', endDate);
-  }, [startDate, endDate]);
-
   return (
     <div className='h-[500px] w-[500px]'>
       {goalData.length && (
@@ -71,6 +74,7 @@ const CalendarChart = ({ goal }: any) => {
           monthBorderColor='#ffffff'
           dayBorderWidth={2}
           dayBorderColor='#ffffff'
+          tooltip={CustomTooltip} // Use the custom tooltip component
           legends={[
             {
               anchor: 'bottom-right',

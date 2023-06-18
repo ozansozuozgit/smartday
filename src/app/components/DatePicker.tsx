@@ -33,8 +33,8 @@ const DatePicker = () => {
     const startMoment = moment(startISO).tz('America/New_York').startOf('day');
     const endMoment = moment(endISO).tz('America/New_York').endOf('day');
 
-    dispatch(setStartDate(startMoment));
-    dispatch(setEndDate(endMoment));
+    dispatch(setStartDate(startMoment.toISOString()));
+    dispatch(setEndDate(endMoment.toISOString()));
     getGoalandActivities(startMoment, endMoment);
     setValue(newValue);
   };
