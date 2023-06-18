@@ -15,7 +15,7 @@ type UserState = {
 };
 
 const initialState = {
-  completedGoals: [],
+  completedGoals: null,
   createdAt: '',
   email: '',
   id: '',

@@ -5,11 +5,12 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import Activities from '../components/Activities';
-import BarChart from '../components/BarChart';
+// import BarChart from '../components/BarChart';
 import ChartLine from '../components/ChartLine';
 import DatePicker from '../components/DatePicker';
 import PieChart from '../components/PieChart';
 import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
+import CalendarChart from '../components/CalendarChart';
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -45,6 +46,7 @@ const Dashboard = () => {
         {selectedGoal && <ChartLine goal={selectedGoal} />}
         {selectedGoal && <PieChart goal={selectedGoal} />}
         {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
+        {session?.user && <CalendarChart goal={selectedGoal} />}
       </section>
     </div>
   );

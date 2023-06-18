@@ -17,19 +17,20 @@ export async function GET() {
       // 5. Check if the goal is complete
       console.log('goal', goal);
       if (goal?.percentage ?? 0 >= 100) {
-        // 6. If the goal is complete, add it to the completedGoals array and reset the percentage
-        await prisma.$transaction([
-          prisma.user.update({
-            where: { id: user.id },
-            data: {
-              completedGoals: [...user.completedGoals, goal.id], // append the new goal ID
-            },
-          }),
-          prisma.goal.update({
-            where: { id: goal.id },
-            data: { percentage: 0 },
-          }),
-        ]);
+        // 6. If the goal is complete, create a completed goal and associate it with the user
+        const completedGoal = await prisma.completedGoal.create({
+          data: {
+            goal: { connect: { id: goal.id } },
+            user: { connect: { id: user.id } },
+            completedAt: new Date(), // Set the completion date to the current date and time
+            name: goal.name,
+          },
+        });
+
+        await prisma.goal.update({
+          where: { id: goal.id },
+          data: { percentage: 0 },
+        });
       } else {
         // If the goal is not complete, reset the goal percentage
         await prisma.goal.update({
@@ -39,5 +40,6 @@ export async function GET() {
       }
     }
   }
-  return NextResponse.json({ message: 'Goals reset' });
+
+  return NextResponse.json({ message: 'Goals reset', status: 'success' });
 }
