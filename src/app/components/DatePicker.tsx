@@ -15,14 +15,14 @@ import 'react-calendar/dist/Calendar.css';
 import '../calendar.css';
 
 const DatePicker = () => {
-  const startDate = useAppSelector((state) => state.user.startDate);
-  const endDate = useAppSelector((state) => state.user.endDate);
+  // const startDate = useAppSelector((state) => state.user.startDate);
+  // const endDate = useAppSelector((state) => state.user.endDate);
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState<Date | Date[] | null | string>([
-    moment(startDate).toDate(),
-    moment(endDate).toDate(),
+    new Date(),
+    new Date(),
   ]);
 
   const handleCalendarChange = (newValue: Date | Date[]) => {
