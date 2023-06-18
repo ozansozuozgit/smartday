@@ -5,7 +5,6 @@ import Activity from './Activity';
 import AddActivity from './AddActivity';
 
 const Activities = ({ goal }: any) => {
-
   const addGoalToUser = async () => {
     const allActivities = await fetch(
       `${getBaseUrl()}/api/cron/set-completed-goals`,
@@ -32,14 +31,13 @@ const Activities = ({ goal }: any) => {
             role='list'
             className='divide-y divide-gray-100 bg-white max-w-md p-4 rounded max-h-[200px] overflow-y-scroll'
           >
-            {goal?.activities.map((activity: any) => (
+            {goal?.activities?.map((activity: any) => (
               <Activity activity={activity} key={activity?.id} />
             ))}
           </ul>
         )}
       </div>
-            <button onClick={addGoalToUser}>Add Goal to User</button>
-
+      <button onClick={addGoalToUser}>Add Goal to User</button>
     </div>
   );
 };

@@ -1,26 +1,33 @@
 'use client';
 import { useAppSelector } from '@/src/redux/hooks';
 import { ResponsivePie } from '@nivo/pie';
-import React from 'react';
 import moment from 'moment';
+import React from 'react';
 
 const AlignWithGoalPieChart = ({ goal }: any) => {
+
+  if (!goal.activities || goal.activities.length === 0) {
+    return (
+      <div>
+        <h3>No activities available</h3>
+      </div>
+    );
+  }
   const startDate = useAppSelector((state) => state.user.startDate);
   const endDate = useAppSelector((state) => state.user.endDate);
+  const startMoment = moment(startDate);
+  const endMoment = moment(endDate);
 
-  const transformedData = goal.activities.filter((activity) => {
+  const transformedData = goal?.activities.filter((activity: any) => {
     const activityDate = moment(activity.createdAt);
-    const startMoment = moment(startDate);
-    const endMoment = moment(endDate);
     return activityDate.isBetween(startMoment, endMoment, 'day', '[]');
   });
 
-  const alignsWithGoalCount = transformedData.reduce((count, activity) => {
-    if (activity.alignsWithGoal) {
-      return count + 1;
-    }
-    return count;
-  }, 0);
+  const alignsWithGoalCount = transformedData.reduce(
+    (count: any, activity: any) =>
+      activity.alignsWithGoal ? count + 1 : count,
+    0
+  );
 
   const notAlignsWithGoalCount = transformedData.length - alignsWithGoalCount;
 
@@ -33,7 +40,7 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
     <div className='h-[400px]'>
       <h3>Activity Completion Timeline Pie</h3>
       <ResponsivePie
-        data={pieChartData}
+        data={pieChartData as any}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         innerRadius={0.5}
         padAngle={0.7}
@@ -46,7 +53,7 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-        arcLabel={({ data }) =>
+        arcLabel={({ data }: any) =>
           `${((data.value / transformedData.length) * 100).toFixed(2)}%`
         }
         tooltip={({ datum }) => `${datum.id}: ${datum.value}`}

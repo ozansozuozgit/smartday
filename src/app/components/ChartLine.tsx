@@ -1,15 +1,23 @@
 'use client';
-import React from 'react';
 import { ResponsiveLine } from '@nivo/line';
 import moment from 'moment-timezone';
+import React from 'react';
 
-const ChartLine = ({ goal }) => {
-  const generateRandomColor = () => {
-    const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-    return '#' + randomColor;
-  };
+const generateRandomColor = () => {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  return '#' + randomColor;
+};
 
-  const formattedActivities = goal.activities.map((activity) => ({
+const ChartLine = ({ goal }: any) => {
+
+  if (!goal.activities || goal.activities.length === 0) {
+    return (
+      <div>
+        <h3>No activities available</h3>
+      </div>
+    );
+  }
+  const formattedActivities = goal?.activities?.map((activity: any) => ({
     ...activity,
     createdAt: moment(activity.createdAt).format('YYYY-MM-DDTHH:mm:ss'),
   }));
@@ -18,8 +26,11 @@ const ChartLine = ({ goal }) => {
     id: goal.id,
     color: generateRandomColor(),
     data: formattedActivities
-      .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-      .map((activity) => ({
+      ?.sort(
+        (a: any, b: any) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      )
+      .map((activity: any) => ({
         x: activity.createdAt,
         y: activity.percentage,
       })),
@@ -27,12 +38,10 @@ const ChartLine = ({ goal }) => {
 
   const xAxisTickValues =
     specificGoalChartData.data.length > 10
-      ? specificGoalChartData.data
-          .map((activity) => activity.x)
-          .filter((_, index) => index % 2 === 0)
-      : specificGoalChartData.data.map((activity) => activity.x);
-
-  const xAxisTickRotation = -45;
+      ? specificGoalChartData.data.filter(
+          (_: any, index: any) => index % 2 === 0
+        )
+      : specificGoalChartData.data;
 
   return (
     <div style={{ height: '400px' }}>
@@ -42,9 +51,9 @@ const ChartLine = ({ goal }) => {
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
         axisBottom={{
-          tickValues: xAxisTickValues,
-          tickRotation: xAxisTickRotation,
-          format: (value) => moment(value).format('MMM DD, YYYY'), // Format the tick labels using moment library
+          tickValues: xAxisTickValues.map((activity: any) => activity.x),
+          tickRotation: -45,
+          format: (value) => moment(value).format('MMM DD, YYYY'),
           legend: 'Date',
           legendOffset: 36,
           legendPosition: 'middle',
@@ -64,7 +73,7 @@ const ChartLine = ({ goal }) => {
         useMesh={true}
         enablePointLabel={true}
         pointLabelYOffset={-12}
-        tooltip={({ point }) => (
+        tooltip={({ point }: any) => (
           <strong>
             {moment(point.data.xFormatted).format('HH:mm:ss')}
             {': '}

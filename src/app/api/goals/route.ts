@@ -31,6 +31,7 @@ export async function POST(req: Request) {
       name: goalName,
       percentage: 0,
       userId: session?.user?.id,
+      activities:{},
     },
   });
   return NextResponse.json(newGoal);

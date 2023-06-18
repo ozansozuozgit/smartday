@@ -1,18 +1,27 @@
 'use client';
 import { ResponsivePie } from '@nivo/pie';
-import React from 'react';
 import moment from 'moment-timezone';
+import React from 'react';
 
 const PieChart = ({ goal }: any) => {
+  if (!goal.activities || goal.activities.length === 0) {
+    return (
+      <div>
+        <h3>No activities available</h3>
+      </div>
+    );
+  }
   const currentDate = moment().tz('America/Chicago');
   const todayEST = currentDate.clone().tz('America/New_York').startOf('day');
 
-  const dailyActivities = goal.activities.filter((activity) => {
-    const activityDate = moment(activity.createdAt).tz('America/New_York').startOf('day');
+  const dailyActivities = goal?.activities.filter((activity: any) => {
+    const activityDate = moment(activity.createdAt)
+      .tz('America/New_York')
+      .startOf('day');
     return activityDate.isSame(todayEST, 'day');
   });
 
-  const activityGroups = dailyActivities.reduce((acc, activity) => {
+  const activityGroups = dailyActivities.reduce((acc: any, activity: any) => {
     if (!acc[activity.name]) {
       acc[activity.name] = {
         id: activity.name,
@@ -29,11 +38,11 @@ const PieChart = ({ goal }: any) => {
   // Convert the grouped object back into an array
   const groupedActivities = Object.values(activityGroups);
 
-  const totalPercentageDone = groupedActivities.reduce(
-    (acc, activity) => acc + activity.value,
+  const totalPercentageDone: any = groupedActivities.reduce(
+    (acc: any, activity: any) => acc + activity.value,
     0
   );
-  const remainingPercentage = 100 - totalPercentageDone;
+  const remainingPercentage: any = 100 - totalPercentageDone;
 
   // Add the remaining percentage slice
   if (remainingPercentage > 0) {
@@ -50,7 +59,7 @@ const PieChart = ({ goal }: any) => {
     <div className='h-[400px]'>
       <h3>Activity Completion Timeline Pie</h3>
       <ResponsivePie
-        data={groupedActivities}
+        data={groupedActivities as any}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         innerRadius={0.5}
         padAngle={0.7}

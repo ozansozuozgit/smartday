@@ -6,24 +6,21 @@ import {
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { GoalType } from '../../../types/types';
 import Categories from './Categories';
 
 const AddActivity = ({ goal }: any) => {
-  // form inputs
+
   const [activityName, setActivityName] = useState<string>('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
   const [percentage, setPercentage] = useState<number>(0);
   const [alignsWithGoal, setAlignsWithGoal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   let [isOpen, setIsOpen] = useState(false);
 
   const setSelectedCategoryHandler = (category: string) => {
-    console.log('category', category);
     setSelectedCategoryId(category);
   };
   function closeModal() {
@@ -34,7 +31,6 @@ const AddActivity = ({ goal }: any) => {
     setIsOpen(true);
   }
 
-  // reset input fields
   useEffect(() => {
     setActivityName('');
     setPercentage(0);
@@ -42,8 +38,6 @@ const AddActivity = ({ goal }: any) => {
   }, []);
 
   const addActivity = async () => {
-    // add basic validation, don't allow empty fields
-
     if (!activityName || !percentage) return;
     if (percentage > 100) return alert('Percentage cannot be greater than 100');
     if (percentage + goal?.percentage > 100)
@@ -63,15 +57,10 @@ const AddActivity = ({ goal }: any) => {
         },
       });
       const activity = await res.json();
-      console.log('activity', activity);
       const newPercentage = goal.percentage + percentage;
       dispatch(updateSelectedGoalPercentage(newPercentage));
-
       dispatch(addActivityToSelectedGoal(activity));
-      //   addGoalToState(goal);
-      // setTriggerRefresh((prevState: boolean) => !prevState);
       closeModal();
-      console.log('Goal added!');
     } catch (err) {
       console.log(err);
     }

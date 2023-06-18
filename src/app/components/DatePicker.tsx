@@ -1,5 +1,4 @@
 'use client';
-import { getBaseUrl } from '@/lib/getBaseUrl';
 import {
   setEndDate,
   setSelectedGoal,
@@ -8,47 +7,15 @@ import {
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import moment from 'moment-timezone';
-import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../calendar.css';
 
+import { useCalendarChange } from '@/src/hooks/useCalendarChange';
+import React from 'react';
+
 const DatePicker = () => {
-  // const startDate = useAppSelector((state) => state.user.startDate);
-  // const endDate = useAppSelector((state) => state.user.endDate);
-  const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
-  const dispatch = useAppDispatch();
-
-  const [value, setValue] = useState<Date | Date[] | null | string>([
-    new Date(),
-    new Date(),
-  ]);
-
-  const handleCalendarChange = (newValue: Date | Date[]) => {
-    const [startDate, endDate] = newValue as Date[];
-
-    const startISO = moment(startDate).toISOString();
-    const endISO = moment(endDate).toISOString();
-    const startMoment = moment(startISO).tz('America/New_York').startOf('day');
-    const endMoment = moment(endISO).tz('America/New_York').endOf('day');
-
-    dispatch(setStartDate(startMoment.toISOString()));
-    dispatch(setEndDate(endMoment.toISOString()));
-    getGoalandActivities(startMoment, endMoment);
-    setValue(newValue);
-  };
-  const getGoalandActivities = async (start: any, end: any) => {
-    if(!selectedGoal?.id) return;
-    // else get all the goal and activities
-    const res = await fetch(
-      `${getBaseUrl()}/api/goal?goalId=${
-        selectedGoal?.id
-      }&startDate=${start}&endDate=${end}`
-    );
-    const goalResult = await res.json();
-    dispatch(setSelectedGoal(goalResult));
-  };
+  const { value, handleCalendarChange } = useCalendarChange();
 
   return (
     <Popover>

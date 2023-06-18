@@ -1,14 +1,10 @@
 import { getBaseUrl } from '@/lib/getBaseUrl';
-import { removeGoal } from '@/src/redux/features/userSlice';
+import { removeGoal, setSelectedGoal } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Fragment, useState } from 'react';
 export default function DeleteGoal({ closeDeleteGoal, goal }: any) {
   let [isOpen, setIsOpen] = useState(true);
-
-  const pathname = usePathname();
-  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const deleteGoal = async () => {
@@ -18,7 +14,7 @@ export default function DeleteGoal({ closeDeleteGoal, goal }: any) {
       });
       const deletedGoal = await res.json();
       dispatch(removeGoal(deletedGoal?.id));
-      router.push(pathname);
+      dispatch(setSelectedGoal(null));
     } catch (err) {
       console.log(err);
     }

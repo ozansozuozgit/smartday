@@ -1,3 +1,4 @@
+'use client';
 import {
   removeActivityFromSelectedGoal,
   updateSelectedGoalPercentage,
@@ -6,11 +7,11 @@ import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
-export default function DeleteActivity({
+const DeleteActivity = ({
   closeDeleteActivity,
   activity,
   isDeleteActivityOpen,
-}: any) {
+}: any) => {
   const dispatch = useAppDispatch();
   const goal = useAppSelector((state) => state.user.selectedGoal);
 
@@ -23,7 +24,6 @@ export default function DeleteActivity({
         },
       });
       const deletedActivity = await res.json();
-      console.log('deletedActivity', deletedActivity);
       const newPercentage = goal.percentage - activity?.percentage;
       dispatch(updateSelectedGoalPercentage(newPercentage));
       dispatch(removeActivityFromSelectedGoal(deletedActivity?.id));
@@ -32,6 +32,7 @@ export default function DeleteActivity({
       console.log(err);
     }
   };
+
   return (
     <>
       <Transition appear show={isDeleteActivityOpen} as={Fragment}>
@@ -78,7 +79,6 @@ export default function DeleteActivity({
                   </div>
 
                   <div className='mt-4 flex gap-2'>
-                    {' '}
                     <button
                       type='button'
                       className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
@@ -102,4 +102,6 @@ export default function DeleteActivity({
       </Transition>
     </>
   );
-}
+};
+
+export default DeleteActivity;

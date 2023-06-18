@@ -1,15 +1,13 @@
 'use client';
-// import { checkEnvironment } from '@/lib/getBaseUrl';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { setUserGoals } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { GoalType } from '../../../types/types';
 import CreateGoal from './CreateGoal';
 import Goal from './Goal';
 
 const Goals = ({ goals }: any) => {
-  // const [goals, setGoals] = useState<GoalType[]>([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,8 +21,6 @@ const Goals = ({ goals }: any) => {
         });
         const allGoals = await res.json();
         dispatch(setUserGoals(allGoals));
-        // setGoals(allGoals);
-        // console.log('goals', allGoals);
       } catch (err) {
         console.log(err);
       }

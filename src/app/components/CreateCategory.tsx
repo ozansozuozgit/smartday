@@ -6,7 +6,6 @@ import React, { Fragment, useRef, useState } from 'react';
 import { GoalType } from '../../../types/types';
 
 const CreateCategory = ({ addCategoryToState }: any) => {
-  // form inputs
   const [categoryName, setCategoryName] = useState<string>('');
   let [isOpen, setIsOpen] = useState(false);
 
@@ -32,7 +31,6 @@ const CreateCategory = ({ addCategoryToState }: any) => {
       });
       const category = await res.json();
       addCategoryToState(category);
-      //   addGoalToState(goal);
       closeModal();
       console.log('Category added!', category);
     } catch (err) {

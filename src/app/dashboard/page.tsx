@@ -1,17 +1,22 @@
 'use client';
-import { setUserAuth } from '@/src/redux/features/userSlice';
+import {
+  setEndDate,
+  setStartDate,
+  setUserAuth,
+} from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import Activities from '../components/Activities';
 // import BarChart from '../components/BarChart';
-import ChartLine from '../components/ChartLine';
-import DatePicker from '../components/DatePicker';
-import PieChart from '../components/PieChart';
+import moment from 'moment-timezone';
 import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
 import CalendarChart from '../components/CalendarChart';
 import CalendarChartSingle from '../components/CalendarChartSingle';
+import ChartLine from '../components/ChartLine';
+import DatePicker from '../components/DatePicker';
+import PieChart from '../components/PieChart';
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -28,6 +33,20 @@ const Dashboard = () => {
   if (status === 'unauthenticated') {
     router.push(`/`);
   }
+
+  useEffect(() => {
+    const now = moment();
+    const cstTimezone = 'America/Chicago';
+    const estTimezone = 'America/New_York';
+
+    // Convert to the beginning of the day in EST
+    const startOfToday = now.clone().tz(estTimezone).startOf('day');
+
+    // Convert to the end of the day in EST
+    const endOfToday = now.clone().tz(estTimezone).endOf('day');
+    dispatch(setStartDate(startOfToday));
+    dispatch(setEndDate(endOfToday));
+  }, []);
 
   return (
     <div>
@@ -49,7 +68,6 @@ const Dashboard = () => {
         {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
         {session?.user && !selectedGoal && <CalendarChart />}
         {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
-
       </section>
     </div>
   );

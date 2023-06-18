@@ -2,7 +2,6 @@ import { getServerSession } from 'next-auth/next';
 import { Inter } from 'next/font/google';
 import AuthProvider from './AuthProvider';
 import { authOptions } from './api/auth/[...nextauth]/route';
-import Nav from './components/Nav';
 
 import { ReduxProvider } from '../redux/provider';
 import './globals.css';
