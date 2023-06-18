@@ -52,9 +52,9 @@ const Goal = ({ goal }: { goal: GoalType }) => {
     const endOfToday = now.clone().tz(estTimezone).endOf('day');
 
     const res = await fetch(
-      `${getBaseUrl()}/api/goal?goalId=${
-        goal?.id
-      }&startDate=${startOfToday}&endDate=${endOfToday}`
+      `${getBaseUrl()}/api/goal?goalId=${goal?.id}&startDate=${
+        startDate ? startDate : startOfToday
+      }&endDate=${endDate ? endDate : endOfToday}`
     );
     const goalResult = await res.json();
     dispatch(setSelectedGoal(goalResult));
