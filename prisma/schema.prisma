@@ -67,8 +67,8 @@ model Activity {
   percentage Float // Percentage of the day spent on the activity
   goalId   String // The ID of the goal the activity is associated with
   goal     Goal   @relation(fields: [goalId], references: [id])
-  categoryId String // The ID of the category the activity is associated with
-  category Category @relation(fields: [categoryId], references: [id])
+  categoryId String? // The ID of the category the activity is associated with
+  category Category? @relation(fields: [categoryId], references: [id])
   alignsWithGoal Boolean @default(false)
   createdAt DateTime @default(now()) // New field for the creation timestamp
   updatedAt DateTime? @updatedAt
