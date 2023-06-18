@@ -47,7 +47,7 @@ const Dashboard = () => {
         {selectedGoal && <ChartLine goal={selectedGoal} />}
         {selectedGoal && <PieChart goal={selectedGoal} />}
         {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
-        {session?.user && <CalendarChart />}
+        {session?.user && !selectedGoal && <CalendarChart />}
         {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
 
       </section>

@@ -24,8 +24,8 @@ export async function GET(req: NextRequest) {
         completedGoals: {
           where: {
             completedAt: {
-              gte: new Date(startDate), // Filter completedGoals with completedAt greater than or equal to startDate
-              lte: new Date(endDate), // Filter completedGoals with completedAt less than or equal to endDate
+              gte: new Date(startDate), 
+              lte: new Date(endDate),
             },
           },
           orderBy: { completedAt: 'desc' },

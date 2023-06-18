@@ -1,6 +1,6 @@
 'use client';
-import { ResponsiveLine } from '@nivo/line';
 import React from 'react';
+import { ResponsiveLine } from '@nivo/line';
 import moment from 'moment-timezone';
 
 const ChartLine = ({ goal }) => {
@@ -25,10 +25,14 @@ const ChartLine = ({ goal }) => {
       })),
   };
 
-  // console.log('specificGoalChartData', specificGoalChartData);
+  const xAxisTickValues =
+    specificGoalChartData.data.length > 10
+      ? specificGoalChartData.data
+          .map((activity) => activity.x)
+          .filter((_, index) => index % 2 === 0)
+      : specificGoalChartData.data.map((activity) => activity.x);
 
-  const xAxisTickValues = specificGoalChartData.data.map((activity) => activity.x);
-  const xAxisTickRotation = -45; // Rotate tick labels by -45 degrees
+  const xAxisTickRotation = -45;
 
   return (
     <div style={{ height: '400px' }}>
@@ -40,6 +44,7 @@ const ChartLine = ({ goal }) => {
         axisBottom={{
           tickValues: xAxisTickValues,
           tickRotation: xAxisTickRotation,
+          format: (value) => moment(value).format('MMM DD, YYYY'), // Format the tick labels using moment library
           legend: 'Date',
           legendOffset: 36,
           legendPosition: 'middle',
@@ -59,12 +64,13 @@ const ChartLine = ({ goal }) => {
         useMesh={true}
         enablePointLabel={true}
         pointLabelYOffset={-12}
-        // pointLabel={({ data }) => `${data.y}%`}
-        // tooltip={({ point }) => (
-        //   <strong>
-        //     {moment(point.data.xFormatted).format('MM/DD/YYYY HH:mm:ss')}: {point.data.y}%
-        //   </strong>
-        // )}
+        tooltip={({ point }) => (
+          <strong>
+            {moment(point.data.xFormatted).format('HH:mm:ss')}
+            {': '}
+            {point.data.y}%
+          </strong>
+        )}
       />
     </div>
   );
