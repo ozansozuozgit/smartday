@@ -6,7 +6,7 @@ import Image from 'next/image';
 import SignOutButton from './SignOutButton';
 export default function NavAuth() {
   const { data: session, status } = useSession();
-  console.log(session, status);
+  // console.log(session, status);
 
   if (status === 'loading') {
     return <>...</>;

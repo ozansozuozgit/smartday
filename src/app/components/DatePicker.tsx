@@ -39,6 +39,8 @@ const DatePicker = () => {
     setValue(newValue);
   };
   const getGoalandActivities = async (start: any, end: any) => {
+    if(!selectedGoal?.id) return;
+    // else get all the goal and activities
     const res = await fetch(
       `${getBaseUrl()}/api/goal?goalId=${
         selectedGoal?.id

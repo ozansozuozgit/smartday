@@ -25,7 +25,7 @@ const ChartLine = ({ goal }) => {
       })),
   };
 
-  console.log('specificGoalChartData', specificGoalChartData);
+  // console.log('specificGoalChartData', specificGoalChartData);
 
   const xAxisTickValues = specificGoalChartData.data.map((activity) => activity.x);
   const xAxisTickRotation = -45; // Rotate tick labels by -45 degrees

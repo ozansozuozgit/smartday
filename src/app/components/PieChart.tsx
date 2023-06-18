@@ -44,7 +44,7 @@ const PieChart = ({ goal }: any) => {
     });
   }
 
-  console.log('groupedActivities', groupedActivities);
+  // console.log('groupedActivities', groupedActivities);
 
   return (
     <div className='h-[400px]'>

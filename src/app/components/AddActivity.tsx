@@ -12,7 +12,6 @@ import { GoalType } from '../../../types/types';
 import Categories from './Categories';
 
 const AddActivity = ({ goal }: any) => {
-  console.log('goal percentage', goal?.percentage);
   // form inputs
   const [activityName, setActivityName] = useState<string>('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
