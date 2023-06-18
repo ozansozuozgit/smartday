@@ -15,19 +15,30 @@ import { authOptions } from '../auth/[...nextauth]/route';
 
 //   return NextResponse.json(allGoalsFromUser);
 // }
-
+interface ActivityData {
+  name: string;
+  percentage: number;
+  goalId: string;
+  alignsWithGoal: boolean;
+  categoryId?: string;
+}
 export async function POST(req: NextRequest) {
   const { alignsWithGoal, percentage, goalId, activityName, categoryId } =
     await req.json();
 
+  const activityData: ActivityData = {
+    name: activityName,
+    percentage: percentage,
+    goalId: goalId,
+    alignsWithGoal: alignsWithGoal,
+  };
+
+  if (categoryId !== undefined && categoryId !== null && categoryId !== '') {
+    activityData.categoryId = categoryId;
+  }
+
   const newActivity = await prisma.activity.create({
-    data: {
-      name: activityName,
-      categoryId: categoryId,
-      percentage: percentage,
-      goalId: goalId,
-      alignsWithGoal: alignsWithGoal,
-    },
+    data: activityData,
   });
 
   // Update the goal's percentage

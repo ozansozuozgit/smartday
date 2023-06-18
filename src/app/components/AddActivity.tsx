@@ -45,7 +45,7 @@ const AddActivity = ({ goal }: any) => {
   const addActivity = async () => {
     // add basic validation, don't allow empty fields
 
-    if (!activityName || !percentage || !selectedCategoryId) return;
+    if (!activityName || !percentage) return;
     if (percentage > 100) return alert('Percentage cannot be greater than 100');
     if (percentage + goal?.percentage > 100)
       return alert('Percentage cannot be greater than 100');
@@ -57,7 +57,7 @@ const AddActivity = ({ goal }: any) => {
           percentage,
           goalId: goal?.id,
           activityName,
-          categoryId: selectedCategoryId,
+          categoryId: selectedCategoryId ?? '',
         }),
         headers: {
           'Content-Type': 'application/json',

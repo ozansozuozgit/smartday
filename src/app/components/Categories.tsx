@@ -12,16 +12,15 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
 
   const addCategoryToState = (category: any) => {
     setCategories([...categories, category]);
-  }
+  };
 
   const setSelectedCategory = (category: any) => {
     setSelectedCategoryHandler(category.id);
     setSelected(category);
-  }
+  };
 
   //   const [selectedCategory, setSelectedCategory] = useState(null);
   useEffect(() => {
-  
     setSelectedCategoryHandler(null);
     setSelected(null);
     setQuery('');
@@ -47,7 +46,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
   const filteredCategories =
     query === ''
       ? categories
-      : categories.filter((category:any) =>
+      : categories.filter((category: any) =>
           category.name
             .toLowerCase()
             .replace(/\s+/g, '')
@@ -56,13 +55,19 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
 
   return (
     <div className='flex top-16 w-72'>
+      <label htmlFor='category' className='sr-only'>
+        Select a category
+      </label>
+
       <Combobox value={selected} onChange={setSelectedCategory}>
         <div className='relative mt-1'>
           <div className='relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
             <Combobox.Input
               className='w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0'
-              displayValue={(category:any) => category?.name}
+              displayValue={(category: any) => category?.name}
               onChange={(event) => setQuery(event.target.value)}
+              placeholder='Select a category (optional)'
+              id='category'
             />
             <Combobox.Button className='absolute inset-y-0 right-0 flex items-center pr-2'>
               <ChevronUpDownIcon
@@ -84,7 +89,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
                   Nothing found.
                 </div>
               ) : (
-                filteredCategories.map((category:any) => (
+                filteredCategories.map((category: any) => (
                   <Combobox.Option
                     key={category.id}
                     className={({ active }) =>
@@ -121,7 +126,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
           </Transition>
         </div>
       </Combobox>
-      <CreateCategory addCategoryToState={addCategoryToState}/>
+      <CreateCategory addCategoryToState={addCategoryToState} />
     </div>
   );
 };
