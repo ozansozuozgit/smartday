@@ -7,11 +7,13 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useCallback, useEffect, useState } from 'react';
 import DeleteGoal from './DeleteGoal';
+import moment from 'moment-timezone';
 
 const Goal = ({ goal }: { goal: GoalType }) => {
   const dispatch = useAppDispatch();
   const startDate = useAppSelector((state) => state.user.startDate);
   const endDate = useAppSelector((state) => state.user.endDate);
+  const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
   const searchParams = useSearchParams()!;
   const pathname = usePathname();
   const router = useRouter();
@@ -36,19 +38,35 @@ const Goal = ({ goal }: { goal: GoalType }) => {
   }
 
   const getGoalandActivities = async () => {
+    if (goal?.id === selectedGoal?.id) return;
     console.log('startDate', startDate);
     console.log('endDate', endDate);
+    const now = moment();
+    const cstTimezone = 'America/Chicago';
+    const estTimezone = 'America/New_York';
+
+    // Convert to the beginning of the day in EST
+    const startOfToday = now.clone().tz(estTimezone).startOf('day');
+
+    // Convert to the end of the day in EST
+    const endOfToday = now.clone().tz(estTimezone).endOf('day');
+
+    // Format the dates as ISO strings
+    const startOfTodayISO = startOfToday.toISOString();
+    const endOfTodayISO = endOfToday.toISOString();
+
+    console.log('Start of today (EST):', startOfTodayISO);
+    console.log('End of today (EST):', endOfTodayISO);
+
     const res = await fetch(
       `${getBaseUrl()}/api/goal?goalId=${
         goal?.id
-      }&startDate=${startDate}&endDate=${endDate}`
+      }&startDate=${startOfToday}&endDate=${endOfToday}`
     );
     const goalResult = await res.json();
     dispatch(setSelectedGoal(goalResult));
     console.log('the goal fetch was', goal);
   };
-
-
 
   return (
     <div className='flex items-center'>

@@ -9,6 +9,7 @@ import BarChart from '../components/BarChart';
 import ChartLine from '../components/ChartLine';
 import DatePicker from '../components/DatePicker';
 import PieChart from '../components/PieChart';
+import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -43,7 +44,7 @@ const Dashboard = () => {
         {selectedGoal && <Activities goal={selectedGoal} />}
         {selectedGoal && <ChartLine goal={selectedGoal} />}
         {selectedGoal && <PieChart goal={selectedGoal} />}
-        {selectedGoal && <BarChart goal={selectedGoal} />}
+        {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
       </section>
     </div>
   );

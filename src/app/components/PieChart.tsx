@@ -1,13 +1,17 @@
 'use client';
 import { ResponsivePie } from '@nivo/pie';
 import React from 'react';
+import moment from 'moment-timezone';
 
 const PieChart = ({ goal }: any) => {
-  const currentDate = new Date().toISOString().split('T')[0]; // gets current date in 'YYYY-MM-DD' format
+  const currentDate = moment().tz('America/Chicago');
+  const todayEST = currentDate.clone().tz('America/New_York').startOf('day');
 
   const dailyActivities = goal.activities.filter((activity) => {
-    return activity.createdAt.split('T')[0] === currentDate;
+    const activityDate = moment(activity.createdAt).tz('America/New_York').startOf('day');
+    return activityDate.isSame(todayEST, 'day');
   });
+
   const activityGroups = dailyActivities.reduce((acc, activity) => {
     if (!acc[activity.name]) {
       acc[activity.name] = {
@@ -39,8 +43,8 @@ const PieChart = ({ goal }: any) => {
       value: remainingPercentage,
     });
   }
+
   console.log('groupedActivities', groupedActivities);
-  // const chartData = { id: goal.name, data: dataPoints };
 
   return (
     <div className='h-[400px]'>
@@ -59,7 +63,6 @@ const PieChart = ({ goal }: any) => {
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-
       />
       {remainingPercentage === 0 && (
         <div>

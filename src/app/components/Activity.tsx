@@ -3,6 +3,8 @@
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import React, { useState } from 'react';
 import DeleteActivity from './DeleteActivity';
+import moment from 'moment-timezone';
+
 const Activity = ({ activity }: any) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
 
@@ -14,34 +16,13 @@ const Activity = ({ activity }: any) => {
     setIsDeleteActivityOpen(false);
   }
 
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  const todayEST = new Date(
-    now.toLocaleString('en-US', { timeZone: 'America/New_York' })
-  )
-    .toISOString()
-    .split('T')[0];
+  const now = moment().tz('America/Chicago');
+
   const isToday = (date: any) => {
-    const activityDate = new Date(
-      new Date(date).toLocaleString('en-US', { timeZone: 'America/New_York' })
-    )
-      .toISOString()
-      .split('T')[0];
+    const activityDate = moment(date).tz('America/New_York');
+    const todayEST = now.clone().tz('America/New_York').startOf('day');
 
-    console.log('activityDate', activityDate);
-    console.log('todayEST', todayEST);
-
-    console.log('now', now);
-    console.log('now.toLocaleString()', now.toLocaleString());
-    console.log('todayEST', todayEST);
-    console.log('date', date);
-    console.log('new Date(date)', new Date(date));
-    console.log(
-      'new Date(date).toLocaleString()',
-      new Date(date).toLocaleString()
-    );
-
-    return activityDate === todayEST;
+    return activityDate.isSameOrAfter(todayEST, 'day');
   };
 
   return (
@@ -56,7 +37,7 @@ const Activity = ({ activity }: any) => {
       <div className='hidden sm:flex sm:flex-col sm:items-end'>
         {activity.createdAt && (
           <time dateTime={activity.createdAt}>
-            {new Date(activity.createdAt).toLocaleString()}
+            {moment(activity.createdAt).tz('America/New_York').format('lll')}
           </time>
         )}
         {activity?.percentage && (
@@ -65,7 +46,6 @@ const Activity = ({ activity }: any) => {
           </p>
         )}
         <p className='text-sm font-semibold leading-6 text-gray-900'>
-          {/* No doesnt show yet */}
           Aligns with goal: {activity?.alignsWithGoal ? 'Yes' : 'No'}
         </p>
       </div>
