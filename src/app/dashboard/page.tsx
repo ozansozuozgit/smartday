@@ -40,10 +40,10 @@ const Dashboard = () => {
     const estTimezone = 'America/New_York';
 
     // Convert to the beginning of the day in EST
-    const startOfToday = now.clone().tz(estTimezone).startOf('day');
+    const startOfToday = now.clone().tz(estTimezone).startOf('day').format();
 
     // Convert to the end of the day in EST
-    const endOfToday = now.clone().tz(estTimezone).endOf('day');
+    const endOfToday = now.clone().tz(estTimezone).endOf('day').format();
     dispatch(setStartDate(startOfToday));
     dispatch(setEndDate(endOfToday));
   }, []);
