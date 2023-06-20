@@ -23,3 +23,9 @@ export const isToday = (date: any) => {
 
   return activityDate.isSameOrAfter(todayEST, 'day');
 };
+
+// export the current time in the EST timezone
+export const nowInEst = () => {
+  return moment().tz(estTimezone).toISOString();
+}
+

@@ -14,6 +14,7 @@ import '../calendar.css';
 import { useCalendarChange } from '@/src/hooks/useCalendarChange';
 import React from 'react';
 
+// TODO: Adjust the maxDate to be the EST time not System time
 const DatePicker = () => {
   const { value, handleCalendarChange } = useCalendarChange();
 

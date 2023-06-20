@@ -15,7 +15,7 @@ const Activities = ({ goal }: any) => {
         },
       }
     );
-    const activities = await allActivities.json();
+    const activities = await allActivities?.json() ?? {};
     console.log('activities', activities);
   };
   return (
