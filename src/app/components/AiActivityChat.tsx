@@ -8,6 +8,7 @@ export default function AiActivityChat({ goal }: any) {
   //   const message = 'Hello, Please help me';
 
   const fetchChatbotResponse = () => {
+    if(goal.activities.length === 0) return;
     setMessages([]);
     const message = `My goal is:${goal?.name} and I am ${
       goal?.percentage
@@ -68,23 +69,6 @@ export default function AiActivityChat({ goal }: any) {
   
   return (
     <div className='flex flex-col w-full max-w-md py-24 mx-auto stretch'>
-      {/* {messages.length > 0
-        ? messages.map((m) => (
-            <div key={m.id} className='whitespace-pre-wrap'>
-              {m.role === 'user' ? 'User: ' : 'AI: '}
-              {m.content}
-            </div>
-          ))
-        : null}
-
-      <form onSubmit={handleSubmit}>
-        <input
-          className='fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl'
-          value={input}
-          placeholder='Say something...'
-          onChange={handleInputChange}
-        />
-      </form> */}
       <p>{messages}</p>
     </div>
   );
