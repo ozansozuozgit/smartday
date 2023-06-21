@@ -17,6 +17,7 @@ import CalendarChartSingle from '../components/CalendarChartSingle';
 import ChartLine from '../components/ChartLine';
 import DatePicker from '../components/DatePicker';
 import PieChart from '../components/PieChart';
+import AiActivityChat from '../components/AiActivityChat';
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -68,6 +69,8 @@ const Dashboard = () => {
         {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
         {session?.user && !selectedGoal && <CalendarChart />}
         {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
+        {selectedGoal && <AiActivityChat goal={selectedGoal} />}
+
       </section>
     </div>
   );
