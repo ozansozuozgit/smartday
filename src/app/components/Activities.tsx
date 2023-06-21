@@ -16,7 +16,7 @@ const Activities = ({ goal }: any) => {
       }
     );
     const activities = await allActivities?.json() ?? {};
-    console.log('activities', activities);
+    // console.log('activities', activities);
   };
   return (
     <div className='p-12 flex flex-col max-w-lg'>
