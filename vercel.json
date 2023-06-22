@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cron/set-completed-goals",
+      "path": "/api/goals",
       "schedule": "0 5 * * *"
     }
   ]
