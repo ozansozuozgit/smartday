@@ -7,7 +7,7 @@ import AddActivity from './AddActivity';
 const Activities = ({ goal }: any) => {
   const addGoalToUser = async () => {
     const allActivities = await fetch(
-      `${getBaseUrl()}/api/cron/set-completed-goals`,
+      `/api/cron`,
       {
         method: 'GET',
         headers: {
