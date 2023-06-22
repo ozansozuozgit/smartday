@@ -1,8 +1,8 @@
 {
   "crons": [
     {
-      "path": "/src/app/api/cron/set-completed-goals",
-      "schedule": "*/5 * * * *"
+      "path": "/api/cron/set-completed-goals",
+      "schedule": "*/10 * * * *"
     }
   ]
 }
