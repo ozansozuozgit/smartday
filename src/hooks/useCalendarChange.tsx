@@ -32,13 +32,18 @@ export const useCalendarChange = () => {
   };
 
   const handleCalendarChange = (newValue: Date | Date[]) => {
+    const cstTimezone = 'America/Chicago';
+    const estTimezone = 'America/New_York';
+
+    const timezone = cstTimezone;
+
     const [startDate, endDate] = newValue as Date[];
 
     const startISO = moment(startDate).toISOString();
     const endISO = moment(endDate).toISOString();
 
-    const startMoment = moment(startISO).tz('America/New_York').startOf('day');
-    const endMoment = moment(endISO).tz('America/New_York').endOf('day');
+    const startMoment = moment(startISO).tz(timezone).startOf('day');
+    const endMoment = moment(endISO).tz(timezone).endOf('day');
 
     dispatch(setStartDate(startMoment.toISOString()));
     dispatch(setEndDate(endMoment.toISOString()));

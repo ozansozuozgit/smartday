@@ -39,12 +39,13 @@ const Dashboard = () => {
     const now = moment();
     const cstTimezone = 'America/Chicago';
     const estTimezone = 'America/New_York';
+    const timezone = cstTimezone;
 
     // Convert to the beginning of the day in EST
-    const startOfToday = now.clone().tz(estTimezone).startOf('day').format();
+    const startOfToday = now.clone().tz(timezone).startOf('day').format();
 
     // Convert to the end of the day in EST
-    const endOfToday = now.clone().tz(estTimezone).endOf('day').format();
+    const endOfToday = now.clone().tz(timezone).endOf('day').format();
     dispatch(setStartDate(startOfToday));
     dispatch(setEndDate(endOfToday));
   }, []);

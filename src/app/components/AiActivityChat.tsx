@@ -1,6 +1,8 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
+import { isToday } from '@/src/utils/timeHelpers';
 import { useEffect, useState } from 'react';
+
 export default function AiActivityChat({ goal }: any) {
   console.log('goal', goal);
   console.log('activities', goal?.activities);
@@ -10,19 +12,36 @@ export default function AiActivityChat({ goal }: any) {
   const fetchChatbotResponse = () => {
     setMessages([]);
     if (goal.activities.length === 0) return;
+    const goalName = goal?.name || 'N/A';
+    const goalPercentage = goal?.percentage || 0;
+    const goalActivities = goal?.activities || [];
+    const todayActivities = goalActivities.filter((activity:any) => isToday(activity.createdAt));
+    console.log('todayActivities', todayActivities)
+  
+    const allActivities = todayActivities.map((activity:any) => activity.name).join(', ');
 
-    const message = `My goal is:${goal?.name} and I am ${
-      goal?.percentage
-    }% complete. My daily activities to achieve this goal are: ${goal?.activities
-      ?.map((activity: any) => activity?.name)
-      .join(
-        ', '
-      )}. Out of these activities, the ones that align with this goal are ${goal?.activities
-      ?.filter((activity: any) => activity?.alignsWithGoal)
-      .map((activity: any) => activity?.name)
-      .join(
-        ', '
-      )}.Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`;
+    console.log('allActivities', allActivities)
+
+    if(allActivities.length === 0) return;
+
+    const alignedActivities = todayActivities
+      .filter((activity:any) => activity.alignsWithGoal)
+      .map((activity:any) => activity.name)
+      .join(', ');
+    const unalignedActivities = todayActivities
+      .filter((activity:any) => !activity.alignsWithGoal)
+      .map((activity:any) => activity.name)
+      .join(', ');
+
+    const message = `My daily goal is: ${goalName} and I am ${goalPercentage}% complete with my daily goal. My daily activities towards this goal so far have been: ${allActivities}.${
+      alignedActivities
+        ? `Out of these activities, the ones that align with this goal are: ${alignedActivities}.`
+        : ``
+    } ${
+      unalignedActivities
+        ? `The activities that dont align with my daily goal are: ${unalignedActivities}.`
+        : ''
+    } Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`;
 
     console.log('message', message);
     fetch(`${getBaseUrl()}/api/chat`, {

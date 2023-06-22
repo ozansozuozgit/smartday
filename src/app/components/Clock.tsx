@@ -1,17 +1,21 @@
 'use client';
 import moment from 'moment-timezone';
 import React, { useEffect, useState } from 'react';
-
 const Clock = () => {
+  const cstTimezone = 'America/Chicago';
+  const estTimezone = 'America/New_York';
+
+  const timezone = cstTimezone;
+
   const [currentTime, setCurrentTime] = useState(
-    moment().tz('America/New_York')
+    moment().tz(timezone)
   );
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     setHydrated(true);
     const timer = setInterval(() => {
-      setCurrentTime(moment().tz('America/New_York'));
+      setCurrentTime(moment().tz(timezone));
     }, 1000);
 
     return () => {

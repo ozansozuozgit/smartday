@@ -11,12 +11,15 @@ const PieChart = ({ goal }: any) => {
       </div>
     );
   }
-  const currentDate = moment().tz('America/Chicago');
-  const todayEST = currentDate.clone().tz('America/New_York').startOf('day');
+  const cstTimezone = 'America/Chicago';
+  const estTimezone = 'America/New_York';
+
+  const timezone = cstTimezone;
+  const todayEST = moment().tz(timezone).startOf('day');
 
   const dailyActivities = goal?.activities.filter((activity: any) => {
     const activityDate = moment(activity.createdAt)
-      .tz('America/New_York')
+      .tz(timezone)
       .startOf('day');
     return activityDate.isSame(todayEST, 'day');
   });
