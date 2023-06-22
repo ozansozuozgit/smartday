@@ -8,8 +8,9 @@ export default function AiActivityChat({ goal }: any) {
   //   const message = 'Hello, Please help me';
 
   const fetchChatbotResponse = () => {
-    if(goal.activities.length === 0) return;
     setMessages([]);
+    if (goal.activities.length === 0) return;
+
     const message = `My goal is:${goal?.name} and I am ${
       goal?.percentage
     }% complete. My daily activities to achieve this goal are: ${goal?.activities
@@ -19,7 +20,9 @@ export default function AiActivityChat({ goal }: any) {
       )}. Out of these activities, the ones that align with this goal are ${goal?.activities
       ?.filter((activity: any) => activity?.alignsWithGoal)
       .map((activity: any) => activity?.name)
-      .join(', ')}.Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`;
+      .join(
+        ', '
+      )}.Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`;
 
     console.log('message', message);
     fetch(`${getBaseUrl()}/api/chat`, {
@@ -66,7 +69,7 @@ export default function AiActivityChat({ goal }: any) {
     if (!goal || !goal.activities) return;
     fetchChatbotResponse();
   }, [goal]);
-  
+
   return (
     <div className='flex flex-col w-full max-w-md py-24 mx-auto stretch'>
       <p>{messages}</p>

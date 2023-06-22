@@ -27,11 +27,11 @@ export async function POST(req: Request) {
       {
         role: 'system',
         content:
-          'As a knowledgeable and experienced life coach, you have the expertise to guide your clients towards their goals. A user has reached out to you seeking guidance. They have a specific goal in mind and have been engaging in various activities. Assess their progress and provide personalized suggestions to enhance their journey. I would appreciate brief answers to my inquiries. Please use a maximum of 100 words per response.',
+          'As a knowledgeable and experienced life coach, you have the expertise to guide your clients towards their goals. A user has reached out to you seeking guidance. They have a specific goal in mind and have been engaging in various activities. Assess their progress and provide personalized suggestions to enhance their journey. I would appreciate brief answers to my inquiries. Please use a maximum of 100 words.',
       },
       { role: 'user', content: message },
     ],
-    max_tokens: 100,
+    max_tokens: 200,
     temperature: 0.5,
     top_p: 0.5,
     frequency_penalty: 1,
