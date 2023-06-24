@@ -1,5 +1,4 @@
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
 import { useParams } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -7,7 +6,6 @@ import { currentUser } from '@clerk/nextjs';
 
 export async function GET(req: NextRequest) {
   try {
-    // const session: any = await getServerSession(authOptions);
 
     const startDate = req.nextUrl.searchParams.get('startDate') as string;
     const endDate = req.nextUrl.searchParams.get('endDate') as string;

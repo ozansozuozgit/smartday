@@ -1,19 +1,7 @@
 import { prisma } from '@/lib/prisma';
-import { getServerSession } from 'next-auth';
 import { useParams } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
-// export async function GET(req: NextRequest) {
-//   const session = await getServerSession(authOptions);
-
-//   const allGoalsFromUser = await prisma.activity.findMany({
-//     where: { userId: session?.user?.id, goalId: req.nextUrl.query.goalId },
-//   });
-
-//   // const allGoalsFromUser = res.json();
-
-//   return NextResponse.json(allGoalsFromUser);
-// }
 interface ActivityData {
   name: string;
   percentage: number;
