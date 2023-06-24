@@ -26,33 +26,8 @@ import DatePicker from '../components/DatePicker';
 import PieChart from '../components/PieChart';
 
 const Dashboard = () => {
-  // const { data: session, status } = useSession();
-  // const { isSignedIn, user } = useUser();
-  // const { isLoaded, userId, sessionId, getToken } = useAuth();
-
-  const router = useRouter();
-
   const dispatch = useAppDispatch();
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
-
-  useEffect(() => {
-    router.refresh();
-  }, []);
-
-  // console.log('user', user);
-  // useEffect(() => {
-  //   if (!session) return;
-  //   // @ts-ignore
-  //   dispatch(setUserAuth(session.user));
-  // }, [session]);
-
-  // useEffect(() => {
-  //   console.log('user', user);
-  // }, [isLoaded, user]);
-
-  // if (status === 'unauthenticated') {
-  //   router.push(`/`);
-  // }
 
   useEffect(() => {
     const now = moment();
@@ -71,23 +46,18 @@ const Dashboard = () => {
 
   return (
     <div>
-      <section className='bg-gray'>
+      <section className='bg-gray pl-5 pt-[50px] font-montserrat'>
         {selectedGoal && (
-          <div className='flex items-center justify-center'>
-            <div className='flex flex-col items-center justify-center w-1/2 p-12 bg-white rounded-lg shadow-lg'>
-              <h1 className='text-2xl font-bold'>Goal: {selectedGoal?.name}</h1>
-              <p className='text-xl font-bold'>
-                Percentage: {selectedGoal?.percentage}%
-              </p>
-            </div>
-          </div>
+          <h3 className='text-xl font-bold'>
+            {selectedGoal?.name}
+          </h3>
         )}
         <DatePicker />
         {selectedGoal && <Activities goal={selectedGoal} />}
         {selectedGoal && <ChartLine goal={selectedGoal} />}
         {selectedGoal && <PieChart goal={selectedGoal} />}
         {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
-        {/* {session?.user && !selectedGoal && <CalendarChart />} */}
+        {!selectedGoal && <CalendarChart />}
         {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
         {selectedGoal && <AiActivityChat goal={selectedGoal} />}
       </section>

@@ -9,7 +9,6 @@ const generateRandomColor = () => {
 };
 
 const ChartLine = ({ goal }: any) => {
-
   if (!goal.activities || goal.activities.length === 0) {
     return (
       <div>
@@ -73,6 +72,7 @@ const ChartLine = ({ goal }: any) => {
         useMesh={true}
         enablePointLabel={true}
         pointLabelYOffset={-12}
+        curve='natural'
         tooltip={({ point }: any) => (
           <strong>
             {moment(point.data.xFormatted).format('HH:mm:ss')}

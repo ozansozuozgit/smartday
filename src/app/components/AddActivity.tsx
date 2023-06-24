@@ -11,7 +11,6 @@ import { GoalType } from '../../../types/types';
 import Categories from './Categories';
 
 const AddActivity = ({ goal }: any) => {
-
   const [activityName, setActivityName] = useState<string>('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
   const [percentage, setPercentage] = useState<number>(0);
@@ -115,7 +114,7 @@ const AddActivity = ({ goal }: any) => {
                         type='text'
                         name='price'
                         id='price'
-                        className='block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                        className='block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:text-md sm:leading-6'
                         value={activityName}
                         onChange={(e) => setActivityName(e.target.value)}
                         placeholder='100k per month'

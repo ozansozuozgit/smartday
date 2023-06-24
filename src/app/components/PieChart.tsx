@@ -18,9 +18,7 @@ const PieChart = ({ goal }: any) => {
   const todayEST = moment().tz(timezone).startOf('day');
 
   const dailyActivities = goal?.activities.filter((activity: any) => {
-    const activityDate = moment(activity.createdAt)
-      .tz(timezone)
-      .startOf('day');
+    const activityDate = moment(activity.createdAt).tz(timezone).startOf('day');
     return activityDate.isSame(todayEST, 'day');
   });
 
@@ -75,6 +73,7 @@ const PieChart = ({ goal }: any) => {
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
+        arcLabel={({ data }: any) => `${data.value}%`}
       />
       {remainingPercentage === 0 && (
         <div>
