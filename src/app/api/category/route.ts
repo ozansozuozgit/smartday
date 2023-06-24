@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { useParams } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/route';
+
 import { currentUser } from '@clerk/nextjs';
 
 // export async function GET(req: NextRequest) {
@@ -19,12 +19,11 @@ import { currentUser } from '@clerk/nextjs';
 // }
 
 export async function POST(req: NextRequest) {
-  
   const { categoryName } = await req.json();
   // const session: any = await getServerSession(authOptions);
   const user = await currentUser();
-  console.log('user', user)
-  if (!user) throw new Error("Unauthorized")
+  console.log('user', user);
+  if (!user) throw new Error('Unauthorized');
   const newCategory = await prisma.category.create({
     data: {
       name: categoryName, // replace with the actual activity name

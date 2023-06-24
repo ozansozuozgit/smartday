@@ -21,7 +21,6 @@
     "@nivo/line": "^0.83.0",
     "@nivo/pie": "^0.83.0",
     "@prisma/client": "^4.15.0",
-    "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-slot": "^1.0.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react": "18.2.8",
