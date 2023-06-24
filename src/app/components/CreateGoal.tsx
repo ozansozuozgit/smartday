@@ -23,7 +23,7 @@ const CreateGoal = () => {
     if (!goalName) return;
 
     try {
-      const res = await fetch(`${getBaseUrl()}/api/goals`, {
+      const res = await fetch(`${getBaseUrl()}/api/goal`, {
         method: 'POST',
         body: JSON.stringify({ goalName }),
         headers: {

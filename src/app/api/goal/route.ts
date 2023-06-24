@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { useParams } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
+import { currentUser } from '@clerk/nextjs';
 
 export async function GET(req: NextRequest) {
   try {
@@ -50,6 +51,30 @@ export async function GET(req: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+export async function POST(req: Request) {
+  // const session: any = await getServerSession(authOptions);
+  // console.log('session', session);
+  // DO NOT CONSOLE LOG THE REQUEST WITH AWAIT REQUEST.JSON() IN IT
+  // IT WILL BREAK THE REQUEST AND YOU WILL GET A 500 ERROR BECAUSE YOU CANNOT READ THE BODY TWICE
+  const user = await currentUser();
+  console.log('user', user)
+  if (!user) throw new Error("Unauthorized")
+
+  const { goalName } = await req.json();
+
+  console.log('goalName', goalName);
+
+  const newGoal = await prisma.goal.create({
+    data: {
+      name: goalName,
+      percentage: 0,
+      userId: user?.id as any,
+      activities:{},
+    },
+  });
+  return NextResponse.json(newGoal);
 }
 
 export async function PATCH(req: NextRequest) {

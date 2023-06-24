@@ -3,12 +3,17 @@ import { getServerSession } from 'next-auth';
 import { useParams } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
+import { currentUser } from '@clerk/nextjs';
 
 export async function GET(req: NextRequest) {
   const session: any = await getServerSession(authOptions);
 
+  const user = await currentUser();
+  console.log('user', user)
+  if (!user) throw new Error("Unauthorized")
+  
   const allCategoriesFromUser = await prisma.category.findMany({
-    where: { userId: session?.user?.id },
+    where: { userId: user?.id as any },
     orderBy: { createdAt: 'desc' },
   });
 

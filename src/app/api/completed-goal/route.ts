@@ -3,16 +3,19 @@ import { getServerSession } from 'next-auth';
 import { useParams } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/route';
+import { currentUser } from '@clerk/nextjs';
 
 export async function GET(req: NextRequest) {
   try {
-    const session: any = await getServerSession(authOptions);
+    // const session: any = await getServerSession(authOptions);
 
     const startDate = req.nextUrl.searchParams.get('startDate') as string;
     const endDate = req.nextUrl.searchParams.get('endDate') as string;
     const goalId = req.nextUrl.searchParams.get('goalId') as string;
-
-    if (!session?.user?.id || !startDate || !endDate) {
+    const user = await currentUser();
+    console.log('user', user)
+    if (!user) throw new Error("Unauthorized")
+    if (!user?.id || !startDate || !endDate) {
       return NextResponse.json(
         { error: 'Invalid parameters' },
         { status: 400 }
@@ -21,7 +24,7 @@ export async function GET(req: NextRequest) {
 
     const completedGoals = await prisma.completedGoal.findMany({
         where: {
-          userId: session?.user?.id,
+          userId: user?.id,
           completedAt: {
             gte: new Date(startDate),
             lte: new Date(endDate),

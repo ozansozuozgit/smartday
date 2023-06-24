@@ -5,35 +5,54 @@ import {
   setUserAuth,
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
-import { useSession } from 'next-auth/react';
+// import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import Activities from '../components/Activities';
 // import BarChart from '../components/BarChart';
+// import {
+//   ClerkProvider,
+//   SignedOut,
+//   useAuth,
+//   useUser,
+// } from '@clerk/nextjs';
 import moment from 'moment-timezone';
+import AiActivityChat from '../components/AiActivityChat';
 import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
 import CalendarChart from '../components/CalendarChart';
 import CalendarChartSingle from '../components/CalendarChartSingle';
 import ChartLine from '../components/ChartLine';
 import DatePicker from '../components/DatePicker';
 import PieChart from '../components/PieChart';
-import AiActivityChat from '../components/AiActivityChat';
+
 const Dashboard = () => {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
+  // const { isSignedIn, user } = useUser();
+  // const { isLoaded, userId, sessionId, getToken } = useAuth();
+
   const router = useRouter();
 
   const dispatch = useAppDispatch();
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
 
   useEffect(() => {
-    if (!session) return;
-    // @ts-ignore
-    dispatch(setUserAuth(session.user));
-  }, [session]);
+    router.refresh();
+  }, []);
 
-  if (status === 'unauthenticated') {
-    router.push(`/`);
-  }
+  // console.log('user', user);
+  // useEffect(() => {
+  //   if (!session) return;
+  //   // @ts-ignore
+  //   dispatch(setUserAuth(session.user));
+  // }, [session]);
+
+  // useEffect(() => {
+  //   console.log('user', user);
+  // }, [isLoaded, user]);
+
+  // if (status === 'unauthenticated') {
+  //   router.push(`/`);
+  // }
 
   useEffect(() => {
     const now = moment();
@@ -68,10 +87,9 @@ const Dashboard = () => {
         {selectedGoal && <ChartLine goal={selectedGoal} />}
         {selectedGoal && <PieChart goal={selectedGoal} />}
         {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
-        {session?.user && !selectedGoal && <CalendarChart />}
+        {/* {session?.user && !selectedGoal && <CalendarChart />} */}
         {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
         {selectedGoal && <AiActivityChat goal={selectedGoal} />}
-
       </section>
     </div>
   );

@@ -1,16 +1,24 @@
 'use client';
 
 // import { VercelLogo } from '#/ui/vercel-logo';
-import { useSession } from 'next-auth/react';
+import {
+  ClerkProvider,
+  RedirectToSignIn,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
+// import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import SignOutButton from './SignOutButton';
+
 export default function NavAuth() {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   // console.log(session, status);
 
-  if (status === 'loading') {
-    return <>...</>;
-  }
+  // if (status === 'loading') {
+  //   return <>...</>;
+  // }
 
   return (
     <div
@@ -18,17 +26,23 @@ export default function NavAuth() {
     >
       {status === 'authenticated' && (
         <div className='flex justify-around items-center	'>
-          <Image
+          {/* <Image
             src={session?.user?.image ?? 'https://via.placeholder.com/32'}
             width={32}
             height={32}
             alt='Your Name'
             className='rounded-full'
-          />
-          <span>{session?.user?.name ?? 'Unknown'}</span>
-          <SignOutButton />
+          /> */}
+          {/* <span>{session?.user?.name ?? 'Unknown'}</span> */}
+          {/* <SignedIn> */}
+          {/* Signed in users will see their user profile */}
+          {/* <UserButton /> */}
+          {/* </SignedIn>{' '} */}
         </div>
       )}
+      <SignedIn />
+      <UserButton afterSignOutUrl='/' showName />
+      <SignedIn />
     </div>
   );
 }
