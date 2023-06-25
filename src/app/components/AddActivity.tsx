@@ -15,7 +15,7 @@ import Categories from './Categories';
 const AddActivity = ({ goal }: any) => {
   const [activityName, setActivityName] = useState<string>('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
-  const [percentage, setPercentage] = useState<number>(0);
+  const [percentage, setPercentage] = useState<number | null>(0);
   const [alignsWithGoal, setAlignsWithGoal] = useState<boolean>(false);
   let [isOpen, setIsOpen] = useState(false);
 
@@ -33,12 +33,6 @@ const AddActivity = ({ goal }: any) => {
   function openModal() {
     setIsOpen(true);
   }
-
-  useEffect(() => {
-    setActivityName('');
-    setPercentage(0);
-    setAlignsWithGoal(false);
-  }, []);
 
   const addActivity = async () => {
     if (!activityName || !percentage) return;
@@ -64,16 +58,18 @@ const AddActivity = ({ goal }: any) => {
       dispatch(updateSelectedGoalPercentage(newPercentage));
       dispatch(addActivityToSelectedGoal(activity));
       dispatch(setActivityFlag(!activityFlag));
-
+      setActivityName('');
+      setPercentage(0);
+      setAlignsWithGoal(false);
       closeModal();
     } catch (err) {
       console.log(err);
     }
   };
   return (
-    <div >
+    <div>
       <div
-        className='flex items-center justify-around rounded-md bg-blue px-2 py-2 gap-2  text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer w-full'
+        className='flex items-center justify-around rounded-md bg-teal px-2 py-2 gap-2  text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer w-full'
         onClick={openModal}
         style={{
           opacity: goal?.percentage === 100 || !goal ? 0.5 : 1,
@@ -117,16 +113,16 @@ const AddActivity = ({ goal }: any) => {
                 <Dialog.Panel className='w-full max-w-md mx-auto mt-4 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
-                    className='text-2xl font-medium leading-6 text-gray-900'
+                    className='text-xl font-roboto font-medium '
                   >
                     Enter Activity
                   </Dialog.Title>
-                  <div className='mt-2'>
+                  <div className='mt-5 font-open_sans'>
                     <input
                       type='text'
                       name='price'
                       id='price'
-                      className='block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:text-md sm:leading-6'
+                      className='block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg sm:text-md sm:leading-6 my-5'
                       value={activityName}
                       onChange={(e) => setActivityName(e.target.value)}
                       placeholder='100k per month'
@@ -140,12 +136,30 @@ const AddActivity = ({ goal }: any) => {
                         type='text'
                         name='perentage'
                         id='perentage'
-                        className='block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-                        value={percentage}
-                        onChange={(e) => setPercentage(Number(e.target.value))}
+                        className='block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg sm:text-md sm:leading-6 my-5'
+                        value={percentage ?? 0}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          // Only allow numbers (integer or decimal)
+                          if (/^\d*\.?\d*$/.test(value)) {
+                            const inputPercentage = Number(value);
+                            const maxPercentage = 100 - (goal?.percentage ?? 0);
+                            // Limit the input value to be between 0 and maxPercentage
+                            const clampedPercentage = Math.min(
+                              Math.max(inputPercentage, 0),
+                              maxPercentage
+                            );
+                            setPercentage(clampedPercentage);
+                          }
+                        }}
                         placeholder='Percentage of your day'
                       />
-                      <span>{goal?.percentage}/100%</span>
+                      <span className='text-lg w-[70%]'>
+                        Remaining:{' '}
+                        <span className='text-blue font-semibold'>
+                          {100 - goal?.percentage}%
+                        </span>
+                      </span>
                     </div>
                   </div>
                   <fieldset>
@@ -158,12 +172,12 @@ const AddActivity = ({ goal }: any) => {
                             aria-describedby='comments-description'
                             name='comments'
                             type='checkbox'
-                            className='h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                            className='h-8 w-8 rounded border-gray text-indigo-600 focus:ring-indigo-600'
                             checked={alignsWithGoal}
                             onChange={() => setAlignsWithGoal(!alignsWithGoal)}
                           />
                         </div>
-                        <div className='ml-3 text-sm leading-6'>
+                        <div className='ml-3 text-lg leading-6'>
                           <label
                             htmlFor='comments'
                             className='font-medium text-gray-900'

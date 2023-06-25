@@ -62,7 +62,7 @@ const Dashboard = () => {
     <div className='bg-gray'>
       <section className='m-auto w-[95%] pt-[50px] max-w-[2000px] '>
         <div className='flex flex-col gap-5 justify-center items-center my-12'>
-          <h2 className='text-4xl font-bold font-roboto text-center uppercase tracking-wide text-orange'>
+          <h2 className='text-4xl font-bold font-roboto text-center uppercase tracking-wide '>
             {selectedGoal ? (
               <>
                 <span>{selectedGoal.name}</span>

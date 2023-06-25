@@ -25,7 +25,7 @@ module.exports = {
         indigo: '#6655FE',
         orange: '#FE9945',
         pink: '#EB6FF9',
-        teal: '#12E4C2',
+        teal: '#0fb69b',
         blue:'#50BAFF'
       },
       fontFamily: {

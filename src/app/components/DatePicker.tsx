@@ -28,7 +28,7 @@ const DatePicker = () => {
   return (
     <div className='flex items-center justify-between w-full'>
       
-      <h3 className='text-sm font-semibold font-montserrat hidden 2xl:block'>
+      <h3 className='text-sm font-semibold font-roboto hidden 2xl:block'>
         {formattedStartDate} - {formattedEndDate}
       </h3>
       <Popover>

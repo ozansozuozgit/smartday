@@ -54,21 +54,25 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
         );
 
   return (
-    <div className='flex top-16 w-72'>
+    <div className='flex items-end  gap-2'>
       <label htmlFor='category' className='sr-only'>
         Select a category
       </label>
 
       <Combobox value={selected} onChange={setSelectedCategory}>
         <div className='relative mt-1'>
-          <div className='relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
+          <div className='relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
+            {query === '' && (
+              <div className='text-gray-500 text-sm'>Optional</div>
+            )}
             <Combobox.Input
-              className='w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0'
+              className='block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg sm:text-md sm:leading-6 '
               displayValue={(category: any) => category?.name}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder='Select a category (optional)'
+              placeholder='Select a category'
               id='category'
             />
+
             <Combobox.Button className='absolute inset-y-0 right-0 flex items-center pr-2'>
               <ChevronUpDownIcon
                 className='h-5 w-5 text-gray-400'
@@ -94,7 +98,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
                     key={category.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? 'bg-teal-600 text-black' : 'text-gray-900'
+                        active ? 'bg-blue text-white' : 'text-black'
                       }`
                     }
                     value={category}
