@@ -4,7 +4,7 @@ import { setSelectedGoal } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
 import { GoalType } from '@/types/types';
-import { XMarkIcon,ChartBarIcon, FlagIcon } from '@heroicons/react/20/solid';
+import { ChartBarIcon, FlagIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useCallback, useState } from 'react';
 import DeleteGoal from './DeleteGoal';
 
@@ -29,11 +29,13 @@ const Goal = ({ goal }: { goal: GoalType }) => {
     dispatch(setSelectedGoal(goalResult));
   }, [goal, selectedGoal, startDate, endDate, dispatch]);
 
-
   return (
-    <div className='flex items-center justify-between bg-white p-2 rounded-lg my-1 hover:bg-gray cursor-pointer'>
+    <div
+      className='flex items-center justify-between bg-white p-2 rounded-lg my-1 hover:bg-gray cursor-pointer'
+      onClick={getGoalandActivities}
+    >
       <FlagIcon className='h-4 w-4 text-orange' aria-hidden='true' />
-      <h2 onClick={getGoalandActivities} className='text-sm  cursor-pointer'>{goal.name}</h2>
+      <h2 className='text-sm  cursor-pointer'>{goal.name}</h2>
       <XMarkIcon
         className='h-6 w-6 text-red-500  hover:text-red-600'
         aria-hidden='true'

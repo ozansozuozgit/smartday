@@ -39,7 +39,7 @@ const ChartLine = ({ goal }: any) => {
   };
 
   const xAxisTickValues =
-    specificGoalChartData.data.length > 10
+    specificGoalChartData.data.length > 5
       ? specificGoalChartData.data.filter(
           (_: any, index: any) => index % 2 === 0
         )

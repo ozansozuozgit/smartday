@@ -71,9 +71,9 @@ const AddActivity = ({ goal }: any) => {
     }
   };
   return (
-    <div className='w-1/2'>
+    <div >
       <div
-        className='flex items-center justify-around rounded-md bg-blue px-2 py-2 gap-2  text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer w-full'
+        className='flex items-center justify-around rounded-md bg-blue px-2 py-2 gap-2  text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer w-full'
         onClick={openModal}
         style={{
           opacity: goal?.percentage === 100 || !goal ? 0.5 : 1,

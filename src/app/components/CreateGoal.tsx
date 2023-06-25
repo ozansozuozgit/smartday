@@ -45,13 +45,12 @@ const CreateGoal = () => {
   };
 
   return (
-    <div className='w-1/2'>
+    <div className=''>
       <div
-        className='flex items-center justify-around rounded-md bg-orange px-2 py-2 gap-2  text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer'
+        className='flex items-center justify-around rounded-md bg-orange px-6 py-2 gap-2  text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer'
         onClick={openModal}
       >
         <PlusIcon className='h-4 w-4 text-white' aria-hidden='true' />
-
         <span>New Goal</span>
       </div>
 

@@ -35,7 +35,7 @@ const Goals = ({ goals }: any) => {
     <div>
       <div className='flex items-center justify-between mb-5 gap-x-2'>
         <CreateGoal />
-        <AddActivity goal={selectedGoal}/>
+        {/* <AddActivity goal={selectedGoal}/> */}
       </div>
 
       {goals && goals.map((goal: any) => <Goal goal={goal} key={goal?.id} />)}

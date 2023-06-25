@@ -44,18 +44,40 @@ const Dashboard = () => {
     dispatch(setEndDate(endOfToday));
   }, []);
 
+  const getPercentageDescription = (percentage: number) => {
+    if (percentage < 25) {
+      return 'Keep pushing! You can do it!';
+    } else if (percentage < 50) {
+      return 'Great progress! Stay determined!';
+    } else if (percentage < 75) {
+      return 'You are getting closer! Keep going!';
+    } else if (percentage < 100) {
+      return 'Almost there! You are doing amazing!';
+    } else {
+      return 'Congratulations! Goal achieved!';
+    }
+  };
+
   return (
     <div className='bg-gray'>
       <section className='m-auto w-[95%] pt-[50px] max-w-[2000px] '>
-        <div className='flex flex-col gap-5'>
-          {/* <DatePicker /> */}
-          <div className='flex flex-col gap-5 justify-center items-center'>
-            <h2 className='text-[30px] font-bold font-roboto text-center uppercase tracking-wide'>
-              {selectedGoal ? selectedGoal?.name : 'Overall Progress'}
-            </h2>
-            {/* Percentage finished */}
-            {selectedGoal && (<h3 className='text-xl font-roboto'>{selectedGoal.percentage}/100</h3>)}
-          </div>
+        <div className='flex flex-col gap-5 justify-center items-center my-12'>
+          <h2 className='text-4xl font-bold font-roboto text-center uppercase tracking-wide text-orange'>
+            {selectedGoal ? (
+              <>
+                <span>{selectedGoal.name}</span>
+                <span className='border-b-2 border-pink'></span>
+              </>
+            ) : (
+              'Overall Progress'
+            )}
+          </h2>
+          {selectedGoal && (
+            <h3 className='text-2xl font-roboto'>
+              {selectedGoal.percentage}/100 -{' '}
+              {getPercentageDescription(selectedGoal.percentage)}
+            </h3>
+          )}
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 gap-[50px] 2xl:gap-y-[50px] place-items-center	'>
           {selectedGoal && <Activities goal={selectedGoal} />}
