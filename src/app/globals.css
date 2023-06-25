@@ -16,6 +16,11 @@
   }
 }
 
+.cl-userButtonBox {
+  display: flex;
+  justify-content: space-around;
+}
+
 @media (max-width: 1535px) {
   .sidebar-container {
     width: 50%; /* Half the size of the current sidebar */

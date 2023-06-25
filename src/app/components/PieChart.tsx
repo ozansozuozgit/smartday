@@ -116,16 +116,7 @@ const PieChart = ({ goal }: any) => {
           arcLabel={({ data }: any) => `${data.value}%`}
           colors={randomizeColors()}
         />
-        {remainingPercentage === 0 && (
-          <div>
-            <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6'>
-              Congratulations!
-            </h2>
-            <p className='text-sm sm:text-base md:text-lg'>
-              You've completed 100% of your activities for today! Great job!
-            </p>
-          </div>
-        )}
+  
       </div>
     </div>
   );
