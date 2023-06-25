@@ -11,11 +11,14 @@ const generateRandomColor = () => {
 const ChartLine = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div>
-        <h3>No activities available</h3>
+      <div className='p-6 h-[500px] flex flex-col max-w-full max-h-[500px] bg-white rounded-xl shadow-md items-center justify-center '>
+        <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+          No Activities
+        </h3>
       </div>
     );
   }
+
   const formattedActivities = goal?.activities?.map((activity: any) => ({
     ...activity,
     createdAt: moment(activity.createdAt).format('YYYY-MM-DDTHH:mm:ss'),
@@ -44,9 +47,9 @@ const ChartLine = ({ goal }: any) => {
 
   return (
     <div className='p-6 h-[500px] flex flex-col max-w-full max-h-[500px] bg-white rounded-xl shadow-md '>
-    <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
-      Activity Progress Over Time
-    </h3>
+      <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+        Activity Progress Over Time
+      </h3>
       <ResponsiveLine
         data={[specificGoalChartData]}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
