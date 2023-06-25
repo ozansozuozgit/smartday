@@ -9,14 +9,14 @@ datasource db {
 
 model Activity {
   id             String    @id @default(cuid())
-  name           String 
-  percentage     Float 
-  goalId         String 
+  name           String
+  percentage     Float
+  goalId         String
   goal           Goal      @relation(fields: [goalId], references: [id])
-  categoryId     String? 
+  categoryId     String?
   category       Category? @relation(fields: [categoryId], references: [id])
   alignsWithGoal Boolean   @default(false)
-  createdAt      DateTime  @default(now()) 
+  createdAt      DateTime  @default(now())
   updatedAt      DateTime? @updatedAt
 }
 
@@ -30,22 +30,31 @@ model Category {
 
 model Goal {
   id         String     @id @default(cuid())
-  name       String 
-  percentage Float? 
-  createdAt  DateTime   @default(now()) 
-  userId     String 
-  activities Activity[] 
+  name       String
+  percentage Float?
+  createdAt  DateTime   @default(now())
+  userId     String
+  activities Activity[]
   updatedAt  DateTime?  @updatedAt
-  deletedAt  DateTime? 
+  deletedAt  DateTime?
 
   CompletedGoal CompletedGoal[]
+  AiMessage     AiMessage[]
 }
 
 model CompletedGoal {
   id          String   @id @default(cuid())
-  goalId      String 
+  goalId      String
   goal        Goal     @relation(fields: [goalId], references: [id])
-  completedAt DateTime @default(now()) 
+  completedAt DateTime @default(now())
   userId      String
-  name        String?   @default("") 
+  name        String?  @default("")
+}
+
+model AiMessage {
+  id        String   @id @default(cuid())
+  message   String
+  goalId    String
+  goal      Goal     @relation(fields: [goalId], references: [id])
+  createdAt DateTime @default(now())
 }

@@ -8,7 +8,7 @@ const Activity = ({ activity }: any) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
 
   return (
-    <li key={activity.id} className='flex justify-between gap-x-4 py-3'>
+    <li key={activity.id} className='flex justify-between gap-x-4 py-3 '>
 
       <div className='flex-grow'>
         <p className='text-sm sm:text-lg font-medium leading-6 text-gray-900 overflow-ellipsis overflow-hidden'>

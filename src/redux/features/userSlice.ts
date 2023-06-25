@@ -12,6 +12,7 @@ type UserState = {
   selectedGoal: any;
   startDate: Date | string;
   endDate: Date | string;
+  activityFlag: boolean;
 };
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
   selectedGoal: null,
   startDate: '',
   endDate: '',
+  activityFlag: false,
 } as UserState;
 
 export const userSlice = createSlice({
@@ -82,6 +84,9 @@ export const userSlice = createSlice({
     setEndDate: (state, action: PayloadAction<any>) => {
       state.endDate = action.payload;
     },
+    setActivityFlag: (state, action: PayloadAction<any>) => {
+      state.activityFlag = action.payload;
+    }
   },
 });
 
@@ -97,5 +102,6 @@ export const {
   removeActivityFromSelectedGoal,
   setStartDate,
   setEndDate,
+  setActivityFlag
 } = userSlice.actions;
 export default userSlice.reducer;

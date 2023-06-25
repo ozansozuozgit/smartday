@@ -2,9 +2,10 @@
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import {
   addActivityToSelectedGoal,
+  setActivityFlag,
   updateSelectedGoalPercentage,
 } from '@/src/redux/features/userSlice';
-import { useAppDispatch } from '@/src/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { PlusIcon } from '@heroicons/react/24/solid';
 import React, { Fragment, useEffect, useState } from 'react';
@@ -16,9 +17,11 @@ const AddActivity = ({ goal }: any) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
   const [percentage, setPercentage] = useState<number>(0);
   const [alignsWithGoal, setAlignsWithGoal] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
-
   let [isOpen, setIsOpen] = useState(false);
+
+  const activityFlag = useAppSelector((state) => state.user.activityFlag);
+
+  const dispatch = useAppDispatch();
 
   const setSelectedCategoryHandler = (category: string) => {
     setSelectedCategoryId(category);
@@ -60,6 +63,8 @@ const AddActivity = ({ goal }: any) => {
       const newPercentage = goal.percentage + percentage;
       dispatch(updateSelectedGoalPercentage(newPercentage));
       dispatch(addActivityToSelectedGoal(activity));
+      dispatch(setActivityFlag(!activityFlag));
+
       closeModal();
     } catch (err) {
       console.log(err);

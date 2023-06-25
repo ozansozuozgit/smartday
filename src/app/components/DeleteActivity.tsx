@@ -2,6 +2,7 @@
 import {
   removeActivityFromSelectedGoal,
   updateSelectedGoalPercentage,
+  setActivityFlag
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
@@ -14,6 +15,7 @@ const DeleteActivity = ({
 }: any) => {
   const dispatch = useAppDispatch();
   const goal = useAppSelector((state) => state.user.selectedGoal);
+  const activityFlag = useAppSelector((state) => state.user.activityFlag);
 
   const deleteActivity = async () => {
     try {
@@ -27,6 +29,7 @@ const DeleteActivity = ({
       const newPercentage = goal.percentage - activity?.percentage;
       dispatch(updateSelectedGoalPercentage(newPercentage));
       dispatch(removeActivityFromSelectedGoal(deletedActivity?.id));
+      dispatch(setActivityFlag(!activityFlag));
       closeDeleteActivity();
     } catch (err) {
       console.log(err);

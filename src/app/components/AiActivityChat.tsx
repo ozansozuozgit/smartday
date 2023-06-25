@@ -1,14 +1,16 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
+import { useAppSelector } from '@/src/redux/hooks';
 import { isToday } from '@/src/utils/timeHelpers';
 import objectHash from 'object-hash';
 import { useEffect, useState } from 'react';
 
 export default function AiActivityChat({ goal }: any) {
   const [messages, setMessages] = useState<any>([]);
-  const [messageCache, setMessageCache] = useState<{ [key: string]: string }>(
-    {}
-  );
+
+  const [initialLoad, setInitialLoad] = useState<boolean>(true);
+  const activityFlag = useAppSelector((state) => state.user.activityFlag);
+
   const fetchChatbotResponse = () => {
     if (goal.activities.length === 0) {
       setMessages([]);
@@ -56,11 +58,16 @@ export default function AiActivityChat({ goal }: any) {
       .then((response) => response.text())
       .then((receivedText) => {
         setMessages([receivedText]);
-        const cacheKey = `${goal.id}-${objectHash(goal.activities)}`;
-        setMessageCache((prevCache) => ({
-          ...prevCache,
-          [cacheKey]: receivedText,
-        }));
+        fetch(`${getBaseUrl()}/api/aimessages`, {
+          method: 'POST',
+          body: JSON.stringify({
+            message: receivedText,
+            goalId: goal.id,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -68,17 +75,29 @@ export default function AiActivityChat({ goal }: any) {
   };
 
   useEffect(() => {
-    // Create a unique cache key for the current goal and its activities
-    const cacheKey = `${goal.id}-${objectHash(goal.activities)}`;
-
     if (!goal || goal.activities.length === 0) {
       setMessages([]);
-    } else if (messageCache[cacheKey]) {
-      setMessages([messageCache[cacheKey]]);
     } else {
-      fetchChatbotResponse();
+      fetch(`${getBaseUrl()}/api/aimessages?goalId=${goal.id}`)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res && res.message) {
+            console.log('res.message', res.message);
+            setMessages([res.message]);
+          } else {
+            // If no message exists in the database, generate a new one
+            fetchChatbotResponse();
+          }
+        });
     }
   }, [goal, goal.activities]);
+
+  useEffect(() => {
+    if (!initialLoad) {
+      fetchChatbotResponse();
+    }
+    setInitialLoad(false);
+  }, [activityFlag]);
 
   return (
     <div className='flex max-w-full sm:max-w-xl h-[500px] flex-col p-6 mx-auto bg-white rounded-lg shadow-md w-[550px]'>
