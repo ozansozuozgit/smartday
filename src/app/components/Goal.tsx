@@ -33,6 +33,7 @@ const Goal = ({ goal }: { goal: GoalType }) => {
     <div
       className='flex items-center justify-between bg-white p-2 rounded-lg my-1 hover:bg-gray cursor-pointer'
       onClick={getGoalandActivities}
+      style={{backgroundColor: goal?.id === selectedGoal?.id ? '#FDE68A' : ''}}
     >
       <FlagIcon className='h-4 w-4 text-orange' aria-hidden='true' />
       <h2 className='text-sm  cursor-pointer'>{goal.name}</h2>
