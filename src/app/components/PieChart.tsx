@@ -6,8 +6,10 @@ import React from 'react';
 const PieChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div>
-        <h3>No activities available</h3>
+      <div className='max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-2 sm:mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8'>
+        <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6'>
+          No activities available
+        </h3>
       </div>
     );
   }
@@ -57,30 +59,38 @@ const PieChart = ({ goal }: any) => {
   // console.log('groupedActivities', groupedActivities);
 
   return (
-    <div className='h-[400px]'>
-      <h3>Activity Completion Timeline Pie</h3>
-      <ResponsivePie
-        data={groupedActivities as any}
-        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-        innerRadius={0.5}
-        padAngle={0.7}
-        cornerRadius={3}
-        activeOuterRadiusOffset={8}
-        borderWidth={1}
-        borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
-        arcLinkLabelsTextColor='#333333'
-        arcLinkLabelsThickness={2}
-        arcLinkLabelsColor={{ from: 'color' }}
-        arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-        arcLabel={({ data }: any) => `${data.value}%`}
-      />
-      {remainingPercentage === 0 && (
-        <div>
-          <h2>Congratulations!</h2>
-          <p>You've completed 100% of your activities for today! Great job!</p>
-        </div>
-      )}
+    <div className='h-[500px] max-w-full sm:max-w-xl  mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center  pie-chart-container w-[550px]'>
+      <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+        Daily Activity Breakdown
+      </h2>
+      <div className='h-full w-full flex flex-col items-center justify-center'>
+        <ResponsivePie
+          data={groupedActivities as any}
+          margin={{ top: 50, right: 0, bottom: 100, left: 0 }}
+          innerRadius={0.5}
+          padAngle={0.7}
+          cornerRadius={3}
+          activeOuterRadiusOffset={8}
+          borderWidth={1}
+          borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+          arcLinkLabelsTextColor='#333333'
+          arcLinkLabelsThickness={2}
+          arcLinkLabelsColor={{ from: 'color' }}
+          arcLabelsSkipAngle={10}
+          arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
+          arcLabel={({ data }: any) => `${data.value}%`}
+        />
+        {remainingPercentage === 0 && (
+          <div>
+            <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6'>
+              Congratulations!
+            </h2>
+            <p className='text-sm sm:text-base md:text-lg'>
+              You've completed 100% of your activities for today! Great job!
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

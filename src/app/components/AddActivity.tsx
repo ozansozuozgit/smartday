@@ -67,7 +67,7 @@ const AddActivity = ({ goal }: any) => {
   return (
     <div>
       <>
-        <div className='flex items-center justify-center'>
+        <div className='flex'>
           <button
             type='button'
             onClick={openModal}

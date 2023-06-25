@@ -16,7 +16,7 @@ export function SidebarNav() {
   const goals = useAppSelector((state) => state.user.goals);
 
   return (
-    <div className='fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-white lg:bottom-0 lg:z-auto lg:w-72 shadow-lg '>
+    <div className='fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-white 2xl:bottom-0 2xl:z-auto 2xl:w-72 shadow-lg '>
       <div className='flex h-14 items-center py-4 px-4 lg:h-auto'>
         <Link
           href='/'
@@ -33,7 +33,7 @@ export function SidebarNav() {
       </div>
       <button
         type='button'
-        className='group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 lg:hidden'
+        className='group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 2xl:hidden'
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className='font-medium text-gray-100 group-hover:text-gray-400'>
@@ -47,7 +47,7 @@ export function SidebarNav() {
       </button>
 
       <div
-        className={clsx('overflow-y-auto lg:static lg:block', {
+        className={clsx('overflow-y-auto 2xl:static 2xl:block bg-white', {
           'fixed inset-x-0 bottom-0 top-14 mt-px': isOpen,
           hidden: !isOpen,
         })}

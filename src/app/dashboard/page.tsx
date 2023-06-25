@@ -17,6 +17,7 @@ import Activities from '../components/Activities';
 //   useUser,
 // } from '@clerk/nextjs';
 import moment from 'moment-timezone';
+import AddActivity from '../components/AddActivity';
 import AiActivityChat from '../components/AiActivityChat';
 import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
 import CalendarChart from '../components/CalendarChart';
@@ -45,21 +46,34 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div>
-      <section className='bg-gray pl-5 pt-[50px] font-montserrat'>
-        {selectedGoal && (
-          <h3 className='text-xl font-bold'>
-            {selectedGoal?.name}
-          </h3>
-        )}
-        <DatePicker />
-        {selectedGoal && <Activities goal={selectedGoal} />}
-        {selectedGoal && <ChartLine goal={selectedGoal} />}
-        {selectedGoal && <PieChart goal={selectedGoal} />}
-        {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
-        {!selectedGoal && <CalendarChart />}
-        {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
-        {selectedGoal && <AiActivityChat goal={selectedGoal} />}
+    <div className='bg-gray'>
+      <section className='m-auto w-[95%] pt-[50px] max-w-[2000px] '>
+        <div className='flex flex-col gap-5'>
+          <DatePicker />
+          <div className='flex flex-col gap-5 justify-center items-center'>
+            <h2 className='text-[30px] font-bold font-roboto text-center uppercase tracking-wide'>
+              {selectedGoal ? selectedGoal?.name : 'Overall Progress'}
+            </h2>
+            {/* Percentage finished */}
+            {selectedGoal && (<h3 className='text-xl font-roboto'>{selectedGoal.percentage}/100</h3>)}
+          </div>
+          <div>{selectedGoal && <AddActivity goal={selectedGoal} />}</div>
+        </div>
+        <div className='grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 gap-[50px] 2xl:gap-y-[50px] place-items-center	'>
+          {selectedGoal && <Activities goal={selectedGoal} />}
+          {selectedGoal && <PieChart goal={selectedGoal} />}
+
+          {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
+
+          {selectedGoal && <AiActivityChat goal={selectedGoal} />}
+          <div className='col-span-1 xl:col-span-2  w-full'>
+            {selectedGoal && <ChartLine goal={selectedGoal} />}
+          </div>
+          <div className='col-span-1 xl:col-span-2 3xl:col-span-3  w-full'>
+            {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
+          </div>
+        </div>
+        {/* {!selectedGoal && <CalendarChart />} */}
       </section>
     </div>
   );

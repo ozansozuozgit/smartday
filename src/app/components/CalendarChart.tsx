@@ -52,7 +52,7 @@ const CalendarChart = () => {
   }, [startDate, endDate]);
 
   return (
-    <div className='h-[500px] w-[500px]'>
+    <div className='h-[150px] sm:h-[500px] sm:w-[500px]'>
       {goalData.length > 0 && (
         <ResponsiveCalendar
           data={goalData}

@@ -5,11 +5,12 @@ import moment from 'moment';
 import React from 'react';
 
 const AlignWithGoalPieChart = ({ goal }: any) => {
-
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div>
-        <h3>No activities available</h3>
+      <div className='max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-2 sm:mx-auto bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8'>
+        <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6'>
+          No activities available
+        </h3>
       </div>
     );
   }
@@ -36,28 +37,64 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
     { id: 'Does Not Align with Goal', value: notAlignsWithGoalCount },
   ];
 
+  const legendData = pieChartData.map((data) => ({
+    id: data.id,
+    label: data.id,
+    value: data.value,
+  }));
+
   return (
-    <div className='h-[400px]'>
-      <h3>Activity Completion Timeline Pie</h3>
-      <ResponsivePie
-        data={pieChartData as any}
-        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-        innerRadius={0.5}
-        padAngle={0.7}
-        cornerRadius={3}
-        activeOuterRadiusOffset={8}
-        borderWidth={1}
-        borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
-        arcLinkLabelsTextColor='#333333'
-        arcLinkLabelsThickness={2}
-        arcLinkLabelsColor={{ from: 'color' }}
-        arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-        arcLabel={({ data }: any) =>
-          `${((data.value / transformedData.length) * 100).toFixed(2)}%`
-        }
-        tooltip={({ datum }) => `${datum.id}: ${datum.value}`}
-      />
+    <div className='h-[500px] max-w-full sm:max-w-xl  mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center  pie-chart-container w-[550px]'>
+      <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+        Activity Alignment Overview{' '}
+      </h2>
+      <div className='h-full w-full'>
+        <ResponsivePie
+          data={pieChartData as any}
+          margin={{ top: 50, right: 0, bottom: 100, left: 0 }}
+          innerRadius={0.5}
+          padAngle={0.7}
+          cornerRadius={3}
+          activeOuterRadiusOffset={8}
+          borderWidth={1}
+          enableArcLinkLabels={false}
+          borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+          arcLinkLabelsTextColor='#333333'
+          arcLinkLabelsThickness={2}
+          arcLinkLabelsColor={{ from: 'color' }}
+          arcLabelsSkipAngle={10}
+          arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
+          arcLabel={({ data }: any) =>
+            `${((data.value / transformedData.length) * 100).toFixed(2)}%`
+          }
+          tooltip={({ datum }) => `${datum.id}: ${datum.value}`}
+          legends={[
+            {
+              anchor: 'bottom',
+              direction: 'row',
+              justify: false,
+              translateX: 0,
+              translateY: 56,
+              itemsSpacing: 10, // Increase spacing between legend items
+              itemWidth: 100,
+              itemHeight: 18,
+              itemTextColor: '#999999',
+              itemDirection: 'left-to-right',
+              itemOpacity: 1,
+              symbolSize: 18,
+              symbolShape: 'circle',
+              effects: [
+                {
+                  on: 'hover',
+                  style: {
+                    itemTextColor: '#000000',
+                  },
+                },
+              ],
+            },
+          ]}
+        />
+      </div>{' '}
     </div>
   );
 };

@@ -43,15 +43,17 @@ const ChartLine = ({ goal }: any) => {
       : specificGoalChartData.data;
 
   return (
-    <div style={{ height: '400px' }}>
-      <h3>Activity Completion Timeline</h3>
+    <div className='p-6 h-[500px] flex flex-col max-w-full max-h-[500px] bg-white rounded-xl shadow-md '>
+    <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+      Activity Progress Over Time
+    </h3>
       <ResponsiveLine
         data={[specificGoalChartData]}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
         axisBottom={{
           tickValues: xAxisTickValues.map((activity: any) => activity.x),
-          tickRotation: -45,
+          // tickRotation: -45,
           format: (value) => moment(value).format('MMM DD, YYYY'),
           legend: 'Date',
           legendOffset: 36,
@@ -71,6 +73,8 @@ const ChartLine = ({ goal }: any) => {
         pointBorderColor={{ from: 'serieColor' }}
         useMesh={true}
         enablePointLabel={true}
+        enableGridX={false}
+        // enableGridY={false}
         pointLabelYOffset={-12}
         curve='natural'
         tooltip={({ point }: any) => (

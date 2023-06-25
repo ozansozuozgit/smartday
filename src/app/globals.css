@@ -10,11 +10,8 @@
   margin: 0;
 }
 
-/* .main-body {
-  padding-left: 300px;
-}
-@media screen and (max-width: 1024px) {
-  .main-body {
-    padding-left: 0;
+@media (min-width: 1536px) {
+  .pie-chart-container svg {
+    width: 1000px;
   }
-} */
+}

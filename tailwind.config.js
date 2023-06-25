@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        '3xl': '1800px',
+      },
       colors: {
         white: '#FFFFFF',
         gray: '#F5F6F8',
@@ -25,8 +28,9 @@ module.exports = {
         teal: '#12E4C2',
       },
       fontFamily: {
-        sans: ['var(--font-montserrat)'],
-        mono: ['var(--font-lato)'],
+        montserrat: ['var(--font-montserrat)'],
+        open_sans: ['var(--font-open-sans)'],
+        roboto: ['var(--font-roboto)'],
       },
     },
   },

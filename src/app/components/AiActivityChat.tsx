@@ -15,22 +15,26 @@ export default function AiActivityChat({ goal }: any) {
     const goalName = goal?.name || 'N/A';
     const goalPercentage = goal?.percentage || 0;
     const goalActivities = goal?.activities || [];
-    const todayActivities = goalActivities.filter((activity:any) => isToday(activity.createdAt));
-    console.log('todayActivities', todayActivities)
-  
-    const allActivities = todayActivities.map((activity:any) => activity.name).join(', ');
+    const todayActivities = goalActivities.filter((activity: any) =>
+      isToday(activity.createdAt)
+    );
+    console.log('todayActivities', todayActivities);
 
-    console.log('allActivities', allActivities)
+    const allActivities = todayActivities
+      .map((activity: any) => activity.name)
+      .join(', ');
 
-    if(allActivities.length === 0) return;
+    console.log('allActivities', allActivities);
+
+    if (allActivities.length === 0) return;
 
     const alignedActivities = todayActivities
-      .filter((activity:any) => activity.alignsWithGoal)
-      .map((activity:any) => activity.name)
+      .filter((activity: any) => activity.alignsWithGoal)
+      .map((activity: any) => activity.name)
       .join(', ');
     const unalignedActivities = todayActivities
-      .filter((activity:any) => !activity.alignsWithGoal)
-      .map((activity:any) => activity.name)
+      .filter((activity: any) => !activity.alignsWithGoal)
+      .map((activity: any) => activity.name)
       .join(', ');
 
     const message = `My daily goal is: ${goalName} and I am ${goalPercentage}% complete with my daily goal. My daily activities towards this goal so far have been: ${allActivities}.${
@@ -62,6 +66,8 @@ export default function AiActivityChat({ goal }: any) {
             if (done) {
               // Stream finished
               const receivedText = receivedChunks.join('');
+              console.log('receivedText', receivedText);
+              console.log('typeof receivedText', typeof receivedText);
               // Do something with receivedText, e.g., update state
               setMessages((prevMessages: any) => [
                 ...prevMessages,
@@ -90,8 +96,22 @@ export default function AiActivityChat({ goal }: any) {
   }, [goal]);
 
   return (
-    <div className='flex flex-col w-full max-w-md py-24 mx-auto stretch'>
-      <p>{messages}</p>
+    <div className='flex max-w-full sm:max-w-xl h-[500px] flex-col p-6 mx-auto bg-white rounded-lg shadow-md w-[550px]'>
+      <h2 className='text-2xl font-semibold text-gray-900 mb-4 font-roboto'>
+        AI Chat Bot Response
+      </h2>
+      <div className='max-h-96 overflow-y-auto'>
+        {messages.length &&
+          messages[0].split('. ').map((sentence: any, index: number) => (
+            <p
+              key={index}
+              className='mb-4 text-gray-600 leading-6 font-open_sans'
+            >
+              {sentence.trim()}
+              {index !== messages[0].split('. ').length - 1 ? '.' : ''}
+            </p>
+          ))}
+      </div>
     </div>
   );
 }
