@@ -101,7 +101,7 @@ export default function AiActivityChat({ goal }: any) {
         AI Chat Bot Response
       </h2>
       <div className='max-h-96 overflow-y-auto'>
-        {messages.length &&
+        {messages[0]?.length &&
           messages[0].split('. ').map((sentence: any, index: number) => (
             <p
               key={index}
@@ -109,6 +109,7 @@ export default function AiActivityChat({ goal }: any) {
             >
               {sentence.trim()}
               {index !== messages[0].split('. ').length - 1 ? '.' : ''}
+              
             </p>
           ))}
       </div>
