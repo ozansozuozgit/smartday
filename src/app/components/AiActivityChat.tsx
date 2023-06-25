@@ -1,30 +1,29 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { isToday } from '@/src/utils/timeHelpers';
+import objectHash from 'object-hash';
 import { useEffect, useState } from 'react';
 
 export default function AiActivityChat({ goal }: any) {
-  console.log('goal', goal);
-  console.log('activities', goal?.activities);
   const [messages, setMessages] = useState<any>([]);
-  //   const message = 'Hello, Please help me';
-
+  const [messageCache, setMessageCache] = useState<{ [key: string]: string }>(
+    {}
+  );
   const fetchChatbotResponse = () => {
-    setMessages([]);
-    if (goal.activities.length === 0) return;
+    if (goal.activities.length === 0) {
+      setMessages([]);
+      return;
+    }
     const goalName = goal?.name || 'N/A';
     const goalPercentage = goal?.percentage || 0;
     const goalActivities = goal?.activities || [];
     const todayActivities = goalActivities.filter((activity: any) =>
       isToday(activity.createdAt)
     );
-    console.log('todayActivities', todayActivities);
 
     const allActivities = todayActivities
       .map((activity: any) => activity.name)
       .join(', ');
-
-    console.log('allActivities', allActivities);
 
     if (allActivities.length === 0) return;
 
@@ -47,7 +46,6 @@ export default function AiActivityChat({ goal }: any) {
         : ''
     } Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`;
 
-    console.log('message', message);
     fetch(`${getBaseUrl()}/api/chat`, {
       method: 'POST',
       body: JSON.stringify({ message }),
@@ -55,35 +53,14 @@ export default function AiActivityChat({ goal }: any) {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => response.body)
-      .then((body) => {
-        const reader = body?.getReader();
-        const decoder = new TextDecoder();
-        const receivedChunks: any = [];
-
-        const processChunk = () => {
-          reader?.read().then(({ done, value }) => {
-            if (done) {
-              // Stream finished
-              const receivedText = receivedChunks.join('');
-              console.log('receivedText', receivedText);
-              console.log('typeof receivedText', typeof receivedText);
-              // Do something with receivedText, e.g., update state
-              setMessages((prevMessages: any) => [
-                ...prevMessages,
-                receivedText,
-              ]);
-              console.log(receivedText);
-              return;
-            }
-
-            const chunk = decoder.decode(value, { stream: true });
-            receivedChunks.push(chunk);
-            processChunk();
-          });
-        };
-
-        processChunk();
+      .then((response) => response.text())
+      .then((receivedText) => {
+        setMessages([receivedText]);
+        const cacheKey = `${goal.id}-${objectHash(goal.activities)}`;
+        setMessageCache((prevCache) => ({
+          ...prevCache,
+          [cacheKey]: receivedText,
+        }));
       })
       .catch((error) => {
         console.error(error);
@@ -91,9 +68,17 @@ export default function AiActivityChat({ goal }: any) {
   };
 
   useEffect(() => {
-    if (!goal || !goal.activities) return;
-    fetchChatbotResponse();
-  }, [goal]);
+    // Create a unique cache key for the current goal and its activities
+    const cacheKey = `${goal.id}-${objectHash(goal.activities)}`;
+
+    if (!goal || goal.activities.length === 0) {
+      setMessages([]);
+    } else if (messageCache[cacheKey]) {
+      setMessages([messageCache[cacheKey]]);
+    } else {
+      fetchChatbotResponse();
+    }
+  }, [goal, goal.activities]);
 
   return (
     <div className='flex max-w-full sm:max-w-xl h-[500px] flex-col p-6 mx-auto bg-white rounded-lg shadow-md w-[550px]'>
@@ -109,7 +94,6 @@ export default function AiActivityChat({ goal }: any) {
             >
               {sentence.trim()}
               {index !== messages[0].split('. ').length - 1 ? '.' : ''}
-              
             </p>
           ))}
       </div>
