@@ -15,6 +15,7 @@ import Categories from './Categories';
 const AddActivity = ({ goal }: any) => {
   const [activityName, setActivityName] = useState<string>('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
+  const [selectedCategoryName, setSelectedCategoryName] = useState<string>('');
   const [percentage, setPercentage] = useState<number | null>(0);
   const [alignsWithGoal, setAlignsWithGoal] = useState<boolean>(false);
   let [isOpen, setIsOpen] = useState(false);
@@ -23,8 +24,11 @@ const AddActivity = ({ goal }: any) => {
 
   const dispatch = useAppDispatch();
 
-  const setSelectedCategoryHandler = (category: string) => {
-    setSelectedCategoryId(category);
+  const setSelectedCategoryHandler = (id: string, name: string) => {
+    console.log(id, name)
+    setSelectedCategoryId(id);
+    setSelectedCategoryName(name);
+    console.log('selectedCategoryName', selectedCategoryName)
   };
   function closeModal() {
     setIsOpen(false);
@@ -48,6 +52,7 @@ const AddActivity = ({ goal }: any) => {
           goalId: goal?.id,
           activityName,
           categoryId: selectedCategoryId ?? '',
+          categoryName: selectedCategoryName ?? '',
         }),
         headers: {
           'Content-Type': 'application/json',

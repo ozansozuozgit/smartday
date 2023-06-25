@@ -7,7 +7,7 @@ import React from 'react';
 const AlignWithGoalPieChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container w-[550px]'>
+      <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 items-center justify-center pie-chart-container w-[550px]'>
         <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
           No Activities
         </h3>
@@ -45,9 +45,11 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
 
   return (
     <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container w-[550px]'>
-      <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
-        Activity Alignment Overview{' '}
-      </h2>
+        <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+          {!goal.activities || goal.activities.length === 0
+            ? ' No Activities'
+            : 'Activities'}
+        </h2>
       <div className='h-full w-full'>
         <ResponsivePie
           data={pieChartData as any}

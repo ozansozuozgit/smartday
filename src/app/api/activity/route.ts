@@ -8,10 +8,17 @@ interface ActivityData {
   goalId: string;
   alignsWithGoal: boolean;
   categoryId?: string;
+  categoryName?: string;
 }
 export async function POST(req: NextRequest) {
-  const { alignsWithGoal, percentage, goalId, activityName, categoryId } =
-    await req.json();
+  const {
+    alignsWithGoal,
+    percentage,
+    goalId,
+    activityName,
+    categoryId,
+    categoryName,
+  } = await req.json();
 
   const activityData: ActivityData = {
     name: activityName,
@@ -20,10 +27,20 @@ export async function POST(req: NextRequest) {
     alignsWithGoal: alignsWithGoal,
   };
 
+  console.log('categoryName', categoryName);
+
   if (categoryId !== undefined && categoryId !== null && categoryId !== '') {
     activityData.categoryId = categoryId;
   }
+  if (
+    categoryName !== undefined &&
+    categoryName !== null &&
+    categoryName !== ''
+  ) {
+    activityData.categoryName = categoryName;
+  }
 
+  
   const newActivity = await prisma.activity.create({
     data: activityData,
   });

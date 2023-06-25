@@ -14,6 +14,7 @@ model Activity {
   goalId         String
   goal           Goal      @relation(fields: [goalId], references: [id])
   categoryId     String?
+  categoryName   String?
   category       Category? @relation(fields: [categoryId], references: [id])
   alignsWithGoal Boolean   @default(false)
   createdAt      DateTime  @default(now())
@@ -37,7 +38,6 @@ model Goal {
   activities Activity[]
   updatedAt  DateTime?  @updatedAt
   deletedAt  DateTime?
-
   CompletedGoal CompletedGoal[]
   AiMessage     AiMessage[]
 }

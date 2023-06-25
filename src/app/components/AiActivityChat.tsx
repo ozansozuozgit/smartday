@@ -7,11 +7,14 @@ import { useEffect, useState } from 'react';
 
 export default function AiActivityChat({ goal }: any) {
   const [messages, setMessages] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false); // New state for loading indicator
 
   const [initialLoad, setInitialLoad] = useState<boolean>(true);
   const activityFlag = useAppSelector((state) => state.user.activityFlag);
 
   const fetchChatbotResponse = () => {
+    setLoading(true);
+
     if (goal.activities.length === 0) {
       setMessages([]);
       return;
@@ -58,6 +61,8 @@ export default function AiActivityChat({ goal }: any) {
       .then((response) => response.text())
       .then((receivedText) => {
         setMessages([receivedText]);
+        setLoading(false);
+
         fetch(`${getBaseUrl()}/api/aimessages`, {
           method: 'POST',
           body: JSON.stringify({
@@ -71,6 +76,7 @@ export default function AiActivityChat({ goal }: any) {
       })
       .catch((error) => {
         console.error(error);
+        setLoading(false);
       });
   };
 
@@ -105,7 +111,21 @@ export default function AiActivityChat({ goal }: any) {
         AI Chat Bot Response (Today)
       </h2>
       <div className='max-h-96 overflow-y-auto'>
-        {messages[0]?.length &&
+        {loading ? ( // Show skeleton loader if loading state is true
+          <div className='flex w-full flex-1 flex-col items-center '>
+            <div className='mt-12 w-full animate-pulse flex-row items-center justify-center space-x-1  '>
+              <div className='flex flex-col space-y-2'>
+                <div className='h-[50px] rounded-md bg-gray '></div>
+                <div className='h-[50px] w-10/12 rounded-md bg-gray '></div>
+                <div className='h-[50px] w-9/12 rounded-md bg-gray '></div>
+                <div className='h-[50px] w-9/12 rounded-md bg-gray '></div>
+                <div className='h-[50px] w-9/12 rounded-md bg-gray '></div>
+
+              </div>
+            </div>
+          </div>
+        ) : (
+          messages[0]?.length &&
           messages[0].split('. ').map((sentence: any, index: number) => (
             <p
               key={index}
@@ -114,7 +134,8 @@ export default function AiActivityChat({ goal }: any) {
               {sentence.trim()}
               {index !== messages[0].split('. ').length - 1 ? '.' : ''}
             </p>
-          ))}
+          ))
+        )}
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export function SidebarNav() {
   const goals = useAppSelector((state) => state.user.goals);
 
   return (
-    <div className='fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-white 2xl:bottom-0 2xl:z-auto 2xl:w-72 shadow-lg '>
+    <div className='fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-white 2xl:bottom-0 2xl:z-2 2xl:w-72 shadow-lg '>
       <div className='flex flex-row lg:flex-col h-14 items-center py-4 px-4 lg:h-auto 2xl:gap-y-5 max-w-sm border-b border-gray'>
         <Clock />
         <DatePicker />

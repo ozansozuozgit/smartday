@@ -59,7 +59,7 @@ const DatePicker = () => {
               leaveTo='opacity-0 translate-y-1'
             >
               <Popover.Panel className='absolute z-10 '>
-                <div className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-gray-100'>
+                <div className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-gray'>
                   <div className='relative'>
                     <Calendar
                       onChange={handleCalendarChange as any}

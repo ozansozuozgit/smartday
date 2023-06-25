@@ -15,7 +15,8 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
   };
 
   const setSelectedCategory = (category: any) => {
-    setSelectedCategoryHandler(category.id);
+    console.log('category', category)
+    setSelectedCategoryHandler(category.id, category.name);
     setSelected(category);
   };
 

@@ -8,6 +8,7 @@ import moment from 'moment-timezone';
 import AiActivityChat from '../components/AiActivityChat';
 import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
 import CalendarChartSingle from '../components/CalendarChartSingle';
+import CategoryChart from '../components/CategoryChart';
 import ChartLine from '../components/ChartLine';
 import PieChart from '../components/PieChart';
 
@@ -31,18 +32,14 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className='bg-gray relative'>
-      <section className='m-auto w-[95%] max-w-[2000px] pt-[150px]'>
-        <div className='flex flex-col py-6 absolute top-[50px] left-[20px] left-20'>
-          {selectedGoal && <h3> {selectedGoal.percentage}/100 </h3>}
-          <h2 className='text-xl font-bold font-roboto tracking-wide '>
-            {selectedGoal ? (
-              <span>{selectedGoal.name}</span>
-            ) : (
-              'Overall Progress'
-            )}
-          </h2>
-        </div>
+    <div className='bg-gray relative py-12 z-1 min-h-screen'>
+      <section className='m-auto w-[95%] max-w-[2000px] pt-[100px]'>
+        {!selectedGoal && (
+          <div className='absolute inset-0 flex items-center justify-center'>
+            <h2 className='text-3xl '>Create/Select A Goal to Begin</h2>
+          </div>
+        )}
+
         <div className='grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 gap-[50px] 2xl:gap-y-[50px] place-items-center	'>
           {selectedGoal && <Activities goal={selectedGoal} />}
           {selectedGoal && <PieChart goal={selectedGoal} />}
@@ -53,7 +50,9 @@ const Dashboard = () => {
           <div className='col-span-1 xl:col-span-2  w-full'>
             {selectedGoal && <ChartLine goal={selectedGoal} />}
           </div>
-          <div className='col-span-1 xl:col-span-2 3xl:col-span-3  w-full'>
+          {selectedGoal && <CategoryChart goal={selectedGoal} />}
+
+          <div className='col-span-1 xl:col-span-2  w-full'>
             {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
           </div>
         </div>

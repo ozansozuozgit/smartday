@@ -34,7 +34,7 @@ export default async function RootLayout(props: {
         <html lang='en' className={`${montserrat.variable} ${open_sans.variable} ${roboto.variable}`}>
           <body>
             {/* <Nav /> */}
-            <div className='main-body'>
+            <div className='main-body overflow-x-hidden'>
               {props.modal}
               {props.children}
             </div>
