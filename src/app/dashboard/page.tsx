@@ -17,7 +17,6 @@ import Activities from '../components/Activities';
 //   useUser,
 // } from '@clerk/nextjs';
 import moment from 'moment-timezone';
-import AddActivity from '../components/AddActivity';
 import AiActivityChat from '../components/AiActivityChat';
 import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
 import CalendarChart from '../components/CalendarChart';
@@ -49,7 +48,7 @@ const Dashboard = () => {
     <div className='bg-gray'>
       <section className='m-auto w-[95%] pt-[50px] max-w-[2000px] '>
         <div className='flex flex-col gap-5'>
-          <DatePicker />
+          {/* <DatePicker /> */}
           <div className='flex flex-col gap-5 justify-center items-center'>
             <h2 className='text-[30px] font-bold font-roboto text-center uppercase tracking-wide'>
               {selectedGoal ? selectedGoal?.name : 'Overall Progress'}
@@ -57,7 +56,6 @@ const Dashboard = () => {
             {/* Percentage finished */}
             {selectedGoal && (<h3 className='text-xl font-roboto'>{selectedGoal.percentage}/100</h3>)}
           </div>
-          <div>{selectedGoal && <AddActivity goal={selectedGoal} />}</div>
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 gap-[50px] 2xl:gap-y-[50px] place-items-center	'>
           {selectedGoal && <Activities goal={selectedGoal} />}

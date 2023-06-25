@@ -1,6 +1,6 @@
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
+@tailwind components;
 :root {
 }
 
@@ -13,5 +13,17 @@
 @media (min-width: 1536px) {
   .pie-chart-container svg {
     width: 1000px;
+  }
+}
+
+@media (max-width: 1535px) {
+  .sidebar-container {
+    width: 50%; /* Half the size of the current sidebar */
+    transform: translateX(-100%); /* Start position off-screen */
+    transition: transform 0.3s ease; /* Animation duration and easing */
+  }
+
+  .sidebar-container.open {
+    transform: translateX(0); /* End position on-screen */
   }
 }

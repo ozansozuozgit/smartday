@@ -7,6 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../calendar.css';
@@ -25,8 +26,9 @@ const DatePicker = () => {
   const formattedStartDate = value[0] ? formatDate(value[0]) : '';
   const formattedEndDate = value[1] ? formatDate(value[1]) : '';
   return (
-    <div>
-      <h3 className='text-xl font-bold font-montserrat '>
+    <div className='flex items-center justify-between w-full'>
+      
+      <h3 className='text-sm font-semibold font-montserrat hidden 2xl:block'>
         {formattedStartDate} - {formattedEndDate}
       </h3>
       <Popover>
@@ -38,13 +40,13 @@ const DatePicker = () => {
               ${open ? '' : 'text-opacity-90'}
               group inline-flex items-center rounded-md bg-orange px-3 py-2 text-base font-medium text-white hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
-              <span>Select Time</span>
-              <ChevronDownIcon
+              <CalendarDaysIcon className='h-4 sm:h-6 w-4 sm:w-6 white' />
+              {/* <ChevronDownIcon
                 className={`${
                   open ? 'transform rotate-180' : ''
                 } ml-2 h-5 w-5 text-orange-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
                 aria-hidden='true'
-              />
+              /> */}
             </Popover.Button>
             <Transition
               as={React.Fragment}
@@ -56,7 +58,7 @@ const DatePicker = () => {
               leaveFrom='opacity-100 translate-y-0'
               leaveTo='opacity-0 translate-y-1'
             >
-              <Popover.Panel className='absolute z-10 mt-2 transform -translate-x-1/2 ml-70'>
+              <Popover.Panel className='absolute z-10 '>
                 <div className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-gray-100'>
                   <div className='relative'>
                     <Calendar

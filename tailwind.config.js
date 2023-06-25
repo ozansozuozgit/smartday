@@ -26,6 +26,7 @@ module.exports = {
         orange: '#FE9945',
         pink: '#EB6FF9',
         teal: '#12E4C2',
+        blue:'#50BAFF'
       },
       fontFamily: {
         montserrat: ['var(--font-montserrat)'],

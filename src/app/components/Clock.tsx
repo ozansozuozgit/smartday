@@ -23,9 +23,9 @@ const Clock = () => {
     };
   }, []);
 
-  const formattedTime = currentTime.format('dddd, MMMM D, YYYY h:mm:ss A');
+  const formattedTime = currentTime.format(' MMMM D, YYYY h:mm:ss A');
 
-  return <div>{hydrated && <h2>{formattedTime}</h2>}</div>;
+  return <div>{hydrated && <h4 className='text-sm hidden 2xl:block'>{formattedTime}</h4>}</div>;
 };
 
 export default Clock;
