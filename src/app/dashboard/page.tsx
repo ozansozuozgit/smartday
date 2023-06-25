@@ -2,20 +2,11 @@
 import {
   setEndDate,
   setStartDate,
-  setUserAuth,
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
-// import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import Activities from '../components/Activities';
-// import BarChart from '../components/BarChart';
-// import {
-//   ClerkProvider,
-//   SignedOut,
-//   useAuth,
-//   useUser,
-// } from '@clerk/nextjs';
+
 import moment from 'moment-timezone';
 import AiActivityChat from '../components/AiActivityChat';
 import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';

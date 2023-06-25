@@ -2,15 +2,17 @@
 import { ResponsivePie } from '@nivo/pie';
 import moment from 'moment-timezone';
 import React from 'react';
-
+interface Colors {
+  [key: string]: string;
+}
 const PieChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='h-[500px] max-w-full sm:max-w-xl  mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center  pie-chart-container w-[550px]'>
-      <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto '>
-      No Activities
-      </h3>
-    </div>
+      <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container w-[550px]'>
+        <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+          No Activities
+        </h3>
+      </div>
     );
   }
   const cstTimezone = 'America/Chicago';
@@ -56,11 +58,44 @@ const PieChart = ({ goal }: any) => {
     });
   }
 
-  // console.log('groupedActivities', groupedActivities);
+  const colors: Colors = {
+    indigo: '#6655FE',
+    orange: '#FE9945',
+    pink: '#EB6FF9',
+    teal: '#0fb69b',
+    blue: '#50BAFF',
+  };
+
+  const getRandomColor = () => {
+    const colorKeys = Object.keys(colors);
+    const randomColorKey =
+      colorKeys[Math.floor(Math.random() * colorKeys.length)];
+    return colors[randomColorKey];
+  };
+
+  const randomizeColors = () => {
+    const uniqueColors = new Set();
+    const randomizedColors = groupedActivities.map((activity: any) => {
+      console.log(activity.label);
+
+      if (activity.label === 'Remaining') {
+        console.log(activity.label);
+        return '#CCCCCC'; // Specify the color for "Remaining" activity
+      }
+
+      let color = getRandomColor();
+      while (uniqueColors.has(color)) {
+        color = getRandomColor();
+      }
+      uniqueColors.add(color);
+      return color;
+    });
+    return randomizedColors;
+  };
 
   return (
-    <div className='h-[500px] max-w-full sm:max-w-xl  mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center  pie-chart-container w-[550px]'>
-      <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto '>
+    <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container w-[550px]'>
+      <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
         Daily Activity Breakdown
       </h2>
       <div className='h-full w-full flex flex-col items-center justify-center'>
@@ -79,6 +114,7 @@ const PieChart = ({ goal }: any) => {
           arcLabelsSkipAngle={10}
           arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
           arcLabel={({ data }: any) => `${data.value}%`}
+          colors={randomizeColors()}
         />
         {remainingPercentage === 0 && (
           <div>

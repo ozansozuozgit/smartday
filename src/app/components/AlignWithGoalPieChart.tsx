@@ -7,8 +7,8 @@ import React from 'react';
 const AlignWithGoalPieChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='h-[500px] max-w-full sm:max-w-xl  mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center  pie-chart-container w-[550px]'>
-        <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto '>
+      <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container w-[550px]'>
+        <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
           No Activities
         </h3>
       </div>
@@ -33,8 +33,8 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
   const notAlignsWithGoalCount = transformedData.length - alignsWithGoalCount;
 
   const pieChartData = [
-    { id: 'Aligns with Goal', value: alignsWithGoalCount },
-    { id: 'Does Not Align with Goal', value: notAlignsWithGoalCount },
+    { id: 'Aligns with Goal', value: alignsWithGoalCount, color: '#0fb69b' },
+    { id: 'Does Not Align with Goal', value: notAlignsWithGoalCount, color: '#fe9945' },
   ];
 
   const legendData = pieChartData.map((data) => ({
@@ -44,7 +44,7 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
   }));
 
   return (
-    <div className='h-[500px] max-w-full sm:max-w-xl  mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center  pie-chart-container w-[550px]'>
+    <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container w-[550px]'>
       <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
         Activity Alignment Overview{' '}
       </h2>
@@ -93,6 +93,7 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
               ],
             },
           ]}
+          colors={(datum: any) => datum.data.color}
         />
       </div>{' '}
     </div>
