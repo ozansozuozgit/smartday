@@ -4,12 +4,13 @@ import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
 import moment from 'moment-timezone';
 import React, { useEffect, useState } from 'react';
+import AllActivitiesBarChart from './AllActivitiesBarChart';
 import AllAlignWithGoalPieChart from './AllAlignWithGoalPiechart';
 import AllCategoryPieChart from './AllCategoryPieChart';
 import CalendarChart from './CalendarChart';
+import FrequencyLineChart from './FrequencyLineChart';
 
 const Overview = () => {
-
   const dispatch = useAppDispatch();
   const startDate = useAppSelector((state) =>
     state.user.startDate
@@ -24,7 +25,6 @@ const Overview = () => {
   const allActivities = useAppSelector((state) => state.user.allActivities);
 
   const fetchActivities = async (start: any, end: any) => {
-    if(allActivities) return;
     try {
       const res = await fetch(
         `${getBaseUrl()}/api/all-activities?startDate=${start}&endDate=${end}`,
@@ -35,7 +35,8 @@ const Overview = () => {
           },
         }
       );
-      const data = await res.json();
+      let data = await res.json();
+      if (data.length === 0) data = null;
       dispatch(setAllActivities(data));
       console.log(data);
       return data;
@@ -58,6 +59,8 @@ const Overview = () => {
       <CalendarChart />
       <AllCategoryPieChart activities={allActivities} />
       <AllAlignWithGoalPieChart activities={allActivities} />
+      <AllActivitiesBarChart activities={allActivities} />
+      <FrequencyLineChart activities={allActivities} />
     </div>
   );
 };

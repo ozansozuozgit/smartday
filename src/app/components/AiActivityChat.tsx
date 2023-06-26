@@ -108,7 +108,7 @@ export default function AiActivityChat({ goal }: any) {
   return (
     <div className='flex max-w-full sm:max-w-xl h-[500px] flex-col p-6 mx-auto bg-white rounded-lg shadow-md w-[550px]'>
       <h2 className='text-2xl font-semibold text-gray-900 mb-4 font-roboto'>
-        AI Chat Bot Response (Today)
+        AI Coach Advice (Today)
       </h2>
       <div className='max-h-96 overflow-y-auto'>
         {loading ? ( // Show skeleton loader if loading state is true
