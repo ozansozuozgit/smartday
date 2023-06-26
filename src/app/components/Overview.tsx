@@ -57,15 +57,22 @@ const Overview = () => {
     };
   }, [startDate, endDate]);
   return (
-    <div>
+    <div className='grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 gap-[50px] 2xl:gap-y-[50px] place-items-center max-w-full'>
       {!selectedGoal && (
         <>
-          <CalendarChart />
-          <AllCategoryPieChart activities={allActivities} />
+          <div className='col-span-1 xl:col-span-2  w-full'>
+            <AllActivities activities={allActivities} />
+          </div>
           <AllAlignWithGoalPieChart activities={allActivities} />
+
           <AllActivitiesBarChart activities={allActivities} />
-          <FrequencyLineChart activities={allActivities} />
-          <AllActivities activities={allActivities} />
+          <div className='col-span-1 xl:col-span-2  w-full'>
+            <FrequencyLineChart activities={allActivities} />
+          </div>
+
+          <div className='col-span-1 xl:col-span-2  w-full'>
+            <CalendarChart />
+          </div>
         </>
       )}
     </div>

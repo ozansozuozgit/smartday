@@ -41,11 +41,10 @@ const AllAlignWithGoalPieChart: React.FC<Props> = ({ activities }) => {
   );
 
   return (
-    <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container w-[550px]'>
+    <div className='h-[500px] max-w-full w-full  mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container '>
       <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
         Goal Alignment of Activities
       </h2>
-      <div className='h-full w-full flex flex-col items-center justify-center'>
         <ResponsivePie
           key='pie-chart'
           data={activityAlignments as any}
@@ -64,7 +63,6 @@ const AllAlignWithGoalPieChart: React.FC<Props> = ({ activities }) => {
           arcLabel={({ data }: any) => `${data.value}`}
           colors={(d: any) => d.data.color} // Use the assigned color for each data point
         />
-      </div>
     </div>
   );
 };
