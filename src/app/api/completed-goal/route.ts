@@ -11,7 +11,6 @@ export async function GET(req: NextRequest) {
     const endDate = req.nextUrl.searchParams.get('endDate') as string;
     const goalId = req.nextUrl.searchParams.get('goalId') as string;
     const user = await currentUser();
-    console.log('user', user);
     if (!user) throw new Error('Unauthorized');
     if (!user?.id || !startDate || !endDate) {
       return NextResponse.json(

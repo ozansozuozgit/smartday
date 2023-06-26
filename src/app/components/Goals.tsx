@@ -1,12 +1,12 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
-import { setUserGoals } from '@/src/redux/features/userSlice';
+import { setSelectedGoal, setUserGoals } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { useEffect } from 'react';
 import { GoalType } from '../../../types/types';
+import AddActivity from './AddActivity';
 import CreateGoal from './CreateGoal';
 import Goal from './Goal';
-import AddActivity from './AddActivity';
 
 const Goals = ({ goals }: any) => {
   const dispatch = useAppDispatch();
@@ -34,8 +34,15 @@ const Goals = ({ goals }: any) => {
   return (
     <div>
       <div className='flex items-center justify-between mb-5 gap-x-2'>
+        <h2
+          onClick={() => {
+            dispatch(setSelectedGoal(null));
+          }}
+        >
+          Home
+        </h2>
+
         <CreateGoal />
-        {/* <AddActivity goal={selectedGoal}/> */}
       </div>
 
       {goals && goals.map((goal: any) => <Goal goal={goal} key={goal?.id} />)}

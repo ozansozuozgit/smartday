@@ -57,7 +57,6 @@ export async function POST(req: Request) {
   // DO NOT CONSOLE LOG THE REQUEST WITH AWAIT REQUEST.JSON() IN IT
   // IT WILL BREAK THE REQUEST AND YOU WILL GET A 500 ERROR BECAUSE YOU CANNOT READ THE BODY TWICE
   const user = await currentUser();
-  console.log('user', user);
   if (!user) throw new Error('Unauthorized');
 
   const { goalName } = await req.json();

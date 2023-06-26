@@ -7,7 +7,6 @@ import { currentUser } from '@clerk/nextjs';
 export async function POST(req: NextRequest) {
   const { categoryName } = await req.json();
   const user = await currentUser();
-  console.log('user', user);
   if (!user) throw new Error('Unauthorized');
   const newCategory = await prisma.category.create({
     data: {

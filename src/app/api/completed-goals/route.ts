@@ -7,7 +7,6 @@ import { currentUser } from '@clerk/nextjs';
 export async function GET(req: NextRequest) {
   try {
     const user = await currentUser();
-    console.log('user', user);
     if (!user) throw new Error('Unauthorized');
     const startDate = req.nextUrl.searchParams.get('startDate') as string;
     const endDate = req.nextUrl.searchParams.get('endDate') as string;

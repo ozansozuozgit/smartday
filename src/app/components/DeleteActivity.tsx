@@ -1,4 +1,5 @@
 'use client';
+import { getBaseUrl } from '@/lib/getBaseUrl';
 import {
   removeActivityFromSelectedGoal,
   setActivityFlag,
@@ -19,7 +20,7 @@ const DeleteActivity = ({
 
   const deleteActivity = async () => {
     try {
-      const res = await fetch(`/api/activity?activityId=${activity.id}`, {
+      const res = await fetch(`${getBaseUrl()}/api/activity?activityId=${activity.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

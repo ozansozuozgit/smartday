@@ -7,9 +7,11 @@ import Activities from '../components/Activities';
 import moment from 'moment-timezone';
 import AiActivityChat from '../components/AiActivityChat';
 import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
+import CalendarChart from '../components/CalendarChart';
 import CalendarChartSingle from '../components/CalendarChartSingle';
 import CategoryChart from '../components/CategoryChart';
 import ChartLine from '../components/ChartLine';
+import Overview from '../components/Overview';
 import PieChart from '../components/PieChart';
 
 const Dashboard = () => {
@@ -56,7 +58,7 @@ const Dashboard = () => {
             {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
           </div>
         </div>
-        {/* {!selectedGoal && <CalendarChart />} */}
+        {!selectedGoal && <Overview />}
       </section>
     </div>
   );

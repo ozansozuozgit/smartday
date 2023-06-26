@@ -7,7 +7,6 @@ import { currentUser } from '@clerk/nextjs';
 export async function GET(req: NextRequest) {
 
   const user = await currentUser();
-  console.log('user', user);
   if (!user) throw new Error('Unauthorized');
 
   const allCategoriesFromUser = await prisma.category.findMany({

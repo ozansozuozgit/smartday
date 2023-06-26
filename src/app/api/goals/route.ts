@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   const user = await currentUser();
-  console.log('user', user);
   if (!user) throw new Error('Unauthorized');
   const allGoalsFromUser = await prisma.goal.findMany({
     where: { userId: user?.id, deletedAt: null },
