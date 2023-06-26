@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
           lte: new Date(endDate),
         },
       },
+      orderBy: { updatedAt: 'desc' },
       include: {
         goal: true,
         category: true,
@@ -27,7 +28,7 @@ export async function GET(req: NextRequest) {
       take: 50,
     });
     console.log('activities', activities);
-    return NextResponse.json( activities , { status: 200 });
+    return NextResponse.json(activities, { status: 200 });
   } catch (error) {
     console.error(error);
     throw new Error('Activities not found');

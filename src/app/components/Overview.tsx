@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
 import moment from 'moment-timezone';
 import React, { useEffect, useState } from 'react';
+import AllActivities from './AllActivities';
 import AllActivitiesBarChart from './AllActivitiesBarChart';
 import AllAlignWithGoalPieChart from './AllAlignWithGoalPiechart';
 import AllCategoryPieChart from './AllCategoryPieChart';
@@ -64,6 +65,7 @@ const Overview = () => {
           <AllAlignWithGoalPieChart activities={allActivities} />
           <AllActivitiesBarChart activities={allActivities} />
           <FrequencyLineChart activities={allActivities} />
+          <AllActivities activities={allActivities} />
         </>
       )}
     </div>

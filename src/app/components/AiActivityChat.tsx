@@ -2,7 +2,6 @@
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { useAppSelector } from '@/src/redux/hooks';
 import { isToday } from '@/src/utils/timeHelpers';
-import objectHash from 'object-hash';
 import { useEffect, useState } from 'react';
 
 export default function AiActivityChat({ goal }: any) {

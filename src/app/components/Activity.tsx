@@ -9,7 +9,6 @@ const Activity = ({ activity }: any) => {
 
   return (
     <li key={activity.id} className='flex justify-between gap-x-4 py-3 '>
-
       <div className='flex-grow'>
         <p className='text-sm sm:text-lg font-medium leading-6 text-gray-900 overflow-ellipsis overflow-hidden'>
           {activity.name}
@@ -33,18 +32,15 @@ const Activity = ({ activity }: any) => {
           <XCircleIcon className='h-4 sm:h-6 w-4 sm:w-6 text-red-500' />
         )}
       </div>
-      <button
-        className={`text-xs sm:text-sm font-medium ${
-          isToday(activity.createdAt)
-            ? 'text-red-500 hover:text-red-700'
-            : 'text-gray-300 cursor-default'
-        }`}
-        onClick={() =>
-          isToday(activity.createdAt) && setIsDeleteActivityOpen(true)
-        }
-      >
-        {isToday(activity.createdAt) ? 'Delete' : ''}
-      </button>
+      {!activity?.goal && isToday(activity.createdAt) && (
+        <button
+          className={`text-xs sm:text-sm font-medium text-red-500 hover:text-red-700`}
+          onClick={() => setIsDeleteActivityOpen(true)}
+        >
+          Delete
+        </button>
+      )}
+
       {isDeleteActivityOpen && (
         <DeleteActivity
           closeDeleteActivity={() => setIsDeleteActivityOpen(false)}
