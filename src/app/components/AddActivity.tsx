@@ -1,6 +1,7 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import {
+  addActivityToAllActivities,
   addActivityToSelectedGoal,
   setActivityFlag,
   updateSelectedGoalPercentage,
@@ -25,10 +26,10 @@ const AddActivity = ({ goal }: any) => {
   const dispatch = useAppDispatch();
 
   const setSelectedCategoryHandler = (id: string, name: string) => {
-    console.log(id, name)
+    console.log(id, name);
     setSelectedCategoryId(id);
     setSelectedCategoryName(name);
-    console.log('selectedCategoryName', selectedCategoryName)
+    console.log('selectedCategoryName', selectedCategoryName);
   };
   function closeModal() {
     setIsOpen(false);
@@ -62,6 +63,15 @@ const AddActivity = ({ goal }: any) => {
       const newPercentage = goal.percentage + percentage;
       dispatch(updateSelectedGoalPercentage(newPercentage));
       dispatch(addActivityToSelectedGoal(activity));
+      const allActivity = {
+        ...activity,
+        goal: {
+          ...goal,
+        },
+      };
+      dispatch(addActivityToAllActivities(allActivity));
+      console.log('allActivity', allActivity);
+
       dispatch(setActivityFlag(!activityFlag));
       setActivityName('');
       setPercentage(0);

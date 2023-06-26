@@ -36,11 +36,7 @@ const Dashboard = () => {
   return (
     <div className='bg-gray relative py-12 z-1 min-h-screen'>
       <section className='m-auto w-[95%] max-w-[2000px] pt-[100px]'>
-        {!selectedGoal && (
-          <div className='absolute inset-0 flex items-center justify-center'>
-            <h2 className='text-3xl '>Create/Select A Goal to Begin</h2>
-          </div>
-        )}
+    
 
         <div className='grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 gap-[50px] 2xl:gap-y-[50px] place-items-center	'>
           {selectedGoal && <Activities goal={selectedGoal} />}

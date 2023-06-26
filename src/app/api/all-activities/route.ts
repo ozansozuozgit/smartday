@@ -13,6 +13,7 @@ export async function GET(req: NextRequest) {
       where: {
         goal: {
           userId: user?.id,
+          deletedAt: null,
         },
         createdAt: {
           gte: new Date(startDate),

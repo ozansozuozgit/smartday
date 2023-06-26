@@ -1,14 +1,16 @@
 import { getBaseUrl } from '@/lib/getBaseUrl';
-import { useAppSelector } from '@/src/redux/hooks';
+import { setAllActivities } from '@/src/redux/features/userSlice';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
 import moment from 'moment-timezone';
 import React, { useEffect, useState } from 'react';
 import AllAlignWithGoalPieChart from './AllAlignWithGoalPiechart';
 import AllCategoryPieChart from './AllCategoryPieChart';
 import CalendarChart from './CalendarChart';
-const Overview = () => {
-  const [allActivities, setAllActivities] = React.useState<any>(null);
 
+const Overview = () => {
+
+  const dispatch = useAppDispatch();
   const startDate = useAppSelector((state) =>
     state.user.startDate
       ? moment(state.user.startDate).toISOString()
@@ -19,8 +21,10 @@ const Overview = () => {
       ? moment(state.user.endDate).toISOString()
       : getTimes().endOfToday
   );
+  const allActivities = useAppSelector((state) => state.user.allActivities);
 
   const fetchActivities = async (start: any, end: any) => {
+    if(allActivities) return;
     try {
       const res = await fetch(
         `${getBaseUrl()}/api/all-activities?startDate=${start}&endDate=${end}`,
@@ -32,6 +36,7 @@ const Overview = () => {
         }
       );
       const data = await res.json();
+      dispatch(setAllActivities(data));
       console.log(data);
       return data;
     } catch (err) {
@@ -41,7 +46,7 @@ const Overview = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      fetchActivities(startDate, endDate).then(setAllActivities);
+      fetchActivities(startDate, endDate);
     }, 500);
 
     return () => {

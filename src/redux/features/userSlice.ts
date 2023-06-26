@@ -13,6 +13,7 @@ type UserState = {
   startDate: Date | string;
   endDate: Date | string;
   activityFlag: boolean;
+  allActivities: any;
 };
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   startDate: '',
   endDate: '',
   activityFlag: false,
+  allActivities: null,
 } as UserState;
 
 export const userSlice = createSlice({
@@ -86,7 +88,20 @@ export const userSlice = createSlice({
     },
     setActivityFlag: (state, action: PayloadAction<any>) => {
       state.activityFlag = action.payload;
-    }
+    },
+    setAllActivities: (state, action: PayloadAction<any>) => {
+      state.allActivities = action.payload;
+    },
+    removeActivityFromAllActivities: (state, action: PayloadAction<any>) => {
+      // Remove it from the selected goals activity
+      state.allActivities = state.allActivities.filter(
+        (activity: any) => activity.id !== action.payload
+      );
+    },
+    addActivityToAllActivities: (state, action: PayloadAction<any>) => {
+      // Add it to the selected goals activity
+      state.allActivities = [action.payload, ...state.allActivities];
+    },
   },
 });
 
@@ -102,6 +117,9 @@ export const {
   removeActivityFromSelectedGoal,
   setStartDate,
   setEndDate,
-  setActivityFlag
+  setActivityFlag,
+  setAllActivities,
+  removeActivityFromAllActivities,
+  addActivityToAllActivities,
 } = userSlice.actions;
 export default userSlice.reducer;
