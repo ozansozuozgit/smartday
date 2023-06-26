@@ -1,8 +1,16 @@
-'use client'
+'use client';
 import { ResponsivePie } from '@nivo/pie';
 import React from 'react';
 
-const AllAlignWithGoalPieChart = ({ activities }: any) => {
+interface Activity {
+  alignsWithGoal: boolean;
+}
+
+interface Props {
+  activities: Activity[];
+}
+
+const AllAlignWithGoalPieChart: React.FC<Props> = ({ activities }) => {
   if (!activities || activities.length === 0) {
     return (
       <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 pie-chart-container w-[550px]'>
@@ -13,48 +21,24 @@ const AllAlignWithGoalPieChart = ({ activities }: any) => {
     );
   }
 
-  const alignmentCount = activities.reduce((acc: any, activity: any) => {
+  const alignmentCount: { [key: string]: any } = {
+    Aligned: { id: 'Aligned', label: 'Aligned', value: 0, color: '#0fb69b' },
+    'Not Aligned': {
+      id: 'Not Aligned',
+      label: 'Not Aligned',
+      value: 0,
+      color: '#FF5757',
+    },
+  };
+
+  activities.forEach((activity) => {
     const alignment = activity.alignsWithGoal ? 'Aligned' : 'Not Aligned';
-    if (!acc[alignment]) {
-      acc[alignment] = {
-        id: alignment,
-        label: alignment,
-        value: 0,
-      };
-    }
-    acc[alignment].value += 1; // Increase count for each activity that aligns or doesn't align
-    return acc;
-  }, {});
+    alignmentCount[alignment].value += 1;
+  });
 
-  const activityAlignments = Object.values(alignmentCount);
-
-  // Function to randomize colors same as in your code
-  const colors: Colors = {
-    indigo: '#6655FE',
-    orange: '#FE9945',
-    pink: '#EB6FF9',
-    teal: '#0fb69b',
-    blue: '#50BAFF',
-  };
-
-  const getRandomColor = () => {
-    const colorKeys = Object.keys(colors);
-    const randomColorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
-    return colors[randomColorKey];
-  };
-
-  const randomizeColors = () => {
-    const uniqueColors = new Set();
-    const randomizedColors = activityAlignments.map(() => {
-      let color = getRandomColor();
-      while (uniqueColors.has(color)) {
-        color = getRandomColor();
-      }
-      uniqueColors.add(color);
-      return color;
-    });
-    return randomizedColors;
-  };
+  const activityAlignments = Object.entries(alignmentCount).map(
+    ([key, value]) => value
+  );
 
   return (
     <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container w-[550px]'>
@@ -63,6 +47,7 @@ const AllAlignWithGoalPieChart = ({ activities }: any) => {
       </h2>
       <div className='h-full w-full flex flex-col items-center justify-center'>
         <ResponsivePie
+          key='pie-chart'
           data={activityAlignments as any}
           margin={{ top: 50, right: 0, bottom: 100, left: 0 }}
           innerRadius={0.5}
@@ -77,7 +62,7 @@ const AllAlignWithGoalPieChart = ({ activities }: any) => {
           arcLabelsSkipAngle={10}
           arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
           arcLabel={({ data }: any) => `${data.value}`}
-          colors={randomizeColors()}
+          colors={(d: any) => d.data.color} // Use the assigned color for each data point
         />
       </div>
     </div>

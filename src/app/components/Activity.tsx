@@ -43,7 +43,7 @@ const Activity = ({ activity }: any) => {
           isToday(activity.createdAt) && setIsDeleteActivityOpen(true)
         }
       >
-        Delete
+        {isToday(activity.createdAt) ? 'Delete' : ''}
       </button>
       {isDeleteActivityOpen && (
         <DeleteActivity

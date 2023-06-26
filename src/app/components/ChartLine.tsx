@@ -1,15 +1,51 @@
 'use client';
 import { ResponsiveLine } from '@nivo/line';
 import moment from 'moment-timezone';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 const generateRandomColor = () => {
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
   return '#' + randomColor;
 };
 
-const ChartLine = ({ goal }: any) => {
-  if (!goal.activities || goal.activities.length === 0) {
+interface Goal {
+  id: string;
+  activities: any[];
+}
+
+interface ChartLineProps {
+  goal: Goal;
+}
+
+const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
+  const formattedActivities = useMemo(() => {
+    if (!goal.activities || goal.activities.length === 0) return [];
+
+    return goal.activities.map((activity: any) => ({
+      ...activity,
+      createdAt: moment(activity.createdAt).format('YYYY-MM-DDTHH:mm:ss'),
+    }));
+  }, [goal.activities]);
+
+  const specificGoalChartData = useMemo(() => {
+    if (formattedActivities.length === 0) return null;
+
+    return {
+      id: goal.id,
+      color: generateRandomColor(),
+      data: formattedActivities
+        .sort(
+          (a: any, b: any) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        )
+        .map((activity: any) => ({
+          x: activity.createdAt,
+          y: activity.percentage,
+        })),
+    };
+  }, [formattedActivities, goal.id]);
+
+  if (!formattedActivities.length) {
     return (
       <div className='p-6 h-[500px]  max-w-full max-h-[500px] bg-white rounded-xl shadow-md '>
         <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
@@ -19,25 +55,6 @@ const ChartLine = ({ goal }: any) => {
     );
   }
 
-  const formattedActivities = goal?.activities?.map((activity: any) => ({
-    ...activity,
-    createdAt: moment(activity.createdAt).format('YYYY-MM-DDTHH:mm:ss'),
-  }));
-
-  const specificGoalChartData = {
-    id: goal.id,
-    color: generateRandomColor(),
-    data: formattedActivities
-      ?.sort(
-        (a: any, b: any) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      )
-      .map((activity: any) => ({
-        x: activity.createdAt,
-        y: activity.percentage,
-      })),
-  };
-
   const xAxisTickValues =
     specificGoalChartData.data.length > 5
       ? specificGoalChartData.data.filter(
@@ -45,10 +62,11 @@ const ChartLine = ({ goal }: any) => {
         )
       : specificGoalChartData.data;
 
+
   return (
     <div className='p-6 h-[500px] flex flex-col max-w-full max-h-[500px] bg-white rounded-xl shadow-md '>
       <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
-        Activity Progress Over Time
+        Activity Goal Alignment by Category
       </h3>
       <ResponsiveLine
         data={[specificGoalChartData]}
@@ -56,7 +74,6 @@ const ChartLine = ({ goal }: any) => {
         xScale={{ type: 'point' }}
         axisBottom={{
           tickValues: xAxisTickValues.map((activity: any) => activity.x),
-          // tickRotation: -45,
           format: (value) => moment(value).format('MMM DD, YYYY'),
           legend: 'Date',
           legendOffset: 36,
@@ -77,7 +94,6 @@ const ChartLine = ({ goal }: any) => {
         useMesh={true}
         enablePointLabel={true}
         enableGridX={false}
-        // enableGridY={false}
         pointLabelYOffset={-12}
         curve='natural'
         tooltip={({ point }: any) => (

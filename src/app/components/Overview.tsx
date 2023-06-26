@@ -23,6 +23,7 @@ const Overview = () => {
       : getTimes().endOfToday
   );
   const allActivities = useAppSelector((state) => state.user.allActivities);
+  const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
 
   const fetchActivities = async (start: any, end: any) => {
     try {
@@ -56,11 +57,15 @@ const Overview = () => {
   }, [startDate, endDate]);
   return (
     <div>
-      <CalendarChart />
-      <AllCategoryPieChart activities={allActivities} />
-      <AllAlignWithGoalPieChart activities={allActivities} />
-      <AllActivitiesBarChart activities={allActivities} />
-      <FrequencyLineChart activities={allActivities} />
+      {!selectedGoal && (
+        <>
+          <CalendarChart />
+          <AllCategoryPieChart activities={allActivities} />
+          <AllAlignWithGoalPieChart activities={allActivities} />
+          <AllActivitiesBarChart activities={allActivities} />
+          <FrequencyLineChart activities={allActivities} />
+        </>
+      )}
     </div>
   );
 };

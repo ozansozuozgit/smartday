@@ -1,3 +1,4 @@
+'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
@@ -18,21 +19,21 @@ const CalendarChart = () => {
       : getTimes().endOfToday
   );
 
-  const fetchCompletedGoals = async (start:any, end:any) => {
+  const fetchCompletedGoals = async (start: any, end: any) => {
     const res = await fetch(
       `${getBaseUrl()}/api/completed-goals?startDate=${start}&endDate=${end}`
     );
     const goals = await res.json();
 
-    return goals.map((goal:any) => ({
+    return goals.map((goal: any) => ({
       day: moment(goal.completedAt).format('YYYY-MM-DD'),
       value: 50,
       name: goal.name,
     }));
   };
 
-  const CustomTooltip = ({ day }:any) => {
-    const goal:any = goalData.find((item:any) => item.day === day);
+  const CustomTooltip = ({ day }: any) => {
+    const goal: any = goalData.find((item: any) => item.day === day);
     return (
       <div>
         <div>Date: {day}</div>
@@ -52,34 +53,35 @@ const CalendarChart = () => {
   }, [startDate, endDate]);
 
   return (
-    <div className='h-[150px] sm:h-[500px] sm:w-[500px]'>
-      {goalData.length > 0 && (
-        <ResponsiveCalendar
-          data={goalData}
-          from={startDate}
-          to={endDate}
-          emptyColor='#eeeeee'
-          colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
-          margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-          yearSpacing={40}
-          monthBorderColor='#ffffff'
-          dayBorderWidth={2}
-          dayBorderColor='#ffffff'
-          tooltip={CustomTooltip}
-          legends={[
-            {
-              anchor: 'bottom-right',
-              direction: 'row',
-              translateY: 36,
-              itemCount: 4,
-              itemWidth: 42,
-              itemHeight: 36,
-              itemsSpacing: 14,
-              itemDirection: 'right-to-left',
-            },
-          ]}
-        />
-      )}
+    <div className='h-[150px] sm:h-[500px] sm:max-w-[1500px] m-auto bg-white rounded-xl shadow-md p-6 flex flex-col '>
+      <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+        Activity Completion Calendar
+      </h3>
+      <ResponsiveCalendar
+        data={goalData}
+        from={startDate}
+        to={endDate}
+        emptyColor='#eeeeee'
+        colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
+        margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+        yearSpacing={40}
+        monthBorderColor='#ffffff'
+        dayBorderWidth={2}
+        dayBorderColor='#ffffff'
+        tooltip={CustomTooltip}
+        legends={[
+          {
+            anchor: 'bottom-right',
+            direction: 'row',
+            translateY: 36,
+            itemCount: 4,
+            itemWidth: 42,
+            itemHeight: 36,
+            itemsSpacing: 14,
+            itemDirection: 'right-to-left',
+          },
+        ]}
+      />
     </div>
   );
 };

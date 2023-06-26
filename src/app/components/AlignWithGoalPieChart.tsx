@@ -34,7 +34,7 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
 
   const pieChartData = [
     { id: 'Aligns with Goal', value: alignsWithGoalCount, color: '#0fb69b' },
-    { id: 'Does Not Align with Goal', value: notAlignsWithGoalCount, color: '#fe9945' },
+    { id: 'Does Not Align with Goal', value: notAlignsWithGoalCount, color: '#FF5757' },
   ];
 
   const legendData = pieChartData.map((data) => ({
