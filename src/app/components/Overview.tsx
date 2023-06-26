@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react';
 import AllActivities from './AllActivities';
 import AllActivitiesBarChart from './AllActivitiesBarChart';
 import AllAlignWithGoalPieChart from './AllAlignWithGoalPiechart';
-import AllCategoryPieChart from './AllCategoryPieChart';
 import CalendarChart from './CalendarChart';
 import FrequencyLineChart from './FrequencyLineChart';
 
@@ -57,20 +56,20 @@ const Overview = () => {
     };
   }, [startDate, endDate]);
   return (
-    <div className='grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 gap-[50px] 2xl:gap-y-[50px] place-items-center max-w-full'>
+    <div className='grid max-w-full grid-cols-1 place-items-center gap-[50px] lg:grid-cols-1 xl:grid-cols-2 2xl:gap-y-[50px] 3xl:grid-cols-3'>
       {!selectedGoal && (
         <>
-          <div className='col-span-1 xl:col-span-2  w-full'>
+          <div className='col-span-1 w-full  xl:col-span-2'>
             <AllActivities activities={allActivities} />
           </div>
           <AllAlignWithGoalPieChart activities={allActivities} />
 
           <AllActivitiesBarChart activities={allActivities} />
-          <div className='col-span-1 xl:col-span-2  w-full'>
+          <div className='col-span-1 w-full  xl:col-span-2'>
             <FrequencyLineChart activities={allActivities} />
           </div>
 
-          <div className='col-span-1 xl:col-span-2  w-full'>
+          <div className='col-span-1 w-full  xl:col-span-2'>
             <CalendarChart />
           </div>
         </>

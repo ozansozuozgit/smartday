@@ -38,7 +38,7 @@ const FrequencyLineChart: React.FC<FrequencyLineChartProps> = ({
 
   if (!data.length) {
     return (
-      <div className='p-6 h-full max-w-full max-h-full bg-white rounded-xl shadow-md'>
+      <div className='p-6 h-[500px]  max-w-full max-h-[500px] bg-white rounded-xl shadow-md '>
         <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
           No Activities
         </h3>

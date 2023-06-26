@@ -13,19 +13,19 @@ const GoalOverview = () => {
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
 
   return (
-    <div className='grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 gap-[50px] 2xl:gap-y-[50px] place-items-center	'>
+    <div className='grid max-w-full grid-cols-1 place-items-center gap-[50px] lg:grid-cols-1 xl:grid-cols-2 2xl:gap-y-[50px] 3xl:grid-cols-3	'>
       {selectedGoal && <Activities goal={selectedGoal} />}
       {selectedGoal && <PieChart goal={selectedGoal} />}
 
       {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
 
       {selectedGoal && <AiActivityChat goal={selectedGoal} />}
-      <div className='col-span-1 xl:col-span-2  w-full'>
+      <div className='col-span-1 w-full  xl:col-span-2'>
         {selectedGoal && <ChartLine goal={selectedGoal} />}
       </div>
       {selectedGoal && <CategoryChart goal={selectedGoal} />}
 
-      <div className='col-span-1 xl:col-span-2  w-full'>
+      <div className='col-span-1 w-full  xl:col-span-2'>
         {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
       </div>
     </div>

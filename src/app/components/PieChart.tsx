@@ -8,8 +8,8 @@ interface Colors {
 const PieChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 pie-chart-container w-[550px]'>
-        <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+      <div className='pie-chart-container mx-2 flex h-[500px] w-full max-w-full rounded-xl bg-white p-4 shadow-md'>
+        <h3 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
         </h3>
       </div>
@@ -94,11 +94,11 @@ const PieChart = ({ goal }: any) => {
   };
 
   return (
-    <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center pie-chart-container w-[550px]'>
-      <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+    <div className='pie-chart-container mx-2 flex h-[500px] w-full max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
+      <h2 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
         Daily Activity Breakdown
       </h2>
-      <div className='h-full w-full flex flex-col items-center justify-center'>
+      <div className='flex h-full w-full flex-col items-center justify-center'>
         <ResponsivePie
           data={groupedActivities as any}
           margin={{ top: 50, right: 0, bottom: 100, left: 0 }}
@@ -116,7 +116,6 @@ const PieChart = ({ goal }: any) => {
           arcLabel={({ data }: any) => `${data.value}%`}
           colors={randomizeColors()}
         />
-  
       </div>
     </div>
   );

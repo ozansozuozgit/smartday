@@ -6,7 +6,7 @@ import AddActivity from './AddActivity';
 const Activities = ({ goal }: any) => {
 
   return (
-    <div className='p-6 flex flex-col max-w-full sm:max-w-xl h-[500px] max-h-[500px] bg-white rounded-xl shadow-md space-y-4 w-[550px]'>
+      <div className='p-6 flex flex-col max-w-full h-[500px] max-h-[500px] bg-white rounded-xl shadow-md space-y-4 w-full'>
       <div className='flex justify-between'>
         <h2 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
           {!goal.activities || goal.activities.length === 0
