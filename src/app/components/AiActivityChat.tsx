@@ -87,7 +87,6 @@ export default function AiActivityChat({ goal }: any) {
         .then((res) => res.json())
         .then((res) => {
           if (res && res.message) {
-            console.log('res.message', res.message);
             setMessages([res.message]);
           } else {
             // If no message exists in the database, generate a new one
