@@ -1,5 +1,4 @@
 import { prisma } from '@/lib/prisma';
-import { useParams } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { currentUser } from '@clerk/nextjs';

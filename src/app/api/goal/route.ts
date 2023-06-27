@@ -1,5 +1,4 @@
 import { prisma } from '@/lib/prisma';
-import { useParams } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { currentUser } from '@clerk/nextjs';
@@ -53,7 +52,6 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: Request) {
-
   // DO NOT CONSOLE LOG THE REQUEST WITH AWAIT REQUEST.JSON() IN IT
   // IT WILL BREAK THE REQUEST AND YOU WILL GET A 500 ERROR BECAUSE YOU CANNOT READ THE BODY TWICE
   const user = await currentUser();

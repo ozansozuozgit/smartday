@@ -1,10 +1,13 @@
+'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { Combobox, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
 import CreateCategory from './CreateCategory';
+import {RiDeleteBinLine} from 'react-icons/ri';
 
-import {AiOutlineCheck} from 'react-icons/ai';
-import {HiOutlineChevronUpDown} from 'react-icons/hi2';
+import { AiOutlineCheck } from 'react-icons/ai';
+import { HiOutlineChevronUpDown } from 'react-icons/hi2';
+
 const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
   const [categories, setCategories] = useState<any>([]);
   const [query, setQuery] = useState('');
@@ -15,12 +18,31 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
   };
 
   const setSelectedCategory = (category: any) => {
-    console.log('category', category)
+    console.log('category', category);
     setSelectedCategoryHandler(category.id, category.name);
     setSelected(category);
   };
 
-  //   const [selectedCategory, setSelectedCategory] = useState(null);
+  const deleteCategory = async (category: any) => {
+
+    try {
+      // Make a DELETE request to delete the category from the server
+      await fetch(`${getBaseUrl()}/api/category?categoryId=${category?.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Remove the category from the state
+      setCategories(categories.filter((c: any) => c.id !== category.id));
+      setSelectedCategoryHandler(null);
+      setQuery('');      
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     setSelectedCategoryHandler(null);
     setSelected(null);
@@ -55,7 +77,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
         );
 
   return (
-    <div className='flex items-end  gap-2'>
+    <div className='flex items-end gap-2'>
       <label htmlFor='category' className='sr-only'>
         Select a category
       </label>
@@ -63,7 +85,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
       <Combobox value={selected} onChange={setSelectedCategory}>
         <div className='relative mt-1'>
           <div className='relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
-              <div className='text-gray-500 text-sm'>Optional</div>
+            <div className='text-gray-500 text-sm'>Optional</div>
             <Combobox.Input
               className='block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg sm:text-md sm:leading-6 '
               displayValue={(category: any) => category?.name}
@@ -117,9 +139,17 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
                               active ? 'text-black' : 'text-teal-600'
                             }`}
                           >
-                            <AiOutlineCheck className='h-5 w-5' aria-hidden='true' />
+                            <AiOutlineCheck
+                              className='h-5 w-5'
+                              aria-hidden='true'
+                            />
                           </span>
                         ) : null}
+                        <RiDeleteBinLine
+                          onClick={() => deleteCategory(category)}
+                          className='absolute top-0 right-0 p-2 text-red-500 hover:text-red-700 h-8 w-8 '
+                          title='Delete Category'
+                        />
                       </>
                     )}
                   </Combobox.Option>
@@ -133,4 +163,5 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
     </div>
   );
 };
+
 export default Categories;
