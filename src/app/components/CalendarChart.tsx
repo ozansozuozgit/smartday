@@ -53,7 +53,7 @@ const CalendarChart = () => {
   }, [startDate, endDate]);
 
   return (
-    <div className='h-[450px] sm:h-[400px] sm:max-w-[1500px] m-auto bg-white rounded-xl shadow-md p-6 flex flex-col '>
+    <div className='h-[450px] sm:h-[400px] xl:max-w-[1500px] m-auto bg-white rounded-xl shadow-md p-6 flex flex-col '>
       <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
         Activity Completion Calendar
       </h2>

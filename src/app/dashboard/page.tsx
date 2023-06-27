@@ -29,7 +29,7 @@ const Dashboard = () => {
 
   return (
     <div className='bg-gray relative py-12 z-1 min-h-screen'>
-      <section className='m-auto w-[90%] 2xl:w-[95%]  xl:max-w-[1500px] pt-[100px]'>
+      <section className='m-auto w-[90%] 2xl:w-[95%]  xl:max-w-[1500px] pt-[50px]'>
         <Overview />
         <GoalOverview />
       </section>

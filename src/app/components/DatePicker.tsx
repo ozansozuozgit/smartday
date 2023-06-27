@@ -19,7 +19,7 @@ const DatePicker = () => {
   const formattedEndDate = value[1] ? formatDate(value[1]) : '';
   return (
     <div className='flex w-full flex-col gap-y-2 justify-between'>
-      <div className='flex justify-between '>
+      <div className='flex gap-x-3 xl:gap-0 xl:justify-between '>
         {' '}
         <TodayButton handleCalendarChange={handleCalendarChange} />
         <Popover>

@@ -1,19 +1,27 @@
 'use client';
 import { formatDatetime, isToday } from '@/src/utils/timeHelpers';
 import React, { useState } from 'react';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 import DeleteActivity from './DeleteActivity';
-import {AiOutlineCloseCircle,AiOutlineCheckCircle} from 'react-icons/ai';
+
 const Activity = ({ activity }: any) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
 
+  console.log('activity', activity);
+
   return (
-    <li key={activity.id} className='flex justify-between gap-x-4 py-3 '>
+    <li key={activity.id} className='flex justify-between gap-x-4 py-3'>
       <div className='flex-grow'>
-        <p className='text-sm sm:text-sm font-medium leading-6 text-gray-900 overflow-ellipsis overflow-hidden'>
+      <p className='text-indigo-500 text-md font-semibold leading-6'>
           {activity.name}
         </p>
+        {activity?.goal && activity?.goal?.name && ( // Add this condition
+          <p className='text-gray-500 text-xs sm:text-sm'>
+            Goal: {activity.goal.name}
+          </p>
+        )}
         <time
-          className='text-xs sm:text-sm text-gray-500'
+          className='text-gray-500 text-xs sm:text-sm'
           dateTime={activity.createdAt}
         >
           {formatDatetime(activity.createdAt)}
@@ -21,19 +29,19 @@ const Activity = ({ activity }: any) => {
       </div>
       <div className='flex items-center'>
         {activity?.percentage && (
-          <p className='text-sm  font-semibold text-green-500 mr-2 sm:mr-4'>
+          <p className='mr-2 text-sm font-semibold text-green-500 sm:mr-4'>
             {activity.percentage}%
           </p>
         )}
         {activity?.alignsWithGoal ? (
-          <AiOutlineCheckCircle className='h-4 sm:h-6 w-4 sm:w-6 text-green-500' />
+          <AiOutlineCheckCircle className='h-4 w-4 text-green-500 sm:h-6 sm:w-6' />
         ) : (
-          <AiOutlineCloseCircle className='h-4 sm:h-6 w-4 sm:w-6 text-red-500' />
+          <AiOutlineCloseCircle className='h-4 w-4 text-red-500 sm:h-6 sm:w-6' />
         )}
       </div>
       {!activity?.goal && isToday(activity.createdAt) && (
         <button
-          className={`text-xs sm:text-sm font-medium text-red-500 hover:text-red-700`}
+          className={`text-xs font-medium text-red-500 hover:text-red-700 sm:text-sm`}
           onClick={() => setIsDeleteActivityOpen(true)}
         >
           Delete
