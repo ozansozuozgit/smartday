@@ -1,4 +1,4 @@
-export function generateRandomColors(count:number) {
+export function generateRandomColors(count: number) {
   const colors = [];
   for (let i = 0; i < count; i++) {
     let color;
@@ -13,8 +13,7 @@ export function generateRandomColors(count:number) {
   return colors;
 }
 
-export function isColorExcluded(color:string) {
+export function isColorExcluded(color: string) {
   const excludedTones = [/^hsl\(0, 0%, 0%\)$/]; // Exclude black color (hsl(0, 0%, 0%))
   return excludedTones.some((pattern) => pattern.test(color));
 }
-
