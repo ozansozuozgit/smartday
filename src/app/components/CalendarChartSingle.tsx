@@ -55,7 +55,7 @@ const CalendarChartSingle = ({ goal }: any) => {
   }, [startDate, endDate, goal]);
 
   return (
-    <div className='h-[150px] sm:h-[500px] sm:max-w-[1500px] m-auto bg-white rounded-xl shadow-md p-6 flex flex-col '>
+    <div className='h-[450px] sm:h-[400px] sm:max-w-[1500px] m-auto bg-white rounded-xl shadow-md p-6 flex flex-col '>
       <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
         Activity Completion Calendar
       </h3>

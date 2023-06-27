@@ -104,7 +104,7 @@ export default function AiActivityChat({ goal }: any) {
   }, [activityFlag]);
 
   return (
-    <div className='pie-chart-container mx-2 flex h-[500px] w-full max-w-full flex-col  rounded-xl bg-white p-4 shadow-md px-8'>
+    <div className='  flex h-[400px] w-full flex-col self-center rounded-xl bg-white p-4 px-8 shadow-md'>
       <h2 className='text-gray-900 mb-4 font-roboto text-2xl font-semibold'>
         AI Coach (Today)
       </h2>
@@ -124,10 +124,7 @@ export default function AiActivityChat({ goal }: any) {
         ) : (
           messages[0]?.length &&
           messages[0].split('. ').map((sentence: any, index: number) => (
-            <p
-              key={index}
-              className='mb-4 font-open_sans leading-7 text-lg '
-            >
+            <p key={index} className='mb-4 font-open_sans text-lg leading-7 '>
               {sentence.trim()}
               {index !== messages[0].split('. ').length - 1 ? '.' : ''}
             </p>

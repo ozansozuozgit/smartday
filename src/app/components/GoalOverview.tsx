@@ -13,7 +13,7 @@ const GoalOverview = () => {
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
 
   return (
-    <div className='grid max-w-full grid-cols-1 place-items-center gap-[50px] lg:grid-cols-1 xl:grid-cols-3 2xl:gap-y-[50px] 3xl:grid-cols-3	'>
+    <div className='grid max-w-full place-items-center gap-[50px] m-auto lg:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-[450px]'>
       {selectedGoal && <Activities goal={selectedGoal} />}
       <div className='col-span-1 w-full  xl:col-span-1 2xl:col-span-2'>
         {selectedGoal && <AiActivityChat goal={selectedGoal} />}

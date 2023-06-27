@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <SidebarNav />
-      <div className='2xl:pl-72'>{children}</div>
+      <div className='2xl:pl-56'>{children}</div>
     </div>
   );
 }

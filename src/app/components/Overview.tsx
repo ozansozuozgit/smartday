@@ -56,7 +56,7 @@ const Overview = () => {
     };
   }, [startDate, endDate]);
   return (
-    <div className='grid max-w-full grid-cols-1 place-items-center gap-[50px] lg:grid-cols-1 xl:grid-cols-2 2xl:gap-y-[50px] 3xl:grid-cols-3'>
+    <div className='m-auto grid max-w-full place-items-center gap-[50px] lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-[450px] 3xl:grid-cols-3'>
       {!selectedGoal && (
         <>
           <div className='col-span-1 w-full  xl:col-span-2'>
@@ -69,7 +69,7 @@ const Overview = () => {
             <FrequencyLineChart activities={allActivities} />
           </div>
 
-          <div className='col-span-1 w-full  xl:col-span-2'>
+          <div className='col-span-1 w-full  xl:col-span-3'>
             <CalendarChart />
           </div>
         </>

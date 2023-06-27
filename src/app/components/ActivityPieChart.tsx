@@ -8,10 +8,10 @@ import { generateRandomColors } from '@/src/utils/colorUtils';
 const ActivityPieChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='pie-chart-container mx-2 flex h-[500px] w-full max-w-full rounded-xl bg-white p-4 shadow-md'>
-        <h3 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
+      <h2 className='text-gray-900 mb-0 mt-2 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
-        </h3>
+        </h2>
       </div>
     );
   }
@@ -70,14 +70,14 @@ const ActivityPieChart = ({ goal }: any) => {
   };
 
   return (
-    <div className='pie-chart-container mx-2 flex h-[500px] w-full max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
-      <h2 className='text-gray-900 mb-4 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+    <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
+      <h2 className='text-gray-900 mb-0 mt-2 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
         Daily Activity Breakdown
       </h2>
-      <div className='flex h-full w-full flex-col items-center justify-center'>
+      <div className='flex h-full w-[200px] lg:w-[400px] flex-col items-center justify-center'>
         <ResponsivePie
           data={groupedActivities as any}
-          margin={{ top: 50, right: 0, bottom: 100, left: 0 }}
+          margin={{ top: 40, right: 0, bottom: 40, left: 0 }}
           innerRadius={0.5}
           padAngle={0.7}
           cornerRadius={3}

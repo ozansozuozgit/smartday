@@ -41,7 +41,7 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
 
   if (!formattedActivities.length) {
     return (
-      <div className='h-[500px] max-h-[500px]  max-w-full rounded-xl bg-white p-6 shadow-md '>
+      <div className='h-[400px] max-h-[400px]  max-w-full rounded-xl bg-white p-6 shadow-md '>
         <h3 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
         </h3>
@@ -57,7 +57,7 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
       : specificGoalChartData.data;
 
   return (
-    <div className='flex h-[500px] max-h-[500px] max-w-full flex-col rounded-xl bg-white p-6 shadow-md '>
+    <div className='flex h-[400px] max-h-[400px] max-w-full flex-col rounded-xl bg-white p-6 shadow-md '>
       <h3 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
         Activity Goal Alignment by Category
       </h3>

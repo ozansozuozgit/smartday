@@ -17,11 +17,10 @@ interface Props {
 const AllActivitiesBarChart: React.FC<Props> = ({ activities }) => {
   if (!activities || activities.length === 0) {
     return (
-      <div className='pie-chart-container mx-2 flex h-[500px] w-full max-w-full rounded-xl bg-white p-4 shadow-md'>
-        {' '}
-        <h3 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+      <div className='pie-chart-container-2 mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
+        <h2 className='text-gray-900 mb-0 mt-2 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
-        </h3>
+        </h2>
       </div>
     );
   }
@@ -45,10 +44,10 @@ const AllActivitiesBarChart: React.FC<Props> = ({ activities }) => {
   };
 
   return (
-    <div className='flex h-[500px] w-full max-w-full flex-col rounded-xl  bg-white p-6 shadow-md '>
-      <h3 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+    <div className='pie-chart-container-2 mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
+      <h2 className='text-gray-900 mb-0 mt-2 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
         Activity Goal Alignment by Category
-      </h3>
+      </h2>
       <ResponsiveBar
         data={chartData}
         keys={['align', 'notAlign']}

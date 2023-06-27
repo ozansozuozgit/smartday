@@ -14,8 +14,27 @@
   .pie-chart-container svg {
     width: 1000px;
   }
+  .pie-chart-container-2 svg {
+    width: 400px;
+  }
 }
-.cl-rootBox{
+@media (max-width: 1535px) {
+  .pie-chart-container svg {
+    width: 400px;
+  }
+  .pie-chart-container-2 svg {
+    width: 400px;
+  }
+}
+@media (max-width: 889px) {
+  .pie-chart-container svg {
+    width: 200px;
+  }
+  .pie-chart-container-2 svg {
+    width: 200px;
+  }
+}
+.cl-rootBox {
   width: auto !important;
 }
 .cl-userButtonBox {
