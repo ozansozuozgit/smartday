@@ -6,10 +6,10 @@ import { getTimes } from '@/src/utils/timeHelpers';
 import { GoalType } from '@/types/types';
 
 import { useCallback, useState } from 'react';
+import { FaFlagCheckered } from 'react-icons/fa';
+import { MdTaskAlt } from 'react-icons/md';
+import { RiDeleteBinLine } from 'react-icons/ri';
 import DeleteGoal from './DeleteGoal';
-import {RiDeleteBinLine} from 'react-icons/ri';
-import {MdTaskAlt} from 'react-icons/md';
-import {FaFlagCheckered} from 'react-icons/fa';
 const Goal = ({ goal }: { goal: GoalType }) => {
   const dispatch = useAppDispatch();
   const startDate =
@@ -33,23 +33,26 @@ const Goal = ({ goal }: { goal: GoalType }) => {
 
   return (
     <div
-      className='flex items-center justify-between bg-white p-2 rounded-lg my-1 hover:bg-gray cursor-pointer font-open_sans'
+      className='relative my-1 flex cursor-pointer items-center bg-white p-2 font-open_sans hover:bg-gray'
       onClick={getGoalandActivities}
       style={{
         backgroundColor: goal?.id === selectedGoal?.id ? '#FDE68A' : '',
       }}
     >
+      {' '}
       {goal.percentage === 100 ? (
-        <MdTaskAlt className='h-4 w-4 text-yellow-500' aria-hidden='true' />
+        <MdTaskAlt className='h-3 w-3 text-yellow-500  ' aria-hidden='true' />
       ) : (
-        <FaFlagCheckered className='h-4 w-4 text-orange' aria-hidden='true' />
+        <FaFlagCheckered className='h-3 w-3 text-orange ' aria-hidden='true' />
       )}
-      <h2 className='text-md  cursor-pointer'>{goal.name}</h2>
-      <RiDeleteBinLine
-        className='h-4 w-4 text-red-500  hover:text-red-600'
-        aria-hidden='true'
-        onClick={() => setIsDeleteGoalOpen(true)}
-      />
+      <h2 className='ml-2 cursor-pointer self-start text-sm'>{goal.name}</h2>
+      {selectedGoal?.id === goal?.id && (
+        <RiDeleteBinLine
+          className='absolute right-2 h-3  w-3 bg-[#FDE68A] text-red-500 hover:text-red-600 z-10'
+          aria-hidden='true'
+          onClick={() => setIsDeleteGoalOpen(true)}
+        />
+      )}
       {isDeleteGoalOpen && (
         <DeleteGoal
           closeDeleteGoal={() => setIsDeleteGoalOpen(false)}

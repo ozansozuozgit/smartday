@@ -50,29 +50,28 @@ export default function DeleteGoal({ closeDeleteGoal, goal }: any) {
                 <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
-                    className='text-lg font-medium leading-6 text-gray-900'
+                    className='text-gray-900 text-lg font-medium leading-6'
                   >
                     Delete {goal.name}
                   </Dialog.Title>
                   <div className='mt-2'>
-                    <p className='text-sm text-gray-500'>
+                    <p className='text-gray-500 text-sm'>
                       This action is irreversible. Are you sure you want to
                       delete this activity?
                     </p>
                   </div>
 
-                  <div className='mt-4 flex gap-2'>
-                    {' '}
+                  <div className='mt-4 flex gap-2 font-open_sans'>
                     <button
                       type='button'
-                      className='inline-flex justify-center rounded-md border border-transparent bg-teal-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-teal-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+                      className='focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent bg-orange px-4 py-2 text-sm font-medium text-white hover:bg-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
                       onClick={deleteGoal}
                     >
                       Yes
                     </button>
                     <button
                       type='button'
-                      className='inline-flex justify-center rounded-md border border-transparent bg-teal-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-teal-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+                      className='focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
                       onClick={closeDeleteGoal}
                     >
                       No

@@ -10,7 +10,7 @@ const Activities = ({ goal }: any) => {
   return (
     <div className='flex h-[400px] max-h-[500px] w-full max-w-full  flex-col space-y-4 rounded-xl bg-white p-6 shadow-md  '>
       <div className='flex justify-between'>
-        <h2 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
           {!goal.activities || goal.activities.length === 0
             ? ' No Activities'
             : 'Activities'}
@@ -18,7 +18,7 @@ const Activities = ({ goal }: any) => {
         {isToday(startDate) && <AddActivity goal={goal} />}
       </div>
       {goal.percentage > 0 && isToday(startDate) && (
-        <h3> {goal.percentage}/100 </h3>
+        <h3 className='text-sm'> {goal.percentage}/100 </h3>
       )}
 
       {goal?.activities && (

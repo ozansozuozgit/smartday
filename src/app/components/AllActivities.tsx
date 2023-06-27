@@ -6,7 +6,7 @@ const AllActivities = ({ activities }: any) => {
   return (
     <div className='flex h-[400px] max-h-[400px] max-w-full flex-col space-y-4 rounded-xl bg-white p-6 shadow-md '>
       <div className='flex justify-between'>
-        <h2 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+        <h2 className='text-gray-900 mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
           {!activities || activities.length === 0
             ? ' No Activities'
             : 'Latest Activities'}

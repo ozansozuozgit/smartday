@@ -22,8 +22,8 @@ export function SidebarNav() {
   const goals = useAppSelector((state) => state.user.goals);
 
   return (
-    <div className='border-gray-800 2xl:z-2 fixed top-0 z-10 flex w-full flex-col border-b bg-white shadow-lg 2xl:bottom-0 2xl:w-56 '>
-      <div className='flex h-14 max-w-sm flex-row items-center border-b border-gray px-4 py-4 lg:h-auto lg:flex-col 2xl:gap-y-5'>
+    <div className='border-gray 2xl:z-2 fixed top-0 z-10 flex w-full flex-col border-b bg-white shadow-lg 2xl:bottom-0 2xl:w-56 '>
+      <div className='flex h-14 max-w-sm flex-row items-center border-b border-neutral-300 px-4 py-4 lg:h-auto lg:flex-col 2xl:gap-y-5'>
         <Clock />
         <DatePicker />
       </div>
@@ -33,9 +33,9 @@ export function SidebarNav() {
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? (
-          <AiOutlineCloseCircle className='text-gray-400 block h-6 w-6' />
+          <AiOutlineCloseCircle className='text-orange block h-6 w-6' />
         ) : (
-          <AiOutlineBars className='text-gray-400 block h-6 w-6' />
+          <AiOutlineBars className='text-orange block h-6 w-6' />
         )}
       </button>
 

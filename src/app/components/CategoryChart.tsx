@@ -8,7 +8,7 @@ import React from 'react';
 const CategoryChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
+      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full justify-center rounded-xl bg-white p-4 shadow-md'>
         <h2 className='text-gray-900 mb-0 mt-2 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
         </h2>
@@ -51,7 +51,7 @@ const CategoryChart = ({ goal }: any) => {
 
   return (
     <div className='pie-chart-container-2 mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
-      <h2 className='text-gray-900 mb-0 mt-2 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
         Category Distribution Overview
       </h2>
       <div className='flex h-full w-[200px] lg:w-[400px] flex-col items-center justify-center'>

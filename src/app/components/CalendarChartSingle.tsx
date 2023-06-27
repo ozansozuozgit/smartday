@@ -55,10 +55,10 @@ const CalendarChartSingle = ({ goal }: any) => {
   }, [startDate, endDate, goal]);
 
   return (
-    <div className='h-[450px] sm:h-[400px] sm:max-w-[1500px] m-auto bg-white rounded-xl shadow-md p-6 flex flex-col '>
-      <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+    <div className='m-auto flex h-[450px] flex-col rounded-xl bg-white p-6 shadow-md sm:h-[400px] sm:max-w-[1500px] '>
+      <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
         Activity Completion Calendar
-      </h3>
+      </h2>
       <ResponsiveCalendar
         data={goalData}
         from={startDate}

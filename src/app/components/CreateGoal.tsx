@@ -46,10 +46,10 @@ const CreateGoal = () => {
   return (
     <div className='font-open_sans'>
       <div
-        className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-teal px-6  py-2 text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 '
+        className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-teal px-2  py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 '
         onClick={openModal}
       >
-        <FaPlus className='h-4 w-4 text-white' aria-hidden='true' />
+        <FaPlus className='h-3 w-3 text-white' aria-hidden='true' />
         <span>New Goal</span>
       </div>
 
@@ -81,7 +81,7 @@ const CreateGoal = () => {
                 <Dialog.Panel className='w-full max-w-[300px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
-                    className='font-roboto text-xl font-medium '
+                    className='font-roboto text-lg font-medium '
                   >
                     Enter Goal Name
                   </Dialog.Title>
@@ -90,7 +90,7 @@ const CreateGoal = () => {
                       type='text'
                       name='price'
                       id='price'
-                      className='text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 sm:text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-lg ring-1 ring-inset focus:ring-2 focus:ring-inset sm:leading-6'
+                      className='text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 sm:text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-md ring-1 ring-inset focus:ring-2 focus:ring-inset sm:leading-6'
                       value={goalName}
                       onChange={(e) => setGoalName(e.target.value)}
                       onKeyDown={(e) => {

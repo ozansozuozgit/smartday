@@ -25,9 +25,7 @@ const DatePicker = () => {
   const formattedEndDate = value[1] ? formatDate(value[1]) : '';
   return (
     <div className='flex w-full items-center justify-between'>
-      <h3 className='hidden font-roboto text-sm font-semibold 2xl:block'>
-        {formattedStartDate} - {formattedEndDate}
-      </h3>
+      
       <Popover>
         {({ open }) => (
           <>
@@ -36,7 +34,7 @@ const DatePicker = () => {
               className={`${open ? '' : 'text-opacity-90'}
     group inline-flex items-center rounded-md bg-orange px-3 py-2 text-base font-medium text-white transition-colors duration-300 hover:bg-opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
-              <BsCalendar3 className='h-4 w-4 text-white transition-colors duration-300 sm:h-6 sm:w-6' />{' '}
+              <BsCalendar3 className='h-2 w-2 text-white transition-colors duration-300 sm:h-4 sm:w-4' />{' '}
               {/* <ChevronDownIcon
                 className={`${
                   open ? 'transform rotate-180' : ''
@@ -54,7 +52,7 @@ const DatePicker = () => {
               leaveFrom='opacity-100 translate-y-0'
               leaveTo='opacity-0 translate-y-1'
             >
-              <Popover.Panel className='absolute z-10 '>
+              <Popover.Panel className='absolute z-20 '>
                 <div className='overflow-hidden rounded-lg bg-gray shadow-lg ring-1 ring-black ring-opacity-5'>
                   <div className='relative'>
                     <Calendar
@@ -80,6 +78,9 @@ const DatePicker = () => {
           </>
         )}
       </Popover>
+      <h3 className='hidden font-roboto text-xs font-semibold 2xl:block'>
+        {formattedStartDate} - {formattedEndDate}
+      </h3>
     </div>
   );
 };

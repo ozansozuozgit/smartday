@@ -26,9 +26,9 @@ const Clock = () => {
   return (
     <div className='self-start'>
       {hydrated && (
-        <div className='text-md hidden 2xl:block font-open_sans space-y-1'>
+        <div className='text-xs hidden 2xl:block font-open_sans space-y-1'>
           <h4 className='font-semibold'>Goals Reset Daily At 12 AM CST</h4>
-          <h4 className=''>{formattedTime}</h4>
+          <h4 className=''>{formattedTime} CST</h4>
         </div>
       )}
     </div>

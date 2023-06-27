@@ -54,9 +54,9 @@ const CalendarChart = () => {
 
   return (
     <div className='h-[450px] sm:h-[400px] sm:max-w-[1500px] m-auto bg-white rounded-xl shadow-md p-6 flex flex-col '>
-      <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
         Activity Completion Calendar
-      </h3>
+      </h2>
       <ResponsiveCalendar
         data={goalData}
         from={startDate}

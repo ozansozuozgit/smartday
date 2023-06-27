@@ -39,18 +39,18 @@ const FrequencyLineChart: React.FC<FrequencyLineChartProps> = ({
   if (!data.length) {
     return (
       <div className='p-6 h-[400px]  max-w-full max-h-[400px] bg-white rounded-xl shadow-md '>
-        <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+      <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
           No Activities
-        </h3>
+        </h2>
       </div>
     );
   }
   console.log('data', data);
   return (
     <div className='p-6 h-[400px] flex flex-col max-w-full max-h-full bg-white rounded-xl shadow-md'>
-      <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+      <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
         Frequency of Activities Over Time
-      </h3>
+      </h2>
 
       <ResponsiveLine
         data={[{ id: 'ActivityFrequency', data }]}

@@ -8,8 +8,8 @@ import { generateRandomColors } from '@/src/utils/colorUtils';
 const ActivityPieChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
-      <h2 className='text-gray-900 mb-0 mt-2 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full flex-col rounded-xl bg-white p-4 shadow-md'>
+      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
           No Activities
         </h2>
       </div>
@@ -71,7 +71,7 @@ const ActivityPieChart = ({ goal }: any) => {
 
   return (
     <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
-      <h2 className='text-gray-900 mb-0 mt-2 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
         Daily Activity Breakdown
       </h2>
       <div className='flex h-full w-[200px] lg:w-[400px] flex-col items-center justify-center'>

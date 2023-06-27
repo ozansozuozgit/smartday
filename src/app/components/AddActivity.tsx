@@ -84,7 +84,7 @@ const AddActivity = ({ goal }: any) => {
   return (
     <div>
       <div
-        className='flex items-center justify-around rounded-md bg-teal px-2 py-2 gap-2  text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer w-full'
+        className='flex items-center justify-around rounded-md bg-teal px-2 py-2 gap-2  text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer w-full'
         onClick={openModal}
         style={{
           opacity: goal?.percentage === 100 || !goal ? 0.5 : 1,
@@ -93,7 +93,7 @@ const AddActivity = ({ goal }: any) => {
       >
         <FaPlus className='h-4 w-4 text-white' aria-hidden='true' />
 
-        <span>New Activity</span>
+        <span >New Activity</span>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>

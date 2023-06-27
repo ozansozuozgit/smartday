@@ -9,7 +9,7 @@ const Activity = ({ activity }: any) => {
   return (
     <li key={activity.id} className='flex justify-between gap-x-4 py-3 '>
       <div className='flex-grow'>
-        <p className='text-sm sm:text-lg font-medium leading-6 text-gray-900 overflow-ellipsis overflow-hidden'>
+        <p className='text-sm sm:text-sm font-medium leading-6 text-gray-900 overflow-ellipsis overflow-hidden'>
           {activity.name}
         </p>
         <time
@@ -21,7 +21,7 @@ const Activity = ({ activity }: any) => {
       </div>
       <div className='flex items-center'>
         {activity?.percentage && (
-          <p className='text-sm sm:text-lg font-semibold text-green-500 mr-2 sm:mr-4'>
+          <p className='text-sm  font-semibold text-green-500 mr-2 sm:mr-4'>
             {activity.percentage}%
           </p>
         )}

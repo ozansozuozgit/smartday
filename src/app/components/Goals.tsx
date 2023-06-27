@@ -33,20 +33,24 @@ const Goals = ({ goals }: any) => {
 
   return (
     <div>
-      <div className='mb-5 flex items-center justify-between gap-x-2'>
+      <div className='mb-5 flex items-center gap-x-2 2xl:justify-between'>
         <div
-          className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-blue px-4  py-2 text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
+          className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-blue px-4  py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
           onClick={() => {
             dispatch(setSelectedGoal(null));
           }}
         >
-          <AiFillHome className='h-4 w-4 text-white font-open_sans' aria-hidden='true' />
+          <AiFillHome
+            className='h-4 w-4 font-open_sans text-white'
+            aria-hidden='true'
+          />
           <span>Home</span>
         </div>
         <CreateGoal />
       </div>
-
-      {goals && goals.map((goal: any) => <Goal goal={goal} key={goal?.id} />)}
+      <div className='divide-y-[1px] divide-neutral-300 space-y-2'>
+        {goals && goals.map((goal: any) => <Goal goal={goal} key={goal?.id} />)}
+      </div>
     </div>
   );
 };

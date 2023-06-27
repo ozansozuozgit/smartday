@@ -58,9 +58,9 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
 
   return (
     <div className='flex h-[400px] max-h-[400px] max-w-full flex-col rounded-xl bg-white p-6 shadow-md '>
-      <h3 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
-        Activity Goal Alignment by Category
-      </h3>
+      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
+      Activity Progress Over Time
+      </h2>
       <ResponsiveLine
         data={[specificGoalChartData]}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
