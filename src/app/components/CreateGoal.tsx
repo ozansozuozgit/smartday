@@ -44,9 +44,9 @@ const CreateGoal = () => {
   };
 
   return (
-    <div className=''>
+    <div className='font-open_sans'>
       <div
-        className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-teal px-6  py-2 text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
+        className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-teal px-6  py-2 text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 '
         onClick={openModal}
       >
         <FaPlus className='h-4 w-4 text-white' aria-hidden='true' />

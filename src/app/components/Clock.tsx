@@ -7,9 +7,7 @@ const Clock = () => {
 
   const timezone = cstTimezone;
 
-  const [currentTime, setCurrentTime] = useState(
-    moment().tz(timezone)
-  );
+  const [currentTime, setCurrentTime] = useState(moment().tz(timezone));
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -25,7 +23,16 @@ const Clock = () => {
 
   const formattedTime = currentTime.format(' MMMM D, YYYY h:mm:ss A');
 
-  return <div>{hydrated && <h4 className='text-sm hidden 2xl:block'>{formattedTime}</h4>}</div>;
+  return (
+    <div className='self-start'>
+      {hydrated && (
+        <div className='text-md hidden 2xl:block font-open_sans space-y-1'>
+          <h4 className='font-semibold'>Goals Reset Daily At 12 AM CST</h4>
+          <h4 className=''>{formattedTime}</h4>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Clock;

@@ -33,7 +33,7 @@ const Goal = ({ goal }: { goal: GoalType }) => {
 
   return (
     <div
-      className='flex items-center justify-between bg-white p-2 rounded-lg my-1 hover:bg-gray cursor-pointer'
+      className='flex items-center justify-between bg-white p-2 rounded-lg my-1 hover:bg-gray cursor-pointer font-open_sans'
       onClick={getGoalandActivities}
       style={{
         backgroundColor: goal?.id === selectedGoal?.id ? '#FDE68A' : '',

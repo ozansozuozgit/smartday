@@ -3,11 +3,11 @@ import { getBaseUrl } from '@/lib/getBaseUrl';
 import { setSelectedGoal, setUserGoals } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { useEffect } from 'react';
+import { AiFillHome } from 'react-icons/ai';
 import { GoalType } from '../../../types/types';
 import AddActivity from './AddActivity';
 import CreateGoal from './CreateGoal';
 import Goal from './Goal';
-
 const Goals = ({ goals }: any) => {
   const dispatch = useAppDispatch();
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
@@ -33,15 +33,16 @@ const Goals = ({ goals }: any) => {
 
   return (
     <div>
-      <div className='flex items-center justify-between mb-5 gap-x-2'>
-        <h2
+      <div className='mb-5 flex items-center justify-between gap-x-2'>
+        <div
+          className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-blue px-4  py-2 text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
           onClick={() => {
             dispatch(setSelectedGoal(null));
           }}
         >
-          Home
-        </h2>
-
+          <AiFillHome className='h-4 w-4 text-white font-open_sans' aria-hidden='true' />
+          <span>Home</span>
+        </div>
         <CreateGoal />
       </div>
 
