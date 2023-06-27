@@ -13,7 +13,7 @@ interface Props {
 const AllAlignWithGoalPieChart: React.FC<Props> = ({ activities }) => {
   if (!activities || activities.length === 0) {
     return (
-      <div className='h-[500px] max-w-full sm:max-w-xl mx-2 bg-white rounded-xl shadow-md p-4 pie-chart-container w-[550px]'>
+      <div className='pie-chart-container mx-2 flex h-[500px] w-full max-w-full rounded-xl bg-white p-4 shadow-md'>
         <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
           No Activities
         </h3>

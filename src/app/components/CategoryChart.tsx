@@ -1,10 +1,11 @@
 'use client';
 import { useAppSelector } from '@/src/redux/hooks';
+import { generateRandomColors } from '@/src/utils/colorUtils';
 import { ResponsivePie } from '@nivo/pie';
 import moment from 'moment';
 import React from 'react';
 
-const CategoryChart = ({ goal }) => {
+const CategoryChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
       <div className='pie-chart-container mx-2 flex h-[500px] w-full max-w-full rounded-xl bg-white p-4 shadow-md'>
@@ -19,15 +20,6 @@ const CategoryChart = ({ goal }) => {
   const startMoment = moment(startDate);
   const endMoment = moment(endDate);
 
-  // Function to generate random colors
-  function generateRandomColors(count) {
-    const colors = [];
-    for (let i = 0; i < count; i++) {
-      const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-      colors.push(color);
-    }
-    return colors;
-  }
   const transformedData = goal.activities.filter((activity) => {
     const activityDate = moment(activity.createdAt);
     return activityDate.isBetween(startMoment, endMoment, 'day', '[]');
@@ -43,7 +35,7 @@ const CategoryChart = ({ goal }) => {
   }, {});
 
   const categoryChartData = Object.entries(categoryCount).map(
-    ([categoryName, count]: [string, number]) => ({
+    ([categoryName, count]: any) => ({
       id: categoryName,
       value: count,
     })
@@ -53,7 +45,7 @@ const CategoryChart = ({ goal }) => {
   const categoryColors = generateRandomColors(categoryChartData.length);
 
   // Assign the generated colors to the categoryChartData
-  categoryChartData.forEach((data, index) => {
+  categoryChartData.forEach((data: any, index) => {
     data.color = categoryColors[index];
   });
 
@@ -64,7 +56,7 @@ const CategoryChart = ({ goal }) => {
       </h2>
       <div className='h-full w-full'>
         <ResponsivePie
-          data={categoryChartData}
+          data={categoryChartData as any}
           margin={{ top: 50, right: 0, bottom: 100, left: 0 }}
           innerRadius={0.5}
           padAngle={0.7}
@@ -82,7 +74,6 @@ const CategoryChart = ({ goal }) => {
           }
           tooltip={({ datum }) => `${datum.id}: ${datum.value}`}
           arcLabelsRadiusOffset={0.6} // Adjust the radius offset for label positioning
-          arcLabelsTextColor='#333333' // Customize label text color
           arcLabelsSkipLabelThreshold={10} // Skip labels for small slices
           colors={(datum: any) => datum.data.color}
         />

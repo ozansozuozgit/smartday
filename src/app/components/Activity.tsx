@@ -1,9 +1,8 @@
 'use client';
 import { formatDatetime, isToday } from '@/src/utils/timeHelpers';
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 import DeleteActivity from './DeleteActivity';
-
+import {AiOutlineCloseCircle,AiOutlineCheckCircle} from 'react-icons/ai';
 const Activity = ({ activity }: any) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
 
@@ -27,9 +26,9 @@ const Activity = ({ activity }: any) => {
           </p>
         )}
         {activity?.alignsWithGoal ? (
-          <CheckCircleIcon className='h-4 sm:h-6 w-4 sm:w-6 text-green-500' />
+          <AiOutlineCheckCircle className='h-4 sm:h-6 w-4 sm:w-6 text-green-500' />
         ) : (
-          <XCircleIcon className='h-4 sm:h-6 w-4 sm:w-6 text-red-500' />
+          <AiOutlineCloseCircle className='h-4 sm:h-6 w-4 sm:w-6 text-red-500' />
         )}
       </div>
       {!activity?.goal && isToday(activity.createdAt) && (

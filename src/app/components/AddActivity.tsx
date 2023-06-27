@@ -8,10 +8,10 @@ import {
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
-import { PlusIcon } from '@heroicons/react/24/solid';
 import React, { Fragment, useEffect, useState } from 'react';
 import { GoalType } from '../../../types/types';
 import Categories from './Categories';
+import {FaPlus} from 'react-icons/fa';
 
 const AddActivity = ({ goal }: any) => {
   const [activityName, setActivityName] = useState<string>('');
@@ -91,7 +91,7 @@ const AddActivity = ({ goal }: any) => {
           pointerEvents: goal?.percentage === 100 || !goal ? 'none' : 'auto',
         }}
       >
-        <PlusIcon className='h-4 w-4 text-white' aria-hidden='true' />
+        <FaPlus className='h-4 w-4 text-white' aria-hidden='true' />
 
         <span>New Activity</span>
       </div>
@@ -187,7 +187,7 @@ const AddActivity = ({ goal }: any) => {
                             aria-describedby='comments-description'
                             name='comments'
                             type='checkbox'
-                            className='h-8 w-8 rounded border-gray text-indigo-600 focus:ring-indigo-600'
+                            className='h-6 w-6 rounded border-gray text-indigo-600 focus:ring-indigo-600'
                             checked={alignsWithGoal}
                             onChange={() => setAlignsWithGoal(!alignsWithGoal)}
                           />

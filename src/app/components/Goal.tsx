@@ -4,15 +4,12 @@ import { setSelectedGoal } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
 import { GoalType } from '@/types/types';
-import {
-  ChartBarIcon,
-  FlagIcon,
-  StarIcon,
-  XMarkIcon,
-} from '@heroicons/react/20/solid';
+
 import { useCallback, useState } from 'react';
 import DeleteGoal from './DeleteGoal';
-
+import {RiDeleteBinLine} from 'react-icons/ri';
+import {MdTaskAlt} from 'react-icons/md';
+import {FaFlagCheckered} from 'react-icons/fa';
 const Goal = ({ goal }: { goal: GoalType }) => {
   const dispatch = useAppDispatch();
   const startDate =
@@ -43,13 +40,13 @@ const Goal = ({ goal }: { goal: GoalType }) => {
       }}
     >
       {goal.percentage === 100 ? (
-        <StarIcon className='h-4 w-4 text-yellow-500' aria-hidden='true' />
+        <MdTaskAlt className='h-4 w-4 text-yellow-500' aria-hidden='true' />
       ) : (
-        <FlagIcon className='h-4 w-4 text-orange' aria-hidden='true' />
+        <FaFlagCheckered className='h-4 w-4 text-orange' aria-hidden='true' />
       )}
       <h2 className='text-md  cursor-pointer'>{goal.name}</h2>
-      <XMarkIcon
-        className='h-6 w-6 text-red-500  hover:text-red-600'
+      <RiDeleteBinLine
+        className='h-4 w-4 text-red-500  hover:text-red-600'
         aria-hidden='true'
         onClick={() => setIsDeleteGoalOpen(true)}
       />

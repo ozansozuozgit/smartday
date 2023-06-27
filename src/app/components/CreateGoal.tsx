@@ -3,10 +3,9 @@ import { getBaseUrl } from '@/lib/getBaseUrl';
 import { addGoal, setSelectedGoal } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
-import { PlusIcon } from '@heroicons/react/24/solid';
 import React, { Fragment, useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 import { GoalType } from '../../../types/types';
-
 const CreateGoal = () => {
   const [goalName, setGoalName] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false);
@@ -47,10 +46,10 @@ const CreateGoal = () => {
   return (
     <div className=''>
       <div
-        className='flex items-center justify-around rounded-md bg-teal px-6 py-2 gap-2  text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer'
+        className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-teal px-6  py-2 text-lg font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
         onClick={openModal}
       >
-        <PlusIcon className='h-4 w-4 text-white' aria-hidden='true' />
+        <FaPlus className='h-4 w-4 text-white' aria-hidden='true' />
         <span>New Goal</span>
       </div>
 
@@ -82,7 +81,7 @@ const CreateGoal = () => {
                 <Dialog.Panel className='w-full max-w-[300px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
-                    className='text-xl font-roboto font-medium '
+                    className='font-roboto text-xl font-medium '
                   >
                     Enter Goal Name
                   </Dialog.Title>
@@ -91,7 +90,7 @@ const CreateGoal = () => {
                       type='text'
                       name='price'
                       id='price'
-                      className='block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg sm:text-md sm:leading-6 my-5'
+                      className='text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 sm:text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-lg ring-1 ring-inset focus:ring-2 focus:ring-inset sm:leading-6'
                       value={goalName}
                       onChange={(e) => setGoalName(e.target.value)}
                       onKeyDown={(e) => {
@@ -104,17 +103,17 @@ const CreateGoal = () => {
                     />
                   </div>
 
-                  <div className='mt-4 space-x-2 flex justify-end'>
+                  <div className='mt-4 flex justify-end space-x-2'>
                     <button
                       type='button'
-                      className='inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue focus:outline-none focus-visible:ring-2 focus-visible:ring-bluefocus-visible:ring-offset-2'
+                      className='focus-visible:ring-bluefocus-visible:ring-offset-2 inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue focus:outline-none focus-visible:ring-2'
                       onClick={closeModal}
                     >
                       Cancel
                     </button>
                     <button
                       type='button'
-                      className='inline-flex justify-center rounded-md border border-transparent bg-orange px-4 py-2 text-sm font-medium text-white hover:bg-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-bluefocus-visible:ring-offset-2'
+                      className='focus-visible:ring-bluefocus-visible:ring-offset-2 inline-flex justify-center rounded-md border border-transparent bg-orange px-4 py-2 text-sm font-medium text-white hover:bg-teal focus:outline-none focus-visible:ring-2'
                       onClick={createGoal}
                     >
                       Submit

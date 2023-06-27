@@ -3,11 +3,6 @@ import { ResponsiveLine } from '@nivo/line';
 import moment from 'moment-timezone';
 import React, { useMemo } from 'react';
 
-const generateRandomColor = () => {
-  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-  return '#' + randomColor;
-};
-
 interface Goal {
   id: string;
   activities: any[];
@@ -32,7 +27,6 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
 
     return {
       id: goal.id,
-      color: generateRandomColor(),
       data: formattedActivities
         .sort(
           (a: any, b: any) =>
@@ -47,8 +41,8 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
 
   if (!formattedActivities.length) {
     return (
-      <div className='p-6 h-[500px]  max-w-full max-h-[500px] bg-white rounded-xl shadow-md '>
-        <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+      <div className='h-[500px] max-h-[500px]  max-w-full rounded-xl bg-white p-6 shadow-md '>
+        <h3 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
         </h3>
       </div>
@@ -62,10 +56,9 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
         )
       : specificGoalChartData.data;
 
-
   return (
-    <div className='p-6 h-[500px] flex flex-col max-w-full max-h-[500px] bg-white rounded-xl shadow-md '>
-      <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6 font-roboto'>
+    <div className='flex h-[500px] max-h-[500px] max-w-full flex-col rounded-xl bg-white p-6 shadow-md '>
+      <h3 className='text-gray-900 mb-4 font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
         Activity Goal Alignment by Category
       </h3>
       <ResponsiveLine
