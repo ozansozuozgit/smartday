@@ -174,6 +174,9 @@ const AddActivity = ({ goal }: any) => {
                         <span className='text-blue font-semibold'>
                           {100 - goal?.percentage}%
                         </span>
+                        <button className=' bg-teal px-2 text-sm py-1 rounded-lg text-white' onClick={()=>{
+                          setPercentage(100 - goal?.percentage)
+                        }}>Add Remaining</button>
                       </span>
                     </div>
                   </div>
