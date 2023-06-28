@@ -5,28 +5,29 @@ import React from 'react';
 
 import { generateRandomColors } from '@/src/utils/colorUtils';
 
-const ActivityPieChart = ({ goal }: any) => {
+const ActivityPieChart = ({ goal }) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full flex-col rounded-xl bg-white p-4 shadow-md'>
-      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
+      <div className='pie-chart-container mx-2 flex h-[400px] w-full max-w-full flex-col rounded-xl bg-white p-4 shadow-md'>
+        <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
           No Activities
         </h2>
       </div>
     );
   }
+
   const cstTimezone = 'America/Chicago';
   const estTimezone = 'America/New_York';
 
   const timezone = cstTimezone;
   const todayEST = moment().tz(timezone).startOf('day');
 
-  const dailyActivities = goal?.activities.filter((activity: any) => {
+  const dailyActivities = goal?.activities.filter((activity) => {
     const activityDate = moment(activity.createdAt).tz(timezone).startOf('day');
     return activityDate.isSame(todayEST, 'day');
   });
 
-  const activityGroups = dailyActivities.reduce((acc: any, activity: any) => {
+  const activityGroups = dailyActivities.reduce((acc, activity) => {
     if (!acc[activity.name]) {
       acc[activity.name] = {
         id: activity.name,
@@ -40,16 +41,14 @@ const ActivityPieChart = ({ goal }: any) => {
     return acc;
   }, {});
 
-  // Convert the grouped object back into an array
   const groupedActivities = Object.values(activityGroups);
 
-  const totalPercentageDone: any = groupedActivities.reduce(
-    (acc: any, activity: any) => acc + activity.value,
+  const totalPercentageDone = groupedActivities.reduce(
+    (acc, activity) => acc + activity.value,
     0
   );
-  const remainingPercentage: any = 100 - totalPercentageDone;
+  const remainingPercentage = 100 - totalPercentageDone;
 
-  // Add the remaining percentage slice
   if (remainingPercentage > 0) {
     groupedActivities.push({
       id: 'remaining',
@@ -59,9 +58,8 @@ const ActivityPieChart = ({ goal }: any) => {
   }
 
   const randomizeColors = () => {
-    const randomizedColors = groupedActivities.map((activity: any) => {
+    const randomizedColors = groupedActivities.map((activity) => {
       if (activity.label === 'Remaining') {
-        console.log(activity.label);
         return '#CCCCCC'; // Specify the color for "Remaining" activity
       }
       return generateRandomColors(1);
@@ -70,13 +68,13 @@ const ActivityPieChart = ({ goal }: any) => {
   };
 
   return (
-    <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
-      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
+    <div className='pie-chart-container mx-2 flex h-[400px] w-full max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
+      <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
         Daily Activity Breakdown
       </h2>
-      <div className='flex h-full w-[200px] lg:w-[400px] flex-col items-center justify-center'>
+      <div className='flex h-full w-[200px] flex-col items-center justify-center lg:w-[400px]'>
         <ResponsivePie
-          data={groupedActivities as any}
+          data={groupedActivities}
           margin={{ top: 40, right: 0, bottom: 40, left: 0 }}
           innerRadius={0.5}
           padAngle={0.7}
@@ -89,8 +87,8 @@ const ActivityPieChart = ({ goal }: any) => {
           arcLinkLabelsColor={{ from: 'color' }}
           arcLabelsSkipAngle={10}
           arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-          arcLabel={({ data }: any) => `${data.value}%`}
-          colors={randomizeColors() as any}
+          arcLabel={({ data }) => `${data.value}%`}
+          colors={randomizeColors()}
         />
       </div>
     </div>

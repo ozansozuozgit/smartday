@@ -26,10 +26,10 @@
 }
 @media (max-width: 889px) {
   .pie-chart-container svg {
-    width: 200px;
+    width: 300px;
   }
   .pie-chart-container-2 svg {
-    width: 200px;
+    width: 300px;
   }
 }
 .cl-rootBox {

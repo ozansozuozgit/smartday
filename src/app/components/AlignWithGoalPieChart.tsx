@@ -4,29 +4,29 @@ import { ResponsivePie } from '@nivo/pie';
 import moment from 'moment';
 import React from 'react';
 
-const AlignWithGoalPieChart = ({ goal }: any) => {
+const AlignWithGoalPieChart = ({ goal }) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full rounded-xl bg-white p-4 shadow-md'>
-      <h2 className='text-gray-900 mb-0 mt-2 self-baseline font-roboto text-lg font-semibold sm:mb-6 sm:text-xl md:text-2xl'>
+      <div className='pie-chart-container mx-2 flex h-[400px] w-full max-w-full rounded-xl bg-white p-4 shadow-md'>
+        <h2 className='mb-0 mt-2 self-baseline font-roboto text-lg font-semibold text-gray-900 sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
         </h2>
       </div>
     );
   }
+
   const startDate = useAppSelector((state) => state.user.startDate);
   const endDate = useAppSelector((state) => state.user.endDate);
   const startMoment = moment(startDate);
   const endMoment = moment(endDate);
 
-  const transformedData = goal?.activities.filter((activity: any) => {
+  const transformedData = goal?.activities.filter((activity) => {
     const activityDate = moment(activity.createdAt);
     return activityDate.isBetween(startMoment, endMoment, 'day', '[]');
   });
 
   const alignsWithGoalCount = transformedData.reduce(
-    (count: any, activity: any) =>
-      activity.alignsWithGoal ? count + 1 : count,
+    (count, activity) => (activity.alignsWithGoal ? count + 1 : count),
     0
   );
 
@@ -48,16 +48,16 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
   }));
 
   return (
-    <div className='pie-chart-container-2 mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
-      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
+    <div className='pie-chart-container-2 mx-2 flex h-[400px] w-full max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-md'>
+      <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
         {!goal.activities || goal.activities.length === 0
           ? ' No Activities'
           : ' Activity Alignment Overview'}
       </h2>
-      <div className='flex h-full w-[200px] lg:w-[400px] flex-col items-center justify-center'>
+      <div className='flex h-full w-full max-w-[300px] flex-col items-center justify-center lg:w-[400px]'>
         <ResponsivePie
-          data={pieChartData as any}
-          margin={{ top: 0, right: 0, bottom: 60, left: 0 }}
+          data={pieChartData}
+          margin={{ top: 0, right: 30, bottom: 60, left: 30 }}
           innerRadius={0.5}
           padAngle={0.7}
           cornerRadius={3}
@@ -70,7 +70,7 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
           arcLinkLabelsColor={{ from: 'color' }}
           arcLabelsSkipAngle={10}
           arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-          arcLabel={({ data }: any) =>
+          arcLabel={({ data }) =>
             `${((data.value / transformedData.length) * 100).toFixed(2)}%`
           }
           tooltip={({ datum }) => `${datum.id}: ${datum.value}`}
@@ -81,7 +81,7 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
               justify: false,
               translateX: 0,
               translateY: 56,
-              itemsSpacing: 10, // Increase spacing between legend items
+              itemsSpacing: 10,
               itemWidth: 100,
               itemHeight: 18,
               itemTextColor: '#999999',
@@ -99,9 +99,9 @@ const AlignWithGoalPieChart = ({ goal }: any) => {
               ],
             },
           ]}
-          colors={(datum: any) => datum.data.color}
+          colors={(datum) => datum.data.color}
         />
-      </div>{' '}
+      </div>
     </div>
   );
 };

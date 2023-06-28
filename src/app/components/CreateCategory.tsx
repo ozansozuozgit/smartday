@@ -1,7 +1,6 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { Dialog, Transition } from '@headlessui/react';
-import { useSearchParams } from 'next/navigation';
 import React, { Fragment, useRef, useState } from 'react';
 import { GoalType } from '../../../types/types';
 
@@ -37,6 +36,7 @@ const CreateCategory = ({ addCategoryToState }: any) => {
       console.log(err);
     }
   };
+
   return (
     <div className='flex items-end'>
       <>
@@ -44,7 +44,7 @@ const CreateCategory = ({ addCategoryToState }: any) => {
           <button
             type='button'
             onClick={openModal}
-            className='rounded-md bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
+            className='rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
           >
             Create Category
           </button>
@@ -103,14 +103,14 @@ const CreateCategory = ({ addCategoryToState }: any) => {
                     <div className='mt-4 space-x-2 flex justify-end'>
                       <button
                         type='button'
-                        className='inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2'
+                        className='inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2'
                         onClick={closeModal}
                       >
                         Cancel
                       </button>
                       <button
                         type='button'
-                        className='inline-flex justify-center rounded-md border border-transparent bg-orange px-4 py-2 text-sm font-medium text-white hover:bg-orange focus:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2'
+                        className='inline-flex justify-center rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange focus:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2'
                         onClick={createCategory}
                       >
                         Submit

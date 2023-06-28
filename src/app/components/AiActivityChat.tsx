@@ -4,13 +4,12 @@ import { useAppSelector } from '@/src/redux/hooks';
 import { isToday } from '@/src/utils/timeHelpers';
 import { useEffect, useState } from 'react';
 import { PiRobotBold } from 'react-icons/pi';
+
 export default function AiActivityChat({ goal }: any) {
   const [messages, setMessages] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false); // New state for loading indicator
-
   const [initialLoad, setInitialLoad] = useState<boolean>(true);
   const activityFlag = useAppSelector((state) => state.user.activityFlag);
-
   const startDate = useAppSelector((state) => state.user.startDate);
   const endDate = useAppSelector((state) => state.user.endDate);
 
@@ -21,6 +20,7 @@ export default function AiActivityChat({ goal }: any) {
       setMessages([]);
       return;
     }
+
     const goalName = goal?.name || 'N/A';
     const goalPercentage = goal?.percentage || 0;
     const goalActivities = goal?.activities || [];
@@ -45,11 +45,11 @@ export default function AiActivityChat({ goal }: any) {
 
     const message = `My daily goal is: ${goalName} and I am ${goalPercentage}% complete with my daily goal. My daily activities towards this goal so far have been: ${allActivities}.${
       alignedActivities
-        ? `Out of these activities, the ones that align with this goal are: ${alignedActivities}.`
-        : ``
-    } ${
+        ? ` Out of these activities, the ones that align with this goal are: ${alignedActivities}.`
+        : ''
+    }${
       unalignedActivities
-        ? `The activities that dont align with my daily goal are: ${unalignedActivities}.`
+        ? ` The activities that don't align with my daily goal are: ${unalignedActivities}.`
         : ''
     } Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`;
 
@@ -109,19 +109,6 @@ export default function AiActivityChat({ goal }: any) {
     }
   }, [goal, goal.activities]);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     if (!initialLoad) {
-  //       fetchChatbotResponse();
-  //     }
-  //     setInitialLoad(false);
-  //   }, 500);
-
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, [activityFlag, startDate, endDate]);
-
   useEffect(() => {
     if (!initialLoad) {
       fetchChatbotResponse();
@@ -137,21 +124,21 @@ export default function AiActivityChat({ goal }: any) {
       </h2>
       <div className='mt-5 max-h-96 overflow-y-auto'>
         {loading ? ( // Show skeleton loader if loading state is true
-          <div className='flex w-full flex-1 flex-col items-center '>
-            <div className='mt-12 w-full animate-pulse flex-row items-center justify-center space-x-1  '>
+          <div className='flex w-full flex-1 flex-col items-center'>
+            <div className='mt-12 w-full animate-pulse flex-row items-center justify-center space-x-1'>
               <div className='flex flex-col space-y-2'>
-                <div className='h-[50px] rounded-md bg-gray '></div>
-                <div className='h-[50px] w-10/12 rounded-md bg-gray '></div>
-                <div className='h-[50px] w-9/12 rounded-md bg-gray '></div>
-                <div className='h-[50px] w-9/12 rounded-md bg-gray '></div>
-                <div className='h-[50px] w-9/12 rounded-md bg-gray '></div>
+                <div className='bg-gray h-[50px] rounded-md'></div>
+                <div className='bg-gray h-[50px] w-10/12 rounded-md'></div>
+                <div className='bg-gray h-[50px] w-9/12 rounded-md'></div>
+                <div className='bg-gray h-[50px] w-9/12 rounded-md'></div>
+                <div className='bg-gray h-[50px] w-9/12 rounded-md'></div>
               </div>
             </div>
           </div>
         ) : (
           messages[0]?.length &&
           messages[0].split('. ').map((sentence: any, index: number) => (
-            <p key={index} className='text-md mb-4 font-open_sans leading-7 '>
+            <p key={index} className='text-md mb-4 font-open_sans leading-7'>
               {sentence.trim()}
               {index !== messages[0].split('. ').length - 1 ? '.' : ''}
             </p>

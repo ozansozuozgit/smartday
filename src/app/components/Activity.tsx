@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 import DeleteActivity from './DeleteActivity';
 
-const Activity = ({ activity }: any) => {
+const Activity = ({ activity }) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
 
   console.log('activity', activity);
@@ -12,15 +12,14 @@ const Activity = ({ activity }: any) => {
   return (
     <li key={activity.id} className='flex justify-between gap-x-4 py-3'>
       <div className='flex-grow'>
-        <p className='text-gray text-md font-semibold leading-6'>
+        <p className='text-gray-700 text-md font-semibold leading-6'>
           {activity.name}
         </p>
-        {activity?.goal &&
-          activity?.goal?.name && ( // Add this condition
-            <p className='text-xs text-gray-500 sm:text-sm'>
-              Goal: {activity.goal.name}
-            </p>
-          )}
+        {activity?.goal && activity?.goal?.name && (
+          <p className='text-xs text-gray-500 sm:text-sm'>
+            Goal: {activity.goal.name}
+          </p>
+        )}
         <time
           className='text-xs text-gray-500 sm:text-sm'
           dateTime={activity.createdAt}

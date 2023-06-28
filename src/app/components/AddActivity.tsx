@@ -8,10 +8,10 @@ import {
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 import { GoalType } from '../../../types/types';
 import Categories from './Categories';
-import {FaPlus} from 'react-icons/fa';
 
 const AddActivity = ({ goal }: any) => {
   const [activityName, setActivityName] = useState<string>('');
@@ -26,18 +26,17 @@ const AddActivity = ({ goal }: any) => {
   const dispatch = useAppDispatch();
 
   const setSelectedCategoryHandler = (id: string, name: string) => {
-    console.log(id, name);
     setSelectedCategoryId(id);
     setSelectedCategoryName(name);
-    console.log('selectedCategoryName', selectedCategoryName);
   };
-  function closeModal() {
-    setIsOpen(false);
-  }
 
-  function openModal() {
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
   const addActivity = async () => {
     if (!activityName || !percentage) return;
@@ -59,10 +58,12 @@ const AddActivity = ({ goal }: any) => {
           'Content-Type': 'application/json',
         },
       });
+
       const activity = await res.json();
       const newPercentage = goal.percentage + percentage;
       dispatch(updateSelectedGoalPercentage(newPercentage));
       dispatch(addActivityToSelectedGoal(activity));
+
       const allActivity = {
         ...activity,
         goal: {
@@ -72,6 +73,7 @@ const AddActivity = ({ goal }: any) => {
       dispatch(addActivityToAllActivities(allActivity));
 
       dispatch(setActivityFlag(!activityFlag));
+
       setActivityName('');
       setPercentage(0);
       setAlignsWithGoal(false);
@@ -80,10 +82,11 @@ const AddActivity = ({ goal }: any) => {
       console.log(err);
     }
   };
+
   return (
     <div>
       <div
-        className='flex items-center justify-around rounded-md bg-teal px-2 py-2 gap-2  text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 cursor-pointer w-full'
+        className='flex w-full cursor-pointer items-center justify-around gap-2 rounded-md bg-teal-500 px-2 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
         onClick={openModal}
         style={{
           opacity: goal?.percentage === 100 || !goal ? 0.5 : 1,
@@ -91,10 +94,8 @@ const AddActivity = ({ goal }: any) => {
         }}
       >
         <FaPlus className='h-4 w-4 text-white' aria-hidden='true' />
-
-        <span >New Activity</span>
+        <span>New Activity</span>
       </div>
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as='div'
@@ -124,10 +125,10 @@ const AddActivity = ({ goal }: any) => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-full max-w-md mx-auto mt-4 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='mx-auto mt-4 w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
-                    className='text-xl font-roboto font-medium '
+                    className='font-roboto text-xl font-medium'
                   >
                     Enter Activity
                   </Dialog.Title>
@@ -136,7 +137,7 @@ const AddActivity = ({ goal }: any) => {
                       type='text'
                       name='price'
                       id='price'
-                      className='block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg sm:text-md sm:leading-6 my-5'
+                      className='sm:text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6'
                       value={activityName}
                       onChange={(e) => setActivityName(e.target.value)}
                       placeholder='100k per month'
@@ -148,9 +149,9 @@ const AddActivity = ({ goal }: any) => {
                     <div className='flex items-center gap-3'>
                       <input
                         type='text'
-                        name='perentage'
-                        id='perentage'
-                        className='block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg sm:text-md sm:leading-6 my-5'
+                        name='percentage'
+                        id='percentage'
+                        className='sm:text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6'
                         value={percentage ?? 0}
                         onChange={(e) => {
                           const value = e.target.value;
@@ -168,14 +169,19 @@ const AddActivity = ({ goal }: any) => {
                         }}
                         placeholder='Percentage of your day'
                       />
-                      <span className='text-lg w-[70%]'>
+                      <span className='w-[70%] text-lg'>
                         Remaining:{' '}
-                        <span className='text-blue font-semibold'>
+                        <span className='font-semibold text-blue-500'>
                           {100 - goal?.percentage}%
                         </span>
-                        <button className='hover:opacity-50 bg-teal px-2 text-sm py-1 rounded-lg text-white' onClick={()=>{
-                          setPercentage(100 - goal?.percentage)
-                        }}>Add Remaining</button>
+                        <button
+                          className='rounded-lg bg-teal-500 px-2 py-1 text-sm text-white hover:opacity-50'
+                          onClick={() => {
+                            setPercentage(100 - goal?.percentage);
+                          }}
+                        >
+                          Add Remaining
+                        </button>
                       </span>
                     </div>
                   </div>
@@ -189,7 +195,7 @@ const AddActivity = ({ goal }: any) => {
                             aria-describedby='comments-description'
                             name='comments'
                             type='checkbox'
-                            className='h-6 w-6 rounded border-gray text-indigo-600 focus:ring-indigo-600'
+                            className='border-gray h-6 w-6 rounded text-indigo-600 focus:ring-indigo-600'
                             checked={alignsWithGoal}
                             onChange={() => setAlignsWithGoal(!alignsWithGoal)}
                           />
@@ -205,17 +211,17 @@ const AddActivity = ({ goal }: any) => {
                       </div>
                     </div>
                   </fieldset>
-                  <div className='mt-4 space-x-2 flex justify-end'>
+                  <div className='mt-4 flex justify-end space-x-2'>
                     <button
                       type='button'
-                      className='inline-flex justify-center rounded-md border border-transparent bg-blue px-4 py-2 text-sm font-medium text-white hover:bg-blue focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2'
+                      className='inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
                       onClick={closeModal}
                     >
                       Cancel
                     </button>
                     <button
                       type='button'
-                      className='inline-flex justify-center rounded-md border border-transparent bg-orange px-4 py-2 text-sm font-medium text-white hover:bg-orange focus:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2'
+                      className='inline-flex justify-center rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2'
                       onClick={addActivity}
                     >
                       Submit
