@@ -16,12 +16,12 @@ const Activity = ({ activity }) => {
           {activity.name}
         </p>
         {activity?.goal && activity?.goal?.name && (
-          <p className='text-xs text-gray-500 sm:text-sm'>
+          <p className='text-xs text-gray-600 sm:text-sm'>
             Goal: {activity.goal.name}
           </p>
         )}
         <time
-          className='text-xs text-gray-500 sm:text-sm'
+          className='text-xs text-gray-600 sm:text-sm'
           dateTime={activity.createdAt}
         >
           {formatDatetime(activity.createdAt)}
@@ -34,9 +34,9 @@ const Activity = ({ activity }) => {
           </p>
         )}
         {activity?.alignsWithGoal ? (
-          <AiOutlineCheckCircle className='h-4 w-4 text-green-500 sm:h-6 sm:w-6' />
+          <AiOutlineCheckCircle className='h-2 w-2 text-green-500 sm:h-6 sm:w-6' />
         ) : (
-          <AiOutlineCloseCircle className='h-4 w-4 text-red-500 sm:h-6 sm:w-6' />
+          <AiOutlineCloseCircle className='h-2 w-2 text-red-500 sm:h-6 sm:w-6' />
         )}
       </div>
       {!activity?.goal && isToday(activity.createdAt) && (

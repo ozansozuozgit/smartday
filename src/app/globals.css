@@ -37,6 +37,8 @@
 }
 .cl-userButtonBox {
   display: flex !important;
+  flex-direction: row-reverse;
+  gap: 15px;
   justify-content: space-around !important;
 }
 

@@ -74,6 +74,10 @@ const OnboardingModal = ({ onClose }: any) => {
                       activities and progress. Although it may come off as
                       quirky at times, remember that it has good intentions.
                     </li>
+                    <li className='mb-2'>
+                      You can access your profile by clicking on the avatar in
+                      the bottom left corner.
+                    </li>
                   </ol>
                   <p>
                     <span className='font-semibold'>Note:</span> When you reach
