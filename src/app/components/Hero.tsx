@@ -1,11 +1,7 @@
 import { auth } from '@clerk/nextjs';
-import { Dialog } from '@headlessui/react';
-import { ChevronRightIcon } from '@heroicons/react/20/solid';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import TimeSpentLogo from '../../../public/time-spent-logo.svg';
 
 export default function Hero() {
   const { userId } = auth();
@@ -13,6 +9,7 @@ export default function Hero() {
   if (userId) {
     redirect('/dashboard');
   }
+
   return (
     <div className='relative isolate overflow-hidden bg-white'>
       <svg
@@ -51,15 +48,17 @@ export default function Hero() {
           <div className='mt-10 flex items-center gap-x-6'>
             <Link
               href='/sign-up'
-              className='hover:bg-blue-dark rounded-md bg-blue px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue'
+              className='hover:bg-blue-800 rounded-md bg-blue px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue'
             >
               Get started
             </Link>
             <Link
               href='/sign-in'
-              className='text-sm font-semibold leading-6 text-teal'
+              className='group text-sm font-semibold leading-6 text-teal'
             >
-              Sign in <span aria-hidden='true'>→</span>
+              <span className='group-hover:text-blue-800'>
+                Sign in <span aria-hidden='true'>→</span>
+              </span>
             </Link>
           </div>
         </div>
@@ -67,7 +66,7 @@ export default function Hero() {
           <div className='max-w-3xl flex-none sm:max-w-5xl lg:max-w-none'>
             <div className='-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4'>
               <Image
-                src='https://res.cloudinary.com/dbyigmrto/image/upload/v1687931205/time-spent_l8h5vb.png'
+                src='https://res.cloudinary.com/dbyigmrto/image/upload/v1687990985/time-spent-hero_ojqlpm.png'
                 alt='App screenshot'
                 width={2432}
                 height={1442}

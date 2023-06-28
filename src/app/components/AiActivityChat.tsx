@@ -127,11 +127,11 @@ export default function AiActivityChat({ goal }: any) {
           <div className='flex w-full flex-1 flex-col items-center'>
             <div className='mt-12 w-full animate-pulse flex-row items-center justify-center space-x-1'>
               <div className='flex flex-col space-y-2'>
-                <div className='bg-gray h-[50px] rounded-md'></div>
-                <div className='bg-gray h-[50px] w-10/12 rounded-md'></div>
-                <div className='bg-gray h-[50px] w-9/12 rounded-md'></div>
-                <div className='bg-gray h-[50px] w-9/12 rounded-md'></div>
-                <div className='bg-gray h-[50px] w-9/12 rounded-md'></div>
+                <div className='bg-gray-200 h-[50px] rounded-md'></div>
+                <div className='bg-gray-200 h-[50px] w-10/12 rounded-md'></div>
+                <div className='bg-gray-200 h-[50px] w-9/12 rounded-md'></div>
+                <div className='bg-gray-200 h-[50px] w-9/12 rounded-md'></div>
+                <div className='bg-gray-200 h-[50px] w-9/12 rounded-md'></div>
               </div>
             </div>
           </div>
