@@ -28,10 +28,10 @@ const DatePicker = () => {
               <Popover.Button
                 id='popover-button'
                 className={`${open ? '' : 'text-opacity-90'}
-                  group inline-flex items-center justify-between rounded-md bg-orange-500 px-3 py-2 text-base font-medium text-white transition-colors duration-300 hover:bg-opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                  group inline-flex items-center justify-between rounded-md bg-orange-500 px-3 py-2 text-sm font-medium text-white transition-colors duration-300 hover:bg-opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
               >
                 Select Date
-                <BsCalendar3 className='ml-2 h-4 w-4 text-white transition-colors duration-300 sm:h-6 sm:w-6' />
+                <BsCalendar3 className='ml-2 h-3 w-3 text-white transition-colors duration-300 sm:h-4 sm:w-4' />
               </Popover.Button>
               <Transition
                 as={React.Fragment}

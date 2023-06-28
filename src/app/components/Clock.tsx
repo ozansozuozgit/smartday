@@ -1,6 +1,7 @@
 'use client';
 import moment from 'moment-timezone';
 import React, { useEffect, useState } from 'react';
+
 const Clock = () => {
   const cstTimezone = 'America/Chicago';
   const estTimezone = 'America/New_York';
@@ -27,8 +28,8 @@ const Clock = () => {
     <div className='self-start'>
       {hydrated && (
         <div className='text-xs hidden 2xl:block font-open_sans space-y-1'>
-          <h4 className='font-semibold'>Goals Reset Daily At 12 AM CST</h4>
-          <h4 className=''>{formattedTime} CST</h4>
+          <h4 className='font-semibold text-teal-500'>Goals Reset Daily At 12 AM CST</h4>
+          <h4 className='text-gray-700'>{formattedTime} CST</h4>
         </div>
       )}
     </div>

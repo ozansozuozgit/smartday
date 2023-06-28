@@ -16,7 +16,7 @@ export default function NavAuth() {
       className={`absolute inset-x-0 bottom-3 mx-3 border-t  border-neutral-300 py-2 font-open_sans text-black shadow-black/20 sm:block`}
     >
       <SignedIn />
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-around'>
         <UserButton afterSignOutUrl='/' showName />
         <GoSignOut
           className='inline-block h-6 w-6 cursor-pointer hover:opacity-50'

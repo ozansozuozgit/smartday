@@ -119,7 +119,7 @@ export default function AiActivityChat({ goal }: any) {
   return (
     <div className='flex h-[400px] w-full flex-col self-center rounded-xl bg-white p-4 px-8 shadow-md'>
       <h2 className='text-md sm:text-md mb-2 flex items-start gap-x-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
-        <PiRobotBold className='h-7 w-8' />
+        <PiRobotBold className='h-7 w-8 text-teal-500' />
         AI Coach
       </h2>
       <div className='mt-5 max-h-96 overflow-y-auto'>
