@@ -11,7 +11,7 @@ const TodayButton = ({ handleCalendarChange }: any) => {
   };
   return (
     <button
-      className='rounded-lg bg-orange px-2 py-1 text-sm font-semibold text-white'
+      className='rounded-lg bg-orange px-2 py-1 text-sm font-semibold text-white hover:opacity-50'
       onClick={handleTodayClick}
     >
       Today

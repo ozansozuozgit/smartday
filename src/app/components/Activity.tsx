@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 import DeleteActivity from './DeleteActivity';
 
+
 const Activity = ({ activity }: any) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
 
