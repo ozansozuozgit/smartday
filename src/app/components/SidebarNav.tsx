@@ -35,14 +35,14 @@ export function SidebarNav() {
 
       <div
         className={clsx(
-          'w-3/4 overflow-y-auto border-r-2 border-neutral-300 bg-white 2xl:static 2xl:block 2xl:w-auto',
+          'w-3/4 overflow-y-auto border-r-2 xl:h-full border-neutral-300 bg-white 2xl:static 2xl:block 2xl:w-auto',
           {
             'fixed inset-x-0 bottom-0 top-14 mt-px': isOpen,
             hidden: !isOpen,
           }
         )}
       >
-        <nav className='space-y-6 px-2 py-5'>
+        <nav className='space-y-6 px-2 py-5 h-full'>
           <Goals goals={goals} />
           <NavAuth />
         </nav>

@@ -3,7 +3,7 @@ import { getBaseUrl } from '@/lib/getBaseUrl';
 import { useAppSelector } from '@/src/redux/hooks';
 import { isToday } from '@/src/utils/timeHelpers';
 import { useEffect, useState } from 'react';
-
+import { PiRobotBold } from 'react-icons/pi';
 export default function AiActivityChat({ goal }: any) {
   const [messages, setMessages] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false); // New state for loading indicator
@@ -104,11 +104,12 @@ export default function AiActivityChat({ goal }: any) {
   }, [activityFlag]);
 
   return (
-    <div className='  flex h-[400px] w-full flex-col self-center rounded-xl bg-white p-4 px-8 shadow-md'>
-      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
+    <div className='flex h-[400px] w-full flex-col self-center rounded-xl bg-white p-4 px-8 shadow-md'>
+      <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl flex items-start gap-x-2'>
+        <PiRobotBold className='h-7 w-8'/>
         AI Coach
       </h2>
-      <div className='max-h-96 overflow-y-auto'>
+      <div className='max-h-96 overflow-y-auto mt-5'>
         {loading ? ( // Show skeleton loader if loading state is true
           <div className='flex w-full flex-1 flex-col items-center '>
             <div className='mt-12 w-full animate-pulse flex-row items-center justify-center space-x-1  '>
@@ -124,7 +125,7 @@ export default function AiActivityChat({ goal }: any) {
         ) : (
           messages[0]?.length &&
           messages[0].split('. ').map((sentence: any, index: number) => (
-            <p key={index} className='mb-4 font-open_sans text-sm leading-7 '>
+            <p key={index} className='text-md mb-4 font-open_sans leading-7 '>
               {sentence.trim()}
               {index !== messages[0].split('. ').length - 1 ? '.' : ''}
             </p>
