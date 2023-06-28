@@ -131,7 +131,7 @@ export default function Hero({ userId }: any) {
             <div className='mt-16 flow-root sm:mt-24'>
               <div className='bg-gray-900/5 ring-gray-900/10 -m-2 rounded-xl p-2 ring-1 ring-inset lg:-m-4 lg:rounded-2xl lg:p-4'>
                 <img
-                  src='https://tailwindui.com/img/component-images/project-app-screenshot.png'
+                  src='https://res.cloudinary.com/dbyigmrto/image/upload/v1687931205/time-spent_l8h5vb.png'
                   alt='App screenshot'
                   width={2432}
                   height={1442}
