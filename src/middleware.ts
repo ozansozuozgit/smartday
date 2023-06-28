@@ -7,7 +7,7 @@ export default authMiddleware({
     '/sign-up',
     '/forgot-password',
     '/reset-password',
-    '/api/cron', 
+    // '/api/cron', 
     '/api/inngest',
   ],
 });
