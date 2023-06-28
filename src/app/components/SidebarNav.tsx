@@ -1,17 +1,12 @@
 'use client';
-
 import { useAppSelector } from '@/src/redux/hooks';
-import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
-import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import { AiOutlineBars, AiOutlineCloseCircle } from 'react-icons/ai';
 import Clock from './Clock';
 import DatePicker from './DatePicker';
 import Goals from './Goals';
 
-// import NavAuth from './NavAuth';
 import dynamic from 'next/dynamic';
 
 const NavAuth = dynamic(() => import('./NavAuth'), { ssr: false });
