@@ -2,6 +2,19 @@ import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
 export default async function handler(req: any, res: any) {
+  const authHeader = req.headers.authorization || '';
+  const [type, token] = authHeader.split(' ');
+
+  console.log('type', type);
+  console.log('token', token);
+
+  if (type !== 'Bearer' || token !== process.env.CRON_SECRET) {
+    res.status(403).json({
+      message: 'Forbidden',
+      status: 'error',
+    });
+    return;
+  }
   try {
     // Retrieve all goals
     const goals = await prisma.goal.findMany();
@@ -10,7 +23,7 @@ export default async function handler(req: any, res: any) {
     for (const goal of goals) {
       // Check if the goal is complete
       if (goal?.percentage === 100) {
-        console.log('goal', goal?.percentage)
+        console.log('goal', goal?.percentage);
         // If the goal is complete, create a completed goal and associate it with the user
         const completedGoal = await prisma.completedGoal.create({
           data: {
