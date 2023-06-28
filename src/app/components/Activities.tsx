@@ -10,7 +10,7 @@ const Activities = ({ goal }: any) => {
   return (
     <div className='flex h-[400px] max-h-[500px] w-full max-w-full  flex-col space-y-4 rounded-xl bg-white p-6 shadow-md  '>
       <div className='flex justify-between'>
-      <h2 className='mb-2 font-roboto text-md font-semibold sm:mb-2 sm:text-md md:text-xl'>
+        <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
           {!goal.activities || goal.activities.length === 0
             ? ' No Activities'
             : 'Activities'}
@@ -22,7 +22,7 @@ const Activities = ({ goal }: any) => {
       )}
 
       {goal?.activities && (
-        <div className='divide-gray-200 max-h-[300px] divide-y overflow-y-auto pl-2 pr-2 font-open_sans sm:max-h-[500px] sm:pl-2 sm:pr-4'>
+        <div className='max-h-[300px] divide-y divide-gray-200 overflow-y-auto pl-2 pr-2 font-open_sans sm:max-h-[500px] sm:pl-2 sm:pr-4'>
           {goal.activities.map((activity: any) => (
             <Activity activity={activity} key={activity.id} />
           ))}
