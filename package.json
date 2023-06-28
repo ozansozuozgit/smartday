@@ -29,6 +29,7 @@
     "chart.js": "^4.3.0",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
+    "inngest": "^2.1.0",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.252.0",
     "moment": "^2.29.4",
