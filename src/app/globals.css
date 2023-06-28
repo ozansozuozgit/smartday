@@ -1,8 +1,6 @@
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
-:root {
-}
 
 * {
   box-sizing: border-box;

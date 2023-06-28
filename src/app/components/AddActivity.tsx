@@ -70,7 +70,6 @@ const AddActivity = ({ goal }: any) => {
         },
       };
       dispatch(addActivityToAllActivities(allActivity));
-      console.log('allActivity', allActivity);
 
       dispatch(setActivityFlag(!activityFlag));
       setActivityName('');

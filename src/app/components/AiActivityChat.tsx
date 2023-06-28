@@ -11,6 +11,9 @@ export default function AiActivityChat({ goal }: any) {
   const [initialLoad, setInitialLoad] = useState<boolean>(true);
   const activityFlag = useAppSelector((state) => state.user.activityFlag);
 
+  const startDate = useAppSelector((state) => state.user.startDate);
+  const endDate = useAppSelector((state) => state.user.endDate);
+
   const fetchChatbotResponse = () => {
     setLoading(true);
 
@@ -62,19 +65,25 @@ export default function AiActivityChat({ goal }: any) {
         setMessages([receivedText]);
         setLoading(false);
 
-        fetch(`${getBaseUrl()}/api/aimessages`, {
-          method: 'POST',
-          body: JSON.stringify({
-            message: receivedText,
-            goalId: goal.id,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        fetch(
+          `${getBaseUrl()}/api/aimessages?startDate=${startDate}&endDate=${endDate}`,
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              message: receivedText,
+              goalId: goal.id,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
       })
       .catch((error) => {
         console.error(error);
+        setLoading(false);
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
@@ -83,7 +92,11 @@ export default function AiActivityChat({ goal }: any) {
     if (!goal || goal.activities.length === 0) {
       setMessages([]);
     } else {
-      fetch(`${getBaseUrl()}/api/aimessages?goalId=${goal.id}`)
+      fetch(
+        `${getBaseUrl()}/api/aimessages?goalId=${
+          goal.id
+        }&startDate=${startDate}&endDate=${endDate}`
+      )
         .then((res) => res.json())
         .then((res) => {
           if (res && res.message) {
@@ -96,6 +109,19 @@ export default function AiActivityChat({ goal }: any) {
     }
   }, [goal, goal.activities]);
 
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     if (!initialLoad) {
+  //       fetchChatbotResponse();
+  //     }
+  //     setInitialLoad(false);
+  //   }, 500);
+
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [activityFlag, startDate, endDate]);
+
   useEffect(() => {
     if (!initialLoad) {
       fetchChatbotResponse();
@@ -105,11 +131,11 @@ export default function AiActivityChat({ goal }: any) {
 
   return (
     <div className='flex h-[400px] w-full flex-col self-center rounded-xl bg-white p-4 px-8 shadow-md'>
-      <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl flex items-start gap-x-2'>
-        <PiRobotBold className='h-7 w-8'/>
+      <h2 className='text-md sm:text-md mb-2 flex items-start gap-x-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
+        <PiRobotBold className='h-7 w-8' />
         AI Coach
       </h2>
-      <div className='max-h-96 overflow-y-auto mt-5'>
+      <div className='mt-5 max-h-96 overflow-y-auto'>
         {loading ? ( // Show skeleton loader if loading state is true
           <div className='flex w-full flex-1 flex-col items-center '>
             <div className='mt-12 w-full animate-pulse flex-row items-center justify-center space-x-1  '>

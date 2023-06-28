@@ -2,14 +2,11 @@
 import { setEndDate, setStartDate } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
 import React, { useEffect, useState } from 'react';
-
 import moment from 'moment-timezone';
-
 import { hasUserLoggedInBefore } from '@/src/utils/onboardHelper';
 import GoalOverview from '../components/GoalOverview';
 import OnboardingModal from '../components/OnboardingModal';
 import Overview from '../components/Overview';
-import { getBaseUrl } from '@/lib/getBaseUrl';
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -40,25 +37,10 @@ const Dashboard = () => {
   const handleOnboardingClose = () => {
     setShowOnboarding(false);
   };
-  const runCron = async () => {
-    try {
-      const res = await fetch(`${getBaseUrl()}/api/cron`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      let data = await res.json();
-      console.log(data);
-      return data;
-    } catch (err) {
-      console.log(err);
-    }
-  }
+
   return (
     <div className='z-1 relative min-h-screen bg-gray py-12'>
       <section className='m-auto w-[90%] pt-[50px]  xl:max-w-[1500px] 2xl:w-[95%]'>
-        <button onClick={runCron}>Run Cron</button>
         <Overview />
         <GoalOverview />
         {showOnboarding && <OnboardingModal onClose={handleOnboardingClose} />}
