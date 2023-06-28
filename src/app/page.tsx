@@ -1,7 +1,7 @@
 // import { redirect } from 'next/navigation';
 import { SignOutButton, auth } from '@clerk/nextjs';
 import Link from 'next/link';
-
+import Hero from './components/Hero';
 // import { SignInButton } from './components/AuthButtons';
 
 export default async function Home() {
@@ -14,9 +14,9 @@ export default async function Home() {
   // }
 
   return (
-    <main>
+    <>
       {/* <SignInButton /> */}
-      {!userId && (
+      {/* {!userId && (
         <Link className='font-mono font-bold' href='/sign-in'>
           Sign In
         </Link>
@@ -26,7 +26,8 @@ export default async function Home() {
           Sign up
         </Link>
       )}
-      {userId && <SignOutButton />}
-    </main>
+      {userId && <SignOutButton />} */}
+      <Hero />
+    </>
   );
 }
