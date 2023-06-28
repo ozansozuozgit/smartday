@@ -15,7 +15,7 @@ export const resetGoal = inngest.createFunction(
   },
   {
     // Run on schedule
-    cron: '*/1 * * * *',
+    cron: '0 5 * * *',
   },
   async ({ event }) => {
     // Get Ideas From Database
