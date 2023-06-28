@@ -4,11 +4,17 @@ import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import TimeSpentLogo from '../../../public/time-spent-logo.svg';
-export default function Hero() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+export default function Hero({ userId }: any) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
+
+  if (userId) {
+    router.push('/dashboard');
+  }
   return (
     <div className='bg-white'>
       <header className='absolute inset-x-0 top-0 z-50'>
