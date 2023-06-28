@@ -29,7 +29,7 @@ const initialState = {
   startDate: '',
   endDate: '',
   activityFlag: false,
-  allActivities: null,
+  allActivities: [],
 } as UserState;
 
 export const userSlice = createSlice({

@@ -37,7 +37,7 @@ const Overview = () => {
         }
       );
       let data = await res.json();
-      if (data.length === 0) data = null;
+      if (data.length === 0) data = [];
       dispatch(setAllActivities(data));
       console.log(data);
       return data;
