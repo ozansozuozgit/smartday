@@ -25,7 +25,7 @@ const Clock = () => {
   const formattedTime = currentTime.format(' MMMM D, YYYY h:mm:ss A');
 
   return (
-    <div className='self-start'>
+    <div className='flex align-middle'>
       {hydrated && (
         <div className='text-xs hidden 2xl:block font-open_sans space-y-1'>
           <h4 className='font-semibold text-teal-500'>Goals Reset Daily At 12 AM CST</h4>

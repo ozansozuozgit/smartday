@@ -136,13 +136,15 @@ export default function AiActivityChat({ goal }: any) {
             </div>
           </div>
         ) : (
-          messages[0]?.length &&
-          messages[0].split('. ').map((sentence: any, index: number) => (
-            <p key={index} className='text-md mb-4 font-open_sans leading-7'>
-              {sentence.trim()}
-              {index !== messages[0].split('. ').length - 1 ? '.' : ''}
-            </p>
-          ))
+          messages[0]?.length && (
+            <div className='text-md mb-4 font-open_sans leading-7'>
+              {messages[0].split('\n').map((line, index) => (
+                <p key={index} className='mb-2'>
+                  {line.trim()}
+                </p>
+              ))}
+            </div>
+          )
         )}
       </div>
     </div>

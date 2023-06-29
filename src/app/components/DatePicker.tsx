@@ -11,12 +11,12 @@ import TodayButton from './TodayButton';
 
 const DatePicker = () => {
   const { value, handleCalendarChange } = useCalendarChange();
-  const formatDate = (date: any) => {
-    const options = { month: 'short', day: 'numeric', year: 'numeric' };
-    return date.toLocaleDateString(undefined, options);
-  };
-  const formattedStartDate = value[0] ? formatDate(value[0]) : '';
-  const formattedEndDate = value[1] ? formatDate(value[1]) : '';
+  // const formatDate = (date: any) => {
+  //   const options = { month: 'short', day: 'numeric', year: 'numeric' };
+  //   return date.toLocaleDateString(undefined, options);
+  // };
+  // const formattedStartDate = value[0] ? formatDate(value[0]) : '';
+  // const formattedEndDate = value[1] ? formatDate(value[1]) : '';
 
   return (
     <div className='flex w-full flex-col justify-between gap-y-2'>
@@ -71,9 +71,9 @@ const DatePicker = () => {
         </Popover>
       </div>
 
-      <h3 className='hidden font-roboto text-xs font-semibold 2xl:block'>
+      {/* <h3 className='hidden font-roboto text-xs font-semibold 2xl:block'>
         {formattedStartDate} - {formattedEndDate}
-      </h3>
+      </h3> */}
     </div>
   );
 };

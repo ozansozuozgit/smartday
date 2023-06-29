@@ -8,6 +8,7 @@ import AllActivities from './AllActivities';
 import AllActivitiesBarChart from './AllActivitiesBarChart';
 import AllAlignWithGoalPieChart from './AllAlignWithGoalPiechart';
 import CalendarChart from './CalendarChart';
+import DateLabel from './DateLabel';
 import FrequencyLineChart from './FrequencyLineChart';
 
 const Overview = () => {
@@ -63,6 +64,7 @@ const Overview = () => {
             <h2 className='text-xl font-bold xl:text-3xl'>
               Overview Dashboard{' '}
             </h2>
+            <DateLabel />
           </div>
         )}
       </div>

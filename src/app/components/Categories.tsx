@@ -77,13 +77,13 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
         );
 
   return (
-    <div className='flex items-end gap-2'>
+    <div className='flex items-end gap-2 '>
       <label htmlFor='category' className='sr-only'>
         Select a category
       </label>
 
       <Combobox value={selected} onChange={setSelectedCategory}>
-        <div className='relative mt-1'>
+        <div className='relative mt-1 w-[70%]'>
           <div className='relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
             <div className='text-gray-600 text-sm mb-1'>Optional</div>
             <Combobox.Input

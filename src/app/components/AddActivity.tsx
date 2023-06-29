@@ -151,7 +151,7 @@ const AddActivity = ({ goal }: any) => {
                         type='text'
                         name='percentage'
                         id='percentage'
-                        className='sm:text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6'
+                        className='sm:text-md my-5 block  rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6  w-[70%]'
                         value={percentage ?? 0}
                         onChange={(e) => {
                           const value = e.target.value;
@@ -169,7 +169,7 @@ const AddActivity = ({ goal }: any) => {
                         }}
                         placeholder='Percentage of your day'
                       />
-                      <div className='flex w-[70%] flex-col text-lg gap-y-1'>
+                      <div className='flex w-[30%] flex-col text-sm gap-y-1'>
                         <span>
                           Remaining:{' '}
                           <span className='font-semibold text-blue-500'>

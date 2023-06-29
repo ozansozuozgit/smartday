@@ -38,9 +38,9 @@ const CreateCategory = ({ addCategoryToState }: any) => {
   };
 
   return (
-    <div className='flex items-end'>
+    <div className='flex w-[30%] items-end'>
       <>
-        <div className='flex items-center justify-center'>
+        <div className='flex items-center justify-center '>
           <button
             type='button'
             onClick={openModal}
@@ -78,7 +78,7 @@ const CreateCategory = ({ addCategoryToState }: any) => {
                   <Dialog.Panel className='w-full max-w-[300px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                     <Dialog.Title
                       as='h3'
-                      className='text-lg font-roboto font-medium leading-6 text-gray-900'
+                      className='font-roboto text-lg font-medium leading-6 text-gray-900'
                     >
                       Enter Category Name
                     </Dialog.Title>
@@ -87,7 +87,7 @@ const CreateCategory = ({ addCategoryToState }: any) => {
                         type='text'
                         name='price'
                         id='price'
-                        className='block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg sm:text-md sm:leading-6 my-5'
+                        className='sm:text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6'
                         value={categoryName}
                         onChange={(e) => setCategoryName(e.target.value)}
                         onKeyDown={(e) => {
@@ -100,7 +100,7 @@ const CreateCategory = ({ addCategoryToState }: any) => {
                       />
                     </div>
 
-                    <div className='mt-4 space-x-2 flex justify-end'>
+                    <div className='mt-4 flex justify-end space-x-2'>
                       <button
                         type='button'
                         className='inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2'
