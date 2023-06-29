@@ -9,7 +9,7 @@ import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
 import CalendarChartSingle from '../components/CalendarChartSingle';
 import CategoryChart from '../components/CategoryChart';
 import ChartLine from '../components/ChartLine';
-import PieChart from './ActivityPieChart';
+import ActivityPieChart from './ActivityPieChart';
 import DateLabel from './DateLabel';
 const GoalOverview = () => {
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
@@ -63,7 +63,7 @@ const GoalOverview = () => {
         {selectedGoal && <AiActivityChat goal={selectedGoal} />}
       </div>
 
-      {selectedGoal && <PieChart goal={selectedGoal} />}
+      {selectedGoal && <ActivityPieChart goal={selectedGoal} />}
 
       {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
 

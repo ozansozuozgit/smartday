@@ -3,6 +3,7 @@ import { ResponsivePie } from '@nivo/pie';
 import moment from 'moment-timezone';
 import React from 'react';
 
+import { useAppSelector } from '@/src/redux/hooks';
 import { generateRandomColors } from '@/src/utils/colorUtils';
 
 const ActivityPieChart = ({ goal }) => {
@@ -16,16 +17,19 @@ const ActivityPieChart = ({ goal }) => {
       </div>
     );
   }
+  const startDate = useAppSelector((state) => state.user.startDate);
+  const endDate = useAppSelector((state) => state.user.endDate);
+  const startMoment = moment(startDate);
+  const endMoment = moment(endDate);
 
   const cstTimezone = 'America/Chicago';
   const estTimezone = 'America/New_York';
 
   const timezone = cstTimezone;
-  const todayEST = moment().tz(timezone).startOf('day');
 
   const dailyActivities = goal?.activities.filter((activity) => {
     const activityDate = moment(activity.createdAt).tz(timezone).startOf('day');
-    return activityDate.isSame(todayEST, 'day');
+    return activityDate.isBetween(startMoment, endMoment, null, '[]'); // Update the filtering condition
   });
 
   const activityGroups = dailyActivities.reduce((acc, activity) => {
@@ -71,7 +75,7 @@ const ActivityPieChart = ({ goal }) => {
   return (
     <div className='pie-chart-container mx-2 flex h-[400px] w-full max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-warm'>
       <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
-        Daily Activity Breakdown
+        Activity Breakdown
       </h2>
       <div className='flex h-full w-[200px] flex-col items-center justify-center lg:w-[400px]'>
         <ResponsivePie
