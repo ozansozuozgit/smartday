@@ -20,7 +20,7 @@ const DatePicker = () => {
 
   return (
     <div className='flex w-full flex-col justify-between gap-y-2'>
-      <div className='flex gap-x-3 xl:justify-between xl:gap-0'>
+      <div className='flex gap-x-3 2xl:justify-between xl:gap-2'>
         <TodayButton handleCalendarChange={handleCalendarChange} />
         <Popover>
           {({ open }) => (

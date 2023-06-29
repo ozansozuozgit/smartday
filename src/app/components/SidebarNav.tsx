@@ -35,9 +35,9 @@ export function SidebarNav() {
 
       <div
         className={clsx(
-          'l:h-full w-3/4 overflow-y-auto bg-white 2xl:static 2xl:block 2xl:w-auto',
+          'w-fit max-w-[250px] flex overflow-y-auto bg-white shadow-modern lg:h-full 2xl:static 2xl:block 2xl:w-auto 2xl:shadow-none',
           {
-            'fixed inset-x-0 bottom-0 top-14 mt-px': isOpen,
+            'fixed inset-x-0 bottom-0 top-[54px] mt-px': isOpen,
             hidden: !isOpen,
           }
         )}

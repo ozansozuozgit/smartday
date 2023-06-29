@@ -38,8 +38,8 @@ const FrequencyLineChart: React.FC<FrequencyLineChartProps> = ({
 
   if (!data.length) {
     return (
-      <div className='p-6 h-[400px]  max-w-full max-h-[400px] bg-white rounded-xl shadow-md '>
-      <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
+      <div className='h-[400px] max-h-[400px]  max-w-full rounded-xl bg-white p-6 shadow-warm '>
+        <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
           No Activities
         </h2>
       </div>
@@ -47,7 +47,7 @@ const FrequencyLineChart: React.FC<FrequencyLineChartProps> = ({
   }
   console.log('data', data);
   return (
-    <div className='p-6 h-[400px] flex flex-col max-w-full max-h-full bg-white rounded-xl shadow-md'>
+    <div className='flex h-[400px] max-h-full max-w-full flex-col rounded-xl bg-white p-6 shadow-warm'>
       <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
         Frequency of Activities Over Time
       </h2>

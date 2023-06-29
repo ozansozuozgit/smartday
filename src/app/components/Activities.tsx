@@ -8,7 +8,7 @@ import AddActivity from './AddActivity';
 const Activities = ({ goal }: any) => {
   const startDate = useAppSelector((state) => state.user.startDate);
   return (
-    <div className='flex h-[400px] max-h-[500px] w-full max-w-full  flex-col space-y-4 rounded-xl bg-white p-6 shadow-md  '>
+    <div className='flex h-[400px] max-h-[500px] w-full max-w-full  flex-col space-y-4 rounded-xl bg-white p-6 shadow-warm  '>
       <div className='flex justify-between'>
         <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
           {!goal.activities || goal.activities.length === 0

@@ -41,16 +41,16 @@ const Goals = ({ goals }) => {
             dispatch(setSelectedGoal(null));
           }}
         >
-          <AiFillHome className='h-4 w-4 font-open_sans text-white' aria-hidden='true' />
+          <AiFillHome
+            className='h-4 w-4 font-open_sans text-white'
+            aria-hidden='true'
+          />
           <span>Home</span>
         </div>
         <CreateGoal />
       </div>
-      <div className='divide-y divide-neutral-300 space-y-2'>
-        {goals &&
-          goals.map((goal) => (
-            <Goal goal={goal} key={goal?.id} />
-          ))}
+      <div className='space-y-2 divide-y divide-neutral-300'>
+        {goals && goals.map((goal: any) => <Goal goal={goal} key={goal?.id} />)}
       </div>
     </div>
   );

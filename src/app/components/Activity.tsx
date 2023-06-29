@@ -34,9 +34,9 @@ const Activity = ({ activity }) => {
           </p>
         )}
         {activity?.alignsWithGoal ? (
-          <AiOutlineCheckCircle className='h-2 w-2 text-green-500 sm:h-6 sm:w-6' />
+          <AiOutlineCheckCircle className='h-4 w-4 min-w-[8px] text-green-500 sm:h-6 sm:w-6' />
         ) : (
-          <AiOutlineCloseCircle className='h-2 w-2 text-red-500 sm:h-6 sm:w-6' />
+          <AiOutlineCloseCircle className='h-4 w-4 min-w-[8px] text-red-500 sm:h-6 sm:w-6' />
         )}
       </div>
       {!activity?.goal && isToday(activity.createdAt) && (

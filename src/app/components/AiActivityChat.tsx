@@ -117,7 +117,7 @@ export default function AiActivityChat({ goal }: any) {
   }, [activityFlag]);
 
   return (
-    <div className='flex h-[400px] w-full flex-col self-center rounded-xl bg-white p-4 px-8 shadow-md'>
+    <div className='flex h-[400px] w-full flex-col self-center rounded-xl bg-white p-4 px-8 shadow-warm'>
       <h2 className='text-md sm:text-md mb-2 flex items-start gap-x-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
         <PiRobotBold className='h-7 w-8 text-teal-500' />
         AI Coach
@@ -127,11 +127,11 @@ export default function AiActivityChat({ goal }: any) {
           <div className='flex w-full flex-1 flex-col items-center'>
             <div className='mt-12 w-full animate-pulse flex-row items-center justify-center space-x-1'>
               <div className='flex flex-col space-y-2'>
-                <div className='bg-gray-200 h-[50px] rounded-md'></div>
-                <div className='bg-gray-200 h-[50px] w-10/12 rounded-md'></div>
-                <div className='bg-gray-200 h-[50px] w-9/12 rounded-md'></div>
-                <div className='bg-gray-200 h-[50px] w-9/12 rounded-md'></div>
-                <div className='bg-gray-200 h-[50px] w-9/12 rounded-md'></div>
+                <div className='h-[50px] rounded-md bg-gray-200'></div>
+                <div className='h-[50px] w-10/12 rounded-md bg-gray-200'></div>
+                <div className='h-[50px] w-9/12 rounded-md bg-gray-200'></div>
+                <div className='h-[50px] w-9/12 rounded-md bg-gray-200'></div>
+                <div className='h-[50px] w-9/12 rounded-md bg-gray-200'></div>
               </div>
             </div>
           </div>

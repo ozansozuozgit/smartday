@@ -137,7 +137,7 @@ const AddActivity = ({ goal }: any) => {
                       type='text'
                       name='price'
                       id='price'
-                      className='sm:text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6'
+                      className='sm:text-md my-1 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6'
                       value={activityName}
                       onChange={(e) => setActivityName(e.target.value)}
                       placeholder='100k per month'
@@ -169,10 +169,12 @@ const AddActivity = ({ goal }: any) => {
                         }}
                         placeholder='Percentage of your day'
                       />
-                      <span className='w-[70%] text-lg'>
-                        Remaining:{' '}
-                        <span className='font-semibold text-blue-500'>
-                          {100 - goal?.percentage}%
+                      <div className='flex w-[70%] flex-col text-lg gap-y-1'>
+                        <span>
+                          Remaining:{' '}
+                          <span className='font-semibold text-blue-500'>
+                            {100 - goal?.percentage}%
+                          </span>
                         </span>
                         <button
                           className='rounded-lg bg-teal-500 px-2 py-1 text-sm text-white hover:opacity-50'
@@ -182,7 +184,7 @@ const AddActivity = ({ goal }: any) => {
                         >
                           Add Remaining
                         </button>
-                      </span>
+                      </div>
                     </div>
                   </div>
                   <fieldset>

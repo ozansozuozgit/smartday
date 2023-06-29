@@ -40,7 +40,7 @@ const Dashboard = () => {
 
   return (
     <div className='z-1 relative min-h-screen bg-gray py-12'>
-      <section className='m-auto w-[90%] pt-[50px]  xl:max-w-[1500px] 2xl:w-[95%]'>
+      <section className='m-auto w-[90%] pt-[50px] 2xl:pt-0  xl:max-w-[1500px] 2xl:w-[95%]'>
         <Overview />
         <GoalOverview />
         {showOnboarding && <OnboardingModal onClose={handleOnboardingClose} />}

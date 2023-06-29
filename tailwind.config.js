@@ -60,6 +60,10 @@ module.exports = {
         open_sans: ['var(--font-open-sans)'],
         roboto: ['var(--font-roboto)'],
       },
+      boxShadow: {
+        modern: '0 3px 10px rgb(0,0,0,0.2)',
+        warm: 'rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

@@ -23,7 +23,7 @@ export default function NavAuth() {
   return (
     <div className='absolute inset-x-0 bottom-3 mx-3 border-t border-neutral-300 py-2 font-open_sans text-black shadow-black/20 sm:block'>
       <SignedIn>
-        <div className='flex items-center justify-around '>
+        <div className='flex items-center gap-x-4 2xl:justify-around 2xl:gap-0 '>
           <UserButton afterSignOutUrl='/' showName />
           {/* <BiLogOut
             className='w-6 cursor-pointer inline-block h-6 hover:opacity-50'

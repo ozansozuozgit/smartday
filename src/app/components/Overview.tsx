@@ -57,6 +57,15 @@ const Overview = () => {
   }, [startDate, endDate]);
   return (
     <div className='m-auto grid max-w-full place-items-center gap-[50px] lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-[450px] 3xl:grid-cols-3'>
+      <div className='col-span-1 w-full xl:col-span-3'>
+        {!selectedGoal && (
+          <div className='flex max-w-full items-center justify-between px-6 py-4 font-roboto text-gray-800 shadow-warm'>
+            <h2 className='text-xl font-bold xl:text-3xl'>
+              Overview Dashboard{' '}
+            </h2>
+          </div>
+        )}
+      </div>
       {!selectedGoal && (
         <>
           <div className='col-span-1 w-full  xl:col-span-2'>

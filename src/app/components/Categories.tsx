@@ -85,7 +85,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
       <Combobox value={selected} onChange={setSelectedCategory}>
         <div className='relative mt-1'>
           <div className='relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
-            <div className='text-gray-500 text-sm'>Optional</div>
+            <div className='text-gray-600 text-sm mb-1'>Optional</div>
             <Combobox.Input
               className='block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-lg sm:text-md sm:leading-6 '
               displayValue={(category: any) => category?.name}

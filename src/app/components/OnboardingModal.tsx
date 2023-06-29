@@ -51,7 +51,7 @@ const OnboardingModal = ({ onClose }: any) => {
                       waking hours and what you accomplish during them.
                     </li>
                     <li className='mb-2'>
-                      Activities can only be deleted in the same day.
+                      Activities can only be deleted within the same day.
                     </li>
                     <li className='mb-2'>
                       Focus on one goal for an extended period of time.
