@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default function Hero() {
   const { userId } = auth();
@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <div className='relative isolate overflow-hidden bg-white'>
       <svg
-        className='absolute inset-0 -z-10 h-full w-full stroke-blue [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]'
+        className='absolute inset-0 -z-10 h-full w-full stroke-gray-300 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]'
         aria-hidden='true'
       >
         <defs>
@@ -37,24 +37,27 @@ export default function Hero() {
       </svg>
       <div className='mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40'>
         <div className='mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8'>
-          <h1 className='mt-10 font-roboto text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
+          <h1 className='mt-10 font-roboto text-4xl font-bold !leading-tight tracking-tight text-blue-800 sm:text-6xl'>
             Track and Achieve Your Goals Effortlessly
           </h1>
           <p className='mt-6 font-open_sans text-lg leading-8 text-gray-600'>
             Time Spent leverages AI technology to analyze your activities,
-            provide insights, and optimize your goal attainment process. Set
-            daily goals, monitor your progress, and achieve success with ease.
+            provide insights, and optimize your goal attainment process.
+          </p>
+          <p className='mt-1 font-open_sans text-lg leading-8 text-gray-600'>
+            Set daily goals, monitor your progress, and achieve success with
+            ease.
           </p>
           <div className='mt-10 flex items-center gap-x-6'>
             <Link
               href='/sign-up'
-              className='hover:bg-blue-800 rounded-md bg-blue px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue'
+              className='rounded-md bg-blue px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue'
             >
               Get started
             </Link>
             <Link
               href='/sign-in'
-              className='group text-sm font-semibold leading-6 text-teal'
+              className='group text-lg font-semibold leading-6 text-teal'
             >
               <span className='group-hover:text-blue-800'>
                 Sign in <span aria-hidden='true'>→</span>
@@ -66,7 +69,7 @@ export default function Hero() {
           <div className='max-w-3xl flex-none sm:max-w-5xl lg:max-w-none'>
             <div className='-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4'>
               <Image
-                src='https://res.cloudinary.com/dbyigmrto/image/upload/v1687990985/time-spent-hero_ojqlpm.png'
+                src='https://res.cloudinary.com/dbyigmrto/image/upload/v1688014319/Screenshot_2023-06-28_at_11.51.42_PM_ovf1ri.png'
                 alt='App screenshot'
                 width={2432}
                 height={1442}
