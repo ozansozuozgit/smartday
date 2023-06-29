@@ -1,5 +1,5 @@
 import React from 'react';
-import { SidebarNav } from '../components/SidebarNav';
+import SidebarNav from '../components/SidebarNav';
 export const metadata = {
   title: 'Dashboard',
   description: 'Dashboard',
