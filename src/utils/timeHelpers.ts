@@ -16,6 +16,10 @@ export const formatDatetime = (date: any) => {
   return moment(date).tz(timezone).format('lll');
 };
 
+export const formatDateTimeDateOnly = (date: any) => {
+  return moment(date).tz(timezone).format('ll');
+}
+
 export const isToday = (date: any) => {
   const activityDate = moment(date).tz(timezone);
   const todayEST = moment()

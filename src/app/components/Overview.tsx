@@ -1,7 +1,11 @@
 import { getBaseUrl } from '@/lib/getBaseUrl';
-import { setAllActivities } from '@/src/redux/features/userSlice';
+import {
+  setAllActivities,
+  setCompletedGoals,
+} from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
+import * as Sentry from '@sentry/nextjs';
 import moment from 'moment-timezone';
 import React, { useEffect, useState } from 'react';
 import AllActivities from './AllActivities';
@@ -10,8 +14,7 @@ import AllAlignWithGoalPieChart from './AllAlignWithGoalPiechart';
 import CalendarChart from './CalendarChart';
 import DateLabel from './DateLabel';
 import FrequencyLineChart from './FrequencyLineChart';
-import * as Sentry from '@sentry/nextjs';
-
+import LatestCompletedGoals from './LatestCompletedGoals';
 const Overview = () => {
   const dispatch = useAppDispatch();
   const startDate = useAppSelector((state) =>
@@ -26,6 +29,7 @@ const Overview = () => {
   );
   const allActivities = useAppSelector((state) => state.user.allActivities);
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
+  const completedGoals = useAppSelector((state) => state.user.completedGoals);
 
   const fetchActivities = async (start: any, end: any) => {
     try {
@@ -49,9 +53,21 @@ const Overview = () => {
     }
   };
 
+  const fetchCompletedGoals = async (start: any, end: any) => {
+    try {
+      const res = await fetch(
+        `${getBaseUrl()}/api/completed-goals?startDate=${start}&endDate=${end}`
+      );
+      const goals = await res.json();
+      dispatch(setCompletedGoals(goals));
+    } catch (err) {
+      Sentry.captureException(err);
+    }
+  };
   useEffect(() => {
     const timer = setTimeout(() => {
       fetchActivities(startDate, endDate);
+      fetchCompletedGoals(startDate, endDate);
     }, 500);
 
     return () => {
@@ -59,7 +75,7 @@ const Overview = () => {
     };
   }, [startDate, endDate]);
   return (
-    <div className='m-auto grid max-w-full place-items-center gap-[50px] lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-[450px] 3xl:grid-cols-3'>
+    <div className='m-auto grid max-w-full place-items-center gap-8 lg:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-[450px]'>
       <div className='col-span-1 w-full xl:col-span-3'>
         {!selectedGoal && (
           <div className='flex max-w-full items-center justify-between px-6 py-4 font-roboto text-gray-800 shadow-warm'>
@@ -72,9 +88,8 @@ const Overview = () => {
       </div>
       {!selectedGoal && (
         <>
-          <div className='col-span-1 w-full  xl:col-span-2'>
-            <AllActivities activities={allActivities} />
-          </div>
+          <AllActivities activities={allActivities} />
+          <LatestCompletedGoals completedGoals={completedGoals} />
           <AllAlignWithGoalPieChart activities={allActivities} />
 
           <AllActivitiesBarChart activities={allActivities} />
@@ -83,7 +98,7 @@ const Overview = () => {
           </div>
 
           <div className='col-span-1 w-full  xl:col-span-3'>
-            <CalendarChart />
+            <CalendarChart completedGoals={completedGoals}/>
           </div>
         </>
       )}

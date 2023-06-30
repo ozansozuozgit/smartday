@@ -4,7 +4,7 @@ import Activity from './Activity';
 
 const AllActivities = ({ activities }: any) => {
   return (
-    <div className='flex h-[400px] max-h-[400px] max-w-full flex-col space-y-4 rounded-xl bg-white p-6 shadow-warm '>
+    <div className='flex h-[400px] max-h-[400px] max-w-full flex-col space-y-4 rounded-xl bg-white p-6 shadow-warm w-full'>
       <div className='flex justify-between'>
         <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold text-gray-900 sm:mb-2 md:text-xl'>
           {!activities || activities.length === 0

@@ -1,14 +1,10 @@
 'use client';
-import { getBaseUrl } from '@/lib/getBaseUrl';
 import { useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
 import { ResponsiveCalendar } from '@nivo/calendar';
-import * as Sentry from '@sentry/nextjs';
 import moment from 'moment-timezone';
-import { useEffect, useState } from 'react';
 
-const CalendarChart = () => {
-  const [goalData, setGoalData] = useState([]);
+const CalendarChart = ({ completedGoals }: any) => {
   const startDate = useAppSelector((state) =>
     state.user.startDate
       ? moment(state.user.startDate).toISOString()
@@ -20,25 +16,17 @@ const CalendarChart = () => {
       : getTimes().endOfToday
   );
 
-  const fetchCompletedGoals = async (start: any, end: any) => {
-    try {
-      const res = await fetch(
-        `${getBaseUrl()}/api/completed-goals?startDate=${start}&endDate=${end}`
-      );
-      const goals = await res.json();
-
-      return goals.map((goal: any) => ({
-        day: moment(goal.completedAt).format('YYYY-MM-DD'),
-        value: 50,
-        name: goal.name,
-      }));
-    } catch (err) {
-      Sentry.captureException(err);
-    }
+  const fetchCompletedGoals = () => {
+    return completedGoals.map((goal: any) => ({
+      day: moment(goal.completedAt).format('YYYY-MM-DD'),
+      value: 50,
+      name: goal.name,
+    }));
   };
 
   const CustomTooltip = ({ day }: any) => {
-    const goal: any = goalData.find((item: any) => item.day === day);
+    const goals = fetchCompletedGoals();
+    const goal: any = goals?.find((goal: any) => goal.day === day);
     return (
       <div>
         <div>Date: {day}</div>
@@ -46,16 +34,7 @@ const CalendarChart = () => {
       </div>
     );
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      fetchCompletedGoals(startDate, endDate).then(setGoalData);
-    }, 500);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [startDate, endDate]);
+  const goalData = fetchCompletedGoals();
 
   return (
     <div className='m-auto flex h-[450px] flex-col rounded-xl bg-white p-6 shadow-warm sm:h-[400px] xl:max-w-[1500px] '>
@@ -73,7 +52,7 @@ const CalendarChart = () => {
         monthBorderColor='#ffffff'
         dayBorderWidth={2}
         dayBorderColor='#ffffff'
-        tooltip={CustomTooltip}
+        tooltip={({ day }: any) => <CustomTooltip day={day} />}
         legends={[
           {
             anchor: 'bottom-right',

@@ -17,7 +17,7 @@ type UserState = {
 };
 
 const initialState = {
-  completedGoals: null,
+  completedGoals: [],
   createdAt: '',
   email: '',
   id: '',
@@ -111,6 +111,9 @@ export const userSlice = createSlice({
       });
       state.selectedGoal.name = action.payload.name;
     },
+    setCompletedGoals: (state, action: PayloadAction<any>) => {
+      state.completedGoals = action.payload;
+    },
   },
 });
 
@@ -131,5 +134,6 @@ export const {
   removeActivityFromAllActivities,
   addActivityToAllActivities,
   editGoalName,
+  setCompletedGoals
 } = userSlice.actions;
 export default userSlice.reducer;
