@@ -1,9 +1,14 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
+} from '@/src/utils/toast';
 import { Dialog, Transition } from '@headlessui/react';
+import * as Sentry from '@sentry/nextjs';
 import React, { Fragment, useRef, useState } from 'react';
 import { GoalType } from '../../../types/types';
-import * as Sentry from '@sentry/nextjs';
 
 const CreateCategory = ({ addCategoryToState }: any) => {
   const [categoryName, setCategoryName] = useState<string>('');
@@ -18,7 +23,10 @@ const CreateCategory = ({ addCategoryToState }: any) => {
   }
 
   const createCategory = async () => {
-    if (!categoryName) return;
+    if (!categoryName) {
+      showWarningToast('Please enter a category name');
+      return;
+    }
     try {
       const res = await fetch(`${getBaseUrl()}/api/category`, {
         method: 'POST',
@@ -32,10 +40,11 @@ const CreateCategory = ({ addCategoryToState }: any) => {
       const category = await res.json();
       addCategoryToState(category);
       closeModal();
-      console.log('Category added!', category);
+      showSuccessToast('Category added!');
     } catch (err) {
       console.log(err);
       Sentry.captureException(err);
+      showErrorToast('Something went wrong');
     }
   };
 

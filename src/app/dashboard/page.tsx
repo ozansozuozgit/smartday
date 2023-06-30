@@ -7,6 +7,7 @@ import { hasUserLoggedInBefore } from '@/src/utils/onboardHelper';
 import GoalOverview from '../components/GoalOverview';
 import OnboardingModal from '../components/OnboardingModal';
 import Overview from '../components/Overview';
+import {  toast } from 'react-toastify';
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();

@@ -2,9 +2,14 @@
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { editGoalName } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
+} from '@/src/utils/toast';
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
 import * as Sentry from '@sentry/nextjs';
+import { Fragment, useState } from 'react';
 
 const EditGoal = ({ closeEditGoal, goal }: any) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -12,6 +17,10 @@ const EditGoal = ({ closeEditGoal, goal }: any) => {
   const dispatch = useAppDispatch();
 
   const editGoal = async () => {
+    if (!goalName) {
+      showWarningToast('Please enter a goal name');
+      return;
+    }
     try {
       const res = await fetch(
         `${getBaseUrl()}/api/goal/?goalId=${goal.id}&action=update`,
@@ -24,9 +33,11 @@ const EditGoal = ({ closeEditGoal, goal }: any) => {
       console.log('Goal edited!', editedGoal);
       dispatch(editGoalName({ id: editedGoal?.id, name: editedGoal?.name }));
       closeEditGoal();
+      showSuccessToast('Goal name updated!');
     } catch (err) {
       console.log(err);
       Sentry.captureException(err);
+      showErrorToast('Something went wrong');
     }
   };
 

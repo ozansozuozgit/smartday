@@ -2,11 +2,16 @@
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { addGoal, setSelectedGoal } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
+} from '@/src/utils/toast';
 import { Dialog, Transition } from '@headlessui/react';
+import * as Sentry from '@sentry/nextjs';
 import React, { Fragment, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { GoalType } from '../../../types/types';
-import * as Sentry from '@sentry/nextjs';
 
 const CreateGoal = () => {
   const [goalName, setGoalName] = useState('');
@@ -22,7 +27,10 @@ const CreateGoal = () => {
   };
 
   const createGoal = async () => {
-    if (!goalName) return;
+    if (!goalName) {
+      showWarningToast('Please enter a goal name');
+      return;
+    }
 
     try {
       const res = await fetch(`${getBaseUrl()}/api/goal`, {
@@ -39,16 +47,20 @@ const CreateGoal = () => {
       dispatch(addGoal(goal));
       dispatch(setSelectedGoal(goal));
       closeModal();
-      console.log('Goal added!');
+      showSuccessToast('Goal added!');
     } catch (err) {
       console.log(err);
       Sentry.captureException(err);
+      showErrorToast('Something went wrong');
     }
   };
 
   return (
     <div className='font-open_sans'>
-      <div className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-teal-500 px-2 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75' onClick={openModal}>
+      <div
+        className='flex cursor-pointer items-center justify-around gap-2 rounded-md bg-teal-500 px-2 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
+        onClick={openModal}
+      >
         <FaPlus className='h-3 w-3 text-white' aria-hidden='true' />
         <span>New Goal</span>
       </div>
@@ -79,7 +91,10 @@ const CreateGoal = () => {
                 leaveTo='opacity-0 scale-95'
               >
                 <Dialog.Panel className='w-full max-w-[300px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
-                  <Dialog.Title as='h3' className='font-roboto text-lg font-medium'>
+                  <Dialog.Title
+                    as='h3'
+                    className='font-roboto text-lg font-medium'
+                  >
                     Enter Goal Name
                   </Dialog.Title>
                   <div className='mt-2 font-open_sans'>
@@ -87,7 +102,7 @@ const CreateGoal = () => {
                       type='text'
                       name='price'
                       id='price'
-                      className='text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600 sm:text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-md ring-1 ring-inset focus:ring-2 focus:ring-inset sm:leading-6'
+                      className='sm:text-md text-md my-5 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6'
                       value={goalName}
                       onChange={(e) => setGoalName(e.target.value)}
                       onKeyDown={(e) => {
@@ -103,14 +118,14 @@ const CreateGoal = () => {
                   <div className='mt-4 flex justify-end space-x-2'>
                     <button
                       type='button'
-                      className='focus-visible:ring-blue-500 focus-visible:ring-offset-2 inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus-visible:ring-2'
+                      className='inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
                       onClick={closeModal}
                     >
                       Cancel
                     </button>
                     <button
                       type='button'
-                      className='focus-visible:ring-blue-500 focus-visible:ring-offset-2 inline-flex justify-center rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500 focus:outline-none focus-visible:ring-2'
+                      className='inline-flex justify-center rounded-md border border-transparent bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-teal-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
                       onClick={createGoal}
                     >
                       Submit

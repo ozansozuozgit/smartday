@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import * as Sentry from '@sentry/nextjs';
+import { showSuccessToast,showErrorToast } from '@/src/utils/toast';
 
 const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -18,9 +19,11 @@ const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
       const deletedGoal = await res.json();
       dispatch(removeGoal(deletedGoal?.id));
       dispatch(setSelectedGoal(null));
+      showSuccessToast('Goal deleted successfully');
     } catch (err) {
       console.log(err);
       Sentry.captureException(err);
+      showErrorToast('Something went wrong');
     }
   };
 

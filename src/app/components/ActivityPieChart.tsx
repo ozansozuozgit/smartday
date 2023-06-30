@@ -6,6 +6,7 @@ import React from 'react';
 import { useAppSelector } from '@/src/redux/hooks';
 import { generateRandomColors } from '@/src/utils/colorUtils';
 
+
 const ActivityPieChart = ({ goal }) => {
   console.log('goal', goal);
   if (!goal.activities || goal.activities.length === 0) {

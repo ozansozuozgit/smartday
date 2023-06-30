@@ -7,6 +7,11 @@ import {
   updateSelectedGoalPercentage,
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
+} from '@/src/utils/toast';
 import { Dialog, Transition } from '@headlessui/react';
 import * as Sentry from '@sentry/nextjs';
 import React, { Fragment, useState } from 'react';
@@ -40,10 +45,18 @@ const AddActivity = ({ goal }: any) => {
   };
 
   const addActivity = async () => {
-    if (!activityName || !percentage) return;
-    if (percentage > 100) return alert('Percentage cannot be greater than 100');
-    if (percentage + goal?.percentage > 100)
-      return alert('Percentage cannot be greater than 100');
+    if (!activityName || !percentage) {
+      showWarningToast('Please enter a activity name and percentage');
+      return;
+    }
+    if (percentage > 100) {
+      showWarningToast('Percentage cannot be greater than 100');
+      return;
+    }
+    if (percentage + goal?.percentage > 100) {
+      showWarningToast('Percentage cannot be greater than 100');
+      return;
+    }
     try {
       const res = await fetch(`${getBaseUrl()}/api/activity`, {
         method: 'POST',
@@ -74,7 +87,7 @@ const AddActivity = ({ goal }: any) => {
       dispatch(addActivityToAllActivities(allActivity));
 
       dispatch(setActivityFlag(!activityFlag));
-
+      showSuccessToast('Activity added!');
       setActivityName('');
       setPercentage(0);
       setAlignsWithGoal(false);
@@ -82,6 +95,7 @@ const AddActivity = ({ goal }: any) => {
     } catch (err) {
       console.log(err);
       Sentry.captureException(err);
+      showErrorToast('Something went wrong');
     }
   };
 
