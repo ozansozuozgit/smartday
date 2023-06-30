@@ -4,7 +4,7 @@ import { Combobox, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
 import CreateCategory from './CreateCategory';
 import {RiDeleteBinLine} from 'react-icons/ri';
-
+import * as Sentry from '@sentry/nextjs';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { HiOutlineChevronUpDown } from 'react-icons/hi2';
 
@@ -40,6 +40,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
       setQuery('');      
     } catch (err) {
       console.log(err);
+      Sentry.captureException(err);
     }
   };
 

@@ -3,6 +3,7 @@ import { getBaseUrl } from '@/lib/getBaseUrl';
 import { useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
 import { ResponsiveCalendar } from '@nivo/calendar';
+import * as Sentry from '@sentry/nextjs';
 import moment from 'moment-timezone';
 import { useEffect, useState } from 'react';
 
@@ -20,16 +21,20 @@ const CalendarChart = () => {
   );
 
   const fetchCompletedGoals = async (start: any, end: any) => {
-    const res = await fetch(
-      `${getBaseUrl()}/api/completed-goals?startDate=${start}&endDate=${end}`
-    );
-    const goals = await res.json();
+    try {
+      const res = await fetch(
+        `${getBaseUrl()}/api/completed-goals?startDate=${start}&endDate=${end}`
+      );
+      const goals = await res.json();
 
-    return goals.map((goal: any) => ({
-      day: moment(goal.completedAt).format('YYYY-MM-DD'),
-      value: 50,
-      name: goal.name,
-    }));
+      return goals.map((goal: any) => ({
+        day: moment(goal.completedAt).format('YYYY-MM-DD'),
+        value: 50,
+        name: goal.name,
+      }));
+    } catch (err) {
+      Sentry.captureException(err);
+    }
   };
 
   const CustomTooltip = ({ day }: any) => {

@@ -4,6 +4,7 @@ import { removeGoal, setSelectedGoal } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
+import * as Sentry from '@sentry/nextjs';
 
 const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -19,6 +20,7 @@ const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
       dispatch(setSelectedGoal(null));
     } catch (err) {
       console.log(err);
+      Sentry.captureException(err);
     }
   };
 

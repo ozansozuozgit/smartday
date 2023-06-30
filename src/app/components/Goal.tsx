@@ -4,7 +4,7 @@ import { setSelectedGoal } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
 import { GoalType } from '@/types/types';
-
+import * as Sentry from '@sentry/nextjs';
 import { useCallback, useState } from 'react';
 import { FaEdit, FaFlagCheckered } from 'react-icons/fa';
 import { MdTaskAlt } from 'react-icons/md';
@@ -25,13 +25,18 @@ const Goal = ({ goal }: { goal: GoalType }) => {
   const getGoalandActivities = useCallback(async () => {
     if (goal?.id === selectedGoal?.id) return;
 
-    const res = await fetch(
-      `${getBaseUrl()}/api/goal?goalId=${
-        goal?.id
-      }&startDate=${startDate}&endDate=${endDate}`
-    );
-    const goalResult = await res.json();
-    dispatch(setSelectedGoal(goalResult));
+    try {
+      const res = await fetch(
+        `${getBaseUrl()}/api/goal?goalId=${
+          goal?.id
+        }&startDate=${startDate}&endDate=${endDate}`
+      );
+      const goalResult = await res.json();
+      dispatch(setSelectedGoal(goalResult));
+    } catch (err) {
+      console.error(err);
+      Sentry.captureException(err);
+    }
   }, [goal, selectedGoal, startDate, endDate, dispatch]);
 
   return (

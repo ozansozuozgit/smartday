@@ -8,6 +8,7 @@ import { GoalType } from '../../../types/types';
 import AddActivity from './AddActivity';
 import CreateGoal from './CreateGoal';
 import Goal from './Goal';
+import * as Sentry from '@sentry/nextjs';
 
 const Goals = ({ goals }) => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ const Goals = ({ goals }) => {
         dispatch(setUserGoals(allGoals));
       } catch (err) {
         console.log(err);
+        Sentry.captureException(err);
       }
     };
 

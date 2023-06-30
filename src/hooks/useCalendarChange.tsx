@@ -6,6 +6,7 @@ import {
   setStartDate,
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
+import * as Sentry from '@sentry/nextjs';
 import moment from 'moment-timezone';
 import { useState } from 'react';
 
@@ -28,18 +29,21 @@ export const useCalendarChange = () => {
   const getGoalAndActivities = async (start: any, end: any) => {
     if (!selectedGoal?.id) return;
 
-    const res = await fetch(
-      `${getBaseUrl()}/api/goal?goalId=${
-        selectedGoal?.id
-      }&startDate=${start}&endDate=${end}`
-    );
-    const goalResult = await res.json();
+    try {
+      const res = await fetch(
+        `${getBaseUrl()}/api/goal?goalId=${
+          selectedGoal?.id
+        }&startDate=${start}&endDate=${end}`
+      );
+      const goalResult = await res.json();
 
-    dispatch(setSelectedGoal(goalResult));
+      dispatch(setSelectedGoal(goalResult));
+    } catch (err) {
+      Sentry.captureException(err);
+    }
   };
 
   const handleCalendarChange = (newValue: Date | Date[]) => {
-
     const [startDate, endDate] = newValue as Date[];
 
     const startISO = moment(startDate).toISOString();
@@ -56,12 +60,13 @@ export const useCalendarChange = () => {
 
     // Close the popover by triggering a click on the button
     const popoverButton = document.getElementById('popover-button');
-    console.log('popoverButton before',popoverButton)
-    const isPopoverOpen = popoverButton?.getAttribute('data-headlessui-state') === 'open';
+    console.log('popoverButton before', popoverButton);
+    const isPopoverOpen =
+      popoverButton?.getAttribute('data-headlessui-state') === 'open';
 
     if (isPopoverOpen) {
       popoverButton?.click();
-      console.log('popoverButton after',popoverButton)
+      console.log('popoverButton after', popoverButton);
     }
   };
 

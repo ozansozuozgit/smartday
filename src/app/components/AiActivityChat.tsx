@@ -4,6 +4,7 @@ import { useAppSelector } from '@/src/redux/hooks';
 import { isToday } from '@/src/utils/timeHelpers';
 import { useEffect, useState } from 'react';
 import { PiRobotBold } from 'react-icons/pi';
+import * as Sentry from '@sentry/nextjs';
 
 export default function AiActivityChat({ goal }: any) {
   const [messages, setMessages] = useState<any>([]);
@@ -82,6 +83,7 @@ export default function AiActivityChat({ goal }: any) {
       .catch((error) => {
         console.error(error);
         setLoading(false);
+        Sentry.captureException(error);
       })
       .finally(() => {
         setLoading(false);

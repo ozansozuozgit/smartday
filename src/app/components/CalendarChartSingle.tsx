@@ -3,6 +3,7 @@ import { getBaseUrl } from '@/lib/getBaseUrl';
 import { useAppSelector } from '@/src/redux/hooks';
 import { getTimes } from '@/src/utils/timeHelpers';
 import { ResponsiveCalendar } from '@nivo/calendar';
+import * as Sentry from '@sentry/nextjs';
 import moment from 'moment-timezone';
 import { useEffect, useState } from 'react';
 
@@ -20,18 +21,22 @@ const CalendarChartSingle = ({ goal }: any) => {
   );
 
   const fetchCompletedGoal = async (start: any, end: any, thegoal: any) => {
-    const res = await fetch(
-      `${getBaseUrl()}/api/completed-goal?startDate=${start}&endDate=${end}&goalId=${
-        thegoal?.id || ''
-      }`
-    );
-    const goalResult = await res.json();
+    try {
+      const res = await fetch(
+        `${getBaseUrl()}/api/completed-goal?startDate=${start}&endDate=${end}&goalId=${
+          thegoal?.id || ''
+        }`
+      );
+      const goalResult = await res.json();
 
-    return goalResult.map((goal: any) => ({
-      day: moment(goal.completedAt).format('YYYY-MM-DD'),
-      value: 50,
-      name: goal.name,
-    }));
+      return goalResult.map((goal: any) => ({
+        day: moment(goal.completedAt).format('YYYY-MM-DD'),
+        value: 50,
+        name: goal.name,
+      }));
+    } catch (err) {
+      Sentry.captureException(err);
+    }
   };
 
   const CustomTooltip = ({ day }: any) => {

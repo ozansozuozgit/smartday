@@ -10,6 +10,7 @@ import AllAlignWithGoalPieChart from './AllAlignWithGoalPiechart';
 import CalendarChart from './CalendarChart';
 import DateLabel from './DateLabel';
 import FrequencyLineChart from './FrequencyLineChart';
+import * as Sentry from '@sentry/nextjs';
 
 const Overview = () => {
   const dispatch = useAppDispatch();
@@ -44,6 +45,7 @@ const Overview = () => {
       return data;
     } catch (err) {
       console.log(err);
+      Sentry.captureException(err);
     }
   };
 

@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
+import * as Sentry from '@sentry/nextjs';
 
 const DeleteActivity = ({
   closeDeleteActivity,
@@ -40,6 +41,7 @@ const DeleteActivity = ({
       closeDeleteActivity();
     } catch (err) {
       console.log(err);
+      Sentry.captureException(err);
     }
   };
 

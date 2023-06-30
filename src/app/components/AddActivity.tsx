@@ -8,6 +8,7 @@ import {
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
+import * as Sentry from '@sentry/nextjs';
 import React, { Fragment, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { GoalType } from '../../../types/types';
@@ -80,6 +81,7 @@ const AddActivity = ({ goal }: any) => {
       closeModal();
     } catch (err) {
       console.log(err);
+      Sentry.captureException(err);
     }
   };
 
@@ -151,7 +153,7 @@ const AddActivity = ({ goal }: any) => {
                         type='text'
                         name='percentage'
                         id='percentage'
-                        className='sm:text-md my-5 block  rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6  w-[70%]'
+                        className='sm:text-md my-5 block  w-[70%] rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:leading-6'
                         value={percentage ?? 0}
                         onChange={(e) => {
                           const value = e.target.value;
@@ -169,7 +171,7 @@ const AddActivity = ({ goal }: any) => {
                         }}
                         placeholder='Percentage of your day'
                       />
-                      <div className='flex w-[30%] flex-col text-sm gap-y-1'>
+                      <div className='flex w-[30%] flex-col gap-y-1 text-sm'>
                         <span>
                           Remaining:{' '}
                           <span className='font-semibold text-blue-500'>

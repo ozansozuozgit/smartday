@@ -4,6 +4,7 @@ import { editGoalName } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
+import * as Sentry from '@sentry/nextjs';
 
 const EditGoal = ({ closeEditGoal, goal }: any) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -25,6 +26,7 @@ const EditGoal = ({ closeEditGoal, goal }: any) => {
       closeEditGoal();
     } catch (err) {
       console.log(err);
+      Sentry.captureException(err);
     }
   };
 

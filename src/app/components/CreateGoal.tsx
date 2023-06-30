@@ -6,6 +6,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { GoalType } from '../../../types/types';
+import * as Sentry from '@sentry/nextjs';
 
 const CreateGoal = () => {
   const [goalName, setGoalName] = useState('');
@@ -41,6 +42,7 @@ const CreateGoal = () => {
       console.log('Goal added!');
     } catch (err) {
       console.log(err);
+      Sentry.captureException(err);
     }
   };
 

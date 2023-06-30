@@ -3,6 +3,7 @@ import { getBaseUrl } from '@/lib/getBaseUrl';
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useRef, useState } from 'react';
 import { GoalType } from '../../../types/types';
+import * as Sentry from '@sentry/nextjs';
 
 const CreateCategory = ({ addCategoryToState }: any) => {
   const [categoryName, setCategoryName] = useState<string>('');
@@ -34,6 +35,7 @@ const CreateCategory = ({ addCategoryToState }: any) => {
       console.log('Category added!', category);
     } catch (err) {
       console.log(err);
+      Sentry.captureException(err);
     }
   };
 
