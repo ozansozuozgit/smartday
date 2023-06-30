@@ -60,7 +60,7 @@ const EditGoal = ({ closeEditGoal, goal }: any) => {
                     as='h3'
                     className='text-lg font-medium leading-6 text-gray-900'
                   >
-                    Edit {goal.name} name
+                    Edit Goal Name
                   </Dialog.Title>
                   <div className='mt-2 font-open_sans'>
                     <input
@@ -73,10 +73,10 @@ const EditGoal = ({ closeEditGoal, goal }: any) => {
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                           e.preventDefault();
-                          //   createGoal();
+                          editGoal();
                         }
                       }}
-                      placeholder='100k per month'
+                      placeholder={`${goal.name}`}
                     />
                   </div>
                   <div className='mt-4 flex justify-end space-x-2'>
