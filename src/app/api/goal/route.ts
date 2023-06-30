@@ -59,8 +59,6 @@ export async function POST(req: Request) {
 
   const { goalName } = await req.json();
 
-  console.log('goalName', goalName);
-
   const newGoal = await prisma.goal.create({
     data: {
       name: goalName,

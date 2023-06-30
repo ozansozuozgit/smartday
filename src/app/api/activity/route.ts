@@ -26,8 +26,6 @@ export async function POST(req: NextRequest) {
     alignsWithGoal: alignsWithGoal,
   };
 
-  console.log('categoryName', categoryName);
-
   if (categoryId !== undefined && categoryId !== null && categoryId !== '') {
     activityData.categoryId = categoryId;
   }
@@ -55,7 +53,6 @@ export async function POST(req: NextRequest) {
       },
     },
   });
-  console.log('updatedGoal', updatedGoal);
   return NextResponse.json(newActivity);
 }
 

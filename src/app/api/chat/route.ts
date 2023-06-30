@@ -39,7 +39,7 @@ export async function POST(req: Request) {
 
   const stream = OpenAIStream(response, {
     onCompletion: async (completion: string) => {
-      console.log('completion', completion);
+      // console.log('completion', completion);
     },
   });
   // Respond with the stream

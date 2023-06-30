@@ -8,7 +8,6 @@ import { generateRandomColors } from '@/src/utils/colorUtils';
 
 
 const ActivityPieChart = ({ goal }) => {
-  console.log('goal', goal);
   if (!goal.activities || goal.activities.length === 0) {
     return (
       <div className='pie-chart-container mx-2 flex h-[400px] w-full max-w-full flex-col rounded-xl bg-white p-4 shadow-warm'>

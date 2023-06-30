@@ -7,8 +7,6 @@ import DeleteActivity from './DeleteActivity';
 const Activity = ({ activity }) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
 
-  console.log('activity', activity);
-
   return (
     <li key={activity.id} className='flex justify-between gap-x-4 py-3'>
       <div className='flex-grow'>

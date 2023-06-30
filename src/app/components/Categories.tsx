@@ -18,7 +18,6 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
   };
 
   const setSelectedCategory = (category: any) => {
-    console.log('category', category);
     setSelectedCategoryHandler(category.id, category.name);
     setSelected(category);
   };
@@ -59,7 +58,6 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
         });
         const allCategories = await res.json();
         setCategories(allCategories);
-        console.log('categories', allCategories);
       } catch (err) {
         console.log(err);
       }

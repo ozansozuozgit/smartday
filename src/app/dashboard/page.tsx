@@ -24,12 +24,10 @@ const Dashboard = () => {
 
     // Convert to the end of the day in EST
     const endOfToday = now.clone().tz(timezone).endOf('day').format();
-    console.log('startOfToday', startOfToday);
     dispatch(setStartDate(startOfToday));
     dispatch(setEndDate(endOfToday));
 
     const userLoggedInBefore = hasUserLoggedInBefore();
-    console.log('userLoggedInBefore', userLoggedInBefore);
     if (!userLoggedInBefore) {
       setShowOnboarding(true);
       localStorage.setItem('loggedInBefore', 'true');

@@ -11,7 +11,6 @@ export const resetGoal = inngest.createFunction(
     cron: '0 5 * * *',
   },
   async ({ event }) => {
-    // Get Ideas From Database
     try {
       // Retrieve all goals
       const goals = await prisma.goal.findMany();
@@ -20,7 +19,6 @@ export const resetGoal = inngest.createFunction(
       for (const goal of goals) {
         // Check if the goal is complete
         if (goal?.percentage === 100) {
-          console.log('goal', goal?.percentage);
           // If the goal is complete, create a completed goal and associate it with the user
           const completedGoal = await prisma.completedGoal.create({
             data: {

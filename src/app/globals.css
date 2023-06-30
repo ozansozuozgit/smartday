@@ -13,7 +13,7 @@
     width: 1000px;
   }
   .pie-chart-container-2 svg {
-    width: 400px;
+    width: 450px;
   }
 }
 @media (max-width: 1535px) {
@@ -24,7 +24,23 @@
     width: 400px;
   }
 }
+@media (max-width: 1024px) {
+  .pie-chart-container svg {
+    width: 800px;
+  }
+  .pie-chart-container-2 svg {
+    width: 800px;
+  }
+}
 @media (max-width: 889px) {
+  .pie-chart-container svg {
+    width: 550px;
+  }
+  .pie-chart-container-2 svg {
+    width: 550px;
+  }
+}
+@media (max-width: 476px) {
   .pie-chart-container svg {
     width: 300px;
   }

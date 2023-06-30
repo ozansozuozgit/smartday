@@ -60,13 +60,11 @@ export const useCalendarChange = () => {
 
     // Close the popover by triggering a click on the button
     const popoverButton = document.getElementById('popover-button');
-    console.log('popoverButton before', popoverButton);
     const isPopoverOpen =
       popoverButton?.getAttribute('data-headlessui-state') === 'open';
 
     if (isPopoverOpen) {
       popoverButton?.click();
-      console.log('popoverButton after', popoverButton);
     }
   };
 

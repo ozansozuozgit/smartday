@@ -14,7 +14,6 @@ export async function GET(req: NextRequest) {
   });
 
   // const allCategoriesFromUser = res.json();
-  console.log('allCategoriesFromUser', allCategoriesFromUser);
 
   return NextResponse.json(allCategoriesFromUser);
 }

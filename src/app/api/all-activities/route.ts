@@ -7,7 +7,6 @@ export async function GET(req: NextRequest) {
   const startDate = req.nextUrl.searchParams.get('startDate') as string;
   const endDate = req.nextUrl.searchParams.get('endDate') as string;
   if (!user) throw new Error('Unauthorized');
-  console.log('user all activities', user);
   try {
     const activities = await prisma.activity.findMany({
       where: {
@@ -27,7 +26,6 @@ export async function GET(req: NextRequest) {
       },
       take: 100,
     });
-    console.log('activities', activities);
     return NextResponse.json(activities, { status: 200 });
   } catch (error) {
     console.error(error);

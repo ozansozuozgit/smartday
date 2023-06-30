@@ -21,7 +21,6 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   const categoryId  = req.nextUrl.searchParams.get('categoryId') as any;
-  console.log('categoryId', categoryId)
   try {
     // Delete the category from the database
     const response = await prisma.category.delete({

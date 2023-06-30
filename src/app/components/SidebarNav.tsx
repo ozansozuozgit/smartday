@@ -18,7 +18,6 @@ export default function SidebarNav() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log(ref.current, event.target);
       if (ref.current && !ref?.current?.contains(event.target)) {
         if (
           event.target.classList.contains(
