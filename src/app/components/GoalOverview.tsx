@@ -59,7 +59,7 @@ const GoalOverview = () => {
 
       {selectedGoal && <Activities goal={selectedGoal} />}
 
-      <div className='col-span-1 w-full  xl:col-span-1 2xl:col-span-2'>
+      <div className='col-span-1 w-full  lg:col-span-1 xl:col-span-2 2xl:col-span-2'>
         {selectedGoal && <AiActivityChat goal={selectedGoal} />}
       </div>
 
@@ -69,11 +69,11 @@ const GoalOverview = () => {
 
       {selectedGoal && <CategoryChart goal={selectedGoal} />}
 
-      <div className='col-span-1 w-full  2xl:col-span-3'>
+      <div className='col-span-1 w-full xl:col-span-3 '>
         {selectedGoal && <ChartLine goal={selectedGoal} />}
       </div>
 
-      <div className='col-span-1 w-full  xl:col-span-1 2xl:col-span-3'>
+      <div className='col-span-1 w-full  xl:col-span-3 '>
         {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
       </div>
     </div>

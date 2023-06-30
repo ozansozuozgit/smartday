@@ -1,6 +1,6 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
-import { editGoalName, setSelectedGoal } from '@/src/redux/features/userSlice';
+import { editGoalName } from '@/src/redux/features/userSlice';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';

@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
         goal: true,
         category: true,
       },
-      take: 50,
+      take: 100,
     });
     console.log('activities', activities);
     return NextResponse.json(activities, { status: 200 });

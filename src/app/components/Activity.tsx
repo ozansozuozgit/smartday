@@ -29,7 +29,7 @@ const Activity = ({ activity }) => {
       </div>
       <div className='flex items-center'>
         {activity?.percentage && (
-          <p className='mr-2 text-sm font-semibold text-green-500 sm:mr-4'>
+          <p className='mr-2 text-sm font-semibold text-teal-500 sm:mr-4'>
             {activity.percentage}%
           </p>
         )}

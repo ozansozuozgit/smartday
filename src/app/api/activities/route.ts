@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
   const allActivitiesFromGoal = await prisma.activity.findMany({
     where: { goalId: goalId },
     orderBy: { updatedAt: 'desc' },
+    take: 100,
   });
 
   return NextResponse.json(allActivitiesFromGoal);
