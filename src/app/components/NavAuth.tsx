@@ -2,19 +2,22 @@
 import { SignedIn, UserButton, useClerk } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { BiHelpCircle, BiLogOut } from 'react-icons/bi';
-
+import { AiOutlineMail } from 'react-icons/ai';
+import { BiHelpCircle } from 'react-icons/bi';
+import ContactModal from './ContactModal';
 import OnboardingModal from './OnboardingModal';
-
 export default function NavAuth() {
   const { signOut } = useClerk();
   const router = useRouter();
+  const [showContactModal, setShowContactModal] = useState(false);
 
   const [showOnboarding, setShowOnboarding] = useState(false);
   const handleOnboardingClose = () => {
     setShowOnboarding(false);
   };
-
+  const handleContactModalClose = () => {
+    setShowContactModal(false);
+  };
   const handleSignOut = async () => {
     await signOut();
     router.push('/');
@@ -25,16 +28,23 @@ export default function NavAuth() {
       <SignedIn>
         <div className='flex items-center gap-x-4 2xl:justify-around 2xl:gap-0 '>
           <UserButton afterSignOutUrl='/' showName />
-          {/* <BiLogOut
-            className='w-6 cursor-pointer inline-block h-6 hover:opacity-50'
-            onClick={handleSignOut}
-          /> */}
-          <BiHelpCircle
-            className='inline-block h-6 w-6 cursor-pointer text-blue-500 hover:opacity-50'
-            onClick={() => setShowOnboarding(true)}
-          />
+
+          <div className='flex gap-x-2'>
+            <AiOutlineMail
+              className='inline-block h-5 w-5 cursor-pointer text-teal-500 hover:opacity-50'
+              onClick={() => setShowContactModal(true)}
+            />
+            <BiHelpCircle
+              className='inline-block h-5 w-5 cursor-pointer text-blue-500 hover:opacity-50'
+              onClick={() => setShowOnboarding(true)}
+            />
+          </div>
+
           {showOnboarding && (
             <OnboardingModal onClose={handleOnboardingClose} />
+          )}
+          {showContactModal && (
+            <ContactModal onClose={handleContactModalClose} />
           )}
         </div>
       </SignedIn>

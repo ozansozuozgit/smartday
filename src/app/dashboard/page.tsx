@@ -8,7 +8,7 @@ import GoalOverview from '../components/GoalOverview';
 import OnboardingModal from '../components/OnboardingModal';
 import Overview from '../components/Overview';
 import {  toast } from 'react-toastify';
-
+import ContactModal from '../components/ContactModal';
 const Dashboard = () => {
   const dispatch = useAppDispatch();
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -37,12 +37,14 @@ const Dashboard = () => {
     setShowOnboarding(false);
   };
 
+
   return (
     <div className='z-1 relative min-h-screen bg-gray py-12'>
       <section className='m-auto w-[90%] pt-[50px] 2xl:pt-0  xl:max-w-[1500px] 2xl:w-[95%]'>
         <Overview />
         <GoalOverview />
         {showOnboarding && <OnboardingModal onClose={handleOnboardingClose} />}
+
       </section>
     </div>
   );
