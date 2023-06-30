@@ -17,10 +17,6 @@ const Activities = ({ goal }: any) => {
         </h2>
         {isToday(startDate) && <AddActivity goal={goal} />}
       </div>
-      {goal.percentage > 0 && isToday(startDate) && (
-        <h3 className='text-sm'> {goal.percentage}/100 </h3>
-      )}
-
       {goal?.activities && (
         <div className='max-h-[300px] divide-y divide-gray-200 overflow-y-auto pl-2 pr-2 font-open_sans sm:max-h-[500px] sm:pl-2 sm:pr-4'>
           {goal.activities.map((activity: any) => (
