@@ -14,6 +14,7 @@ import {
 } from '@/src/utils/toast';
 import { Dialog, Transition } from '@headlessui/react';
 import * as Sentry from '@sentry/nextjs';
+import clsx from 'clsx';
 import React, { Fragment, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { GoalType } from '../../../types/types';
@@ -207,16 +208,35 @@ const AddActivity = ({ goal }: any) => {
                     <legend className='sr-only'>Notifications</legend>
                     <div className='space-y-5'>
                       <div className='relative flex items-start'>
-                        <div className='flex h-6 items-center'>
-                          <input
-                            id='comments'
-                            aria-describedby='comments-description'
-                            name='comments'
-                            type='checkbox'
-                            className='border-gray h-6 w-6 rounded text-indigo-600 focus:ring-indigo-600'
-                            checked={alignsWithGoal}
-                            onChange={() => setAlignsWithGoal(!alignsWithGoal)}
-                          />
+                        <div className='flex h-6 items-center '>
+                          <div
+                            className={clsx(
+                              'flex h-6 w-6 items-center border justify-center rounded border-gray-800',
+                              alignsWithGoal ? 'bg-teal-500' : 'bg-white'
+                            )}
+                            onClick={() => setAlignsWithGoal(!alignsWithGoal)}
+                          >
+                            <input
+                              id='comments'
+                              aria-describedby='comments-description'
+                              name='comments'
+                              type='checkbox'
+                              className='absolute opacity-0'
+                              checked={alignsWithGoal}
+                              onChange={() =>
+                                setAlignsWithGoal(!alignsWithGoal)
+                              }
+                            />
+                            {alignsWithGoal && (
+                              <svg
+                                className='h-4 w-4 fill-current text-white'
+                                xmlns='http://www.w3.org/2000/svg'
+                                viewBox='0 0 20 20'
+                              >
+                                <path d='M0 11l2-2 5 5L18 3l2 2L7 18z' />
+                              </svg>
+                            )}
+                          </div>
                         </div>
                         <div className='ml-3 text-lg leading-6'>
                           <label
