@@ -36,12 +36,12 @@ const OnboardingModal = ({ onClose }: any) => {
             >
               <div className='relative w-full max-w-md rounded-xl bg-white px-6 py-8 shadow-xl'>
                 <Dialog.Title className='mb-6 text-xl font-medium text-gray-900'>
-                  Welcome To Time Spent! 👋
+                  Welcome To Smart Day! 👋
                 </Dialog.Title>
                 <div className='mb-8 text-sm text-gray-800'>
                   <p className='mb-4'>
                     Welcome to our app designed to help you track your time
-                    spent on achieving your goals. While the app is versatile
+                    spent on achieving your goals, smarter!. While the app is versatile
                     and adaptable to your needs, we have some tips to maximize
                     its potential:
                   </p>
