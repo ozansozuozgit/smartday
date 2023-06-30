@@ -41,7 +41,7 @@ export default function Hero() {
             Track and Achieve Your Goals Effortlessly
           </h1>
           <p className='mt-6 font-open_sans text-lg leading-8 text-gray-600'>
-            Time Spent leverages AI technology to analyze your activities,
+            Smart Day leverages AI technology to analyze your activities,
             provide insights, and optimize your goal attainment process.
           </p>
           <p className='mt-1 font-open_sans text-lg leading-8 text-gray-600'>
