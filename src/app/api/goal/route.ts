@@ -74,21 +74,33 @@ export async function POST(req: Request) {
 
 export async function PATCH(req: NextRequest) {
   const goalId = req.nextUrl.searchParams.get('goalId') as string;
-  console.log('goalId', goalId);
-  const goal = await prisma.goal.findUnique({
-    where: { id: goalId },
-  });
+  const action = req.nextUrl.searchParams.get('action') as string;
 
-  if (!goal) {
-    throw new Error('Goal not found');
+  if (action === 'delete') {
+    const goal = await prisma.goal.findUnique({
+      where: { id: goalId },
+    });
+
+    if (!goal) {
+      throw new Error('Goal not found');
+    }
+
+    // delete the activity
+    const response = await prisma.goal.update({
+      where: { id: goalId },
+      data: { deletedAt: new Date() },
+    });
+
+    return NextResponse.json(response);
   }
 
-  console.log('goal', goal);
-  // delete the activity
-  const response = await prisma.goal.update({
-    where: { id: goalId },
-    data: { deletedAt: new Date() },
-  });
+  if (action === 'update') {
+    const { goalName } = await req.json();
+    const response = await prisma.goal.update({
+      where: { id: goalId },
+      data: { name: goalName },
+    });
 
-  return NextResponse.json(response);
+    return NextResponse.json(response);
+  }
 }

@@ -11,7 +11,7 @@ const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
 
   const deleteGoal = async () => {
     try {
-      const res = await fetch(`${getBaseUrl()}/api/goal/?goalId=${goal.id}`, {
+      const res = await fetch(`${getBaseUrl()}/api/goal/?goalId=${goal.id}&action=delete`, {
         method: 'PATCH',
       });
       const deletedGoal = await res.json();

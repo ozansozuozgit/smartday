@@ -102,6 +102,15 @@ export const userSlice = createSlice({
       // Add it to the selected goals activity
       state.allActivities = [action.payload, ...state.allActivities];
     },
+    editGoalName: (state, action: PayloadAction<any>) => {
+      state.goals = state.goals.map((goal: any) => {
+        if (goal.id === action.payload.id) {
+          goal.name = action.payload.name;
+        }
+        return goal;
+      });
+      state.selectedGoal.name = action.payload.name;
+    },
   },
 });
 
@@ -121,5 +130,6 @@ export const {
   setAllActivities,
   removeActivityFromAllActivities,
   addActivityToAllActivities,
+  editGoalName,
 } = userSlice.actions;
 export default userSlice.reducer;
