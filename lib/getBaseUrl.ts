@@ -13,5 +13,5 @@
 export const getBaseUrl = cache(() =>
   process.env.NODE_ENV === 'development'
     ? `http://localhost:${process.env.PORT ?? 3000}`
-    : `https://time-spent.vercel.app`
+    : `https://www.smartday.app/`
 );
