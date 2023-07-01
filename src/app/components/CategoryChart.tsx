@@ -20,7 +20,7 @@ const CategoryChart = ({ goal }: any) => {
   const startMoment = moment(startDate);
   const endMoment = moment(endDate);
 
-  const transformedData = goal.activities.filter((activity: any) => {
+  const transformedData = goal.activities?.filter((activity: any) => {
     const activityDate = moment(activity.createdAt);
     return activityDate.isBetween(startMoment, endMoment, 'day', '[]');
   });

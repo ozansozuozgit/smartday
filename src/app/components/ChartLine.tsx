@@ -1,6 +1,7 @@
 'use client';
 import { ResponsiveLine } from '@nivo/line';
-import moment from 'moment-timezone';
+import { groupBy, map, size } from 'lodash';
+import moment from 'moment';
 import React, { useMemo } from 'react';
 
 interface Goal {
@@ -16,10 +17,19 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
   const formattedActivities = useMemo(() => {
     if (!goal.activities || goal.activities.length === 0) return [];
 
-    return goal.activities.map((activity: any) => ({
-      ...activity,
-      createdAt: moment(activity.createdAt).format('YYYY-MM-DDTHH:mm:ss'),
-    }));
+    const validActivities = goal.activities?.filter(
+      (activity) => activity.createdAt && moment(activity.createdAt).isValid()
+    );
+
+    const groupedActivities = groupBy(validActivities, (activity) =>
+      moment(activity.createdAt).format('YYYY-MM-DD')
+    );
+
+    return map(groupedActivities, (activities, date) => ({
+      x: new Date(date), // convert string to Date object
+      y: size(activities),
+    })).sort((a, b) => new Date(a.x).getTime() - new Date(b.x).getTime());
+    
   }, [goal.activities]);
 
   const specificGoalChartData = useMemo(() => {
@@ -27,18 +37,12 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
 
     return {
       id: goal.id,
-      data: formattedActivities
-        .sort(
-          (a: any, b: any) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-        )
-        .map((activity: any) => ({
-          x: activity.createdAt,
-          y: activity.percentage,
-        })),
+      data: formattedActivities,
     };
   }, [formattedActivities, goal.id]);
-
+  console.log(goal.activities.map(a => a.createdAt)); // log all createdAt dates
+  console.log(formattedActivities); // log formatted activities
+  
   if (!formattedActivities.length) {
     return (
       <div className='h-[400px] max-h-[400px]  max-w-full rounded-xl bg-white p-6 shadow-warm '>
@@ -51,10 +55,13 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
 
   const xAxisTickValues =
     specificGoalChartData.data.length > 5
-      ? specificGoalChartData.data.filter(
+      ? specificGoalChartData.data?.filter(
           (_: any, index: any) => index % 2 === 0
         )
       : specificGoalChartData.data;
+
+
+      console.log('specificGoalChartData', specificGoalChartData)
 
   return (
     <div className='flex h-[400px] max-h-[400px] max-w-full flex-col rounded-xl bg-white p-6 shadow-warm '>
@@ -64,10 +71,15 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
       <ResponsiveLine
         data={[specificGoalChartData]}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        xScale={{ type: 'point' }}
+        xScale={{
+          type: 'time',
+          format: 'YYYY-MM-DD',
+          useUTC: false,
+          precision: 'day',
+        }}
         axisBottom={{
-          tickValues: xAxisTickValues.map((activity: any) => activity.x),
-          format: (value) => moment(value).format('MMM DD, YYYY'),
+          tickValues: 'every 2 days',
+          format: '%b %d, %Y',
           legend: 'Date',
           legendOffset: 36,
           legendPosition: 'middle',
@@ -76,7 +88,7 @@ const ChartLine: React.FC<ChartLineProps> = ({ goal }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Goal Progress',
+          legend: 'Activities',
           legendOffset: -40,
           legendPosition: 'middle',
         }}

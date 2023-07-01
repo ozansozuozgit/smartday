@@ -4,6 +4,7 @@ import {
   addActivityToAllActivities,
   addActivityToSelectedGoal,
   setActivityFlag,
+  updateSelectedGoalCompleted,
   updateSelectedGoalPercentage,
 } from '@/src/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
@@ -43,6 +44,30 @@ const AddActivity = ({ goal }: any) => {
 
   const openModal = () => {
     setIsOpen(true);
+  };
+
+  const handleComplete = async () => {
+    try {
+      const res = await fetch(
+        `${getBaseUrl()}/api/goal/?goalId=${goal.id}&action=complete`,
+        {
+          method: 'PATCH',
+        }
+      );
+      const updatedGoal = await res.json();
+      console.log('updatedGoal', updatedGoal);
+      dispatch(
+        updateSelectedGoalCompleted({
+          completed: updatedGoal.completed,
+          percentage: updatedGoal.percentage,
+          id: updatedGoal.id,
+          completedAt: updatedGoal.completedAt,
+        })
+      );
+    } catch (err) {
+      console.log(err);
+      Sentry.captureException(err);
+    }
   };
 
   const addActivity = async () => {
@@ -85,6 +110,10 @@ const AddActivity = ({ goal }: any) => {
           ...goal,
         },
       };
+
+      if (newPercentage === 100) {
+        const res = await handleComplete();
+      }
       dispatch(addActivityToAllActivities(allActivity));
 
       dispatch(setActivityFlag(!activityFlag));
@@ -211,7 +240,7 @@ const AddActivity = ({ goal }: any) => {
                         <div className='flex h-6 items-center '>
                           <div
                             className={clsx(
-                              'flex h-6 w-6 items-center border justify-center rounded border-gray-800',
+                              'flex h-6 w-6 items-center justify-center rounded border border-gray-800',
                               alignsWithGoal ? 'bg-teal-500' : 'bg-white'
                             )}
                             onClick={() => setAlignsWithGoal(!alignsWithGoal)}

@@ -34,7 +34,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
       });
 
       // Remove the category from the state
-      setCategories(categories.filter((c: any) => c.id !== category.id));
+      setCategories(categories?.filter((c: any) => c.id !== category.id));
       setSelectedCategoryHandler(null);
       setQuery('');      
     } catch (err) {
@@ -68,7 +68,7 @@ const Categories = ({ setSelectedCategoryHandler, selectedCategory }: any) => {
   const filteredCategories =
     query === ''
       ? categories
-      : categories.filter((category: any) =>
+      : categories?.filter((category: any) =>
           category.name
             .toLowerCase()
             .replace(/\s+/g, '')

@@ -6,7 +6,6 @@ import React from 'react';
 import { useAppSelector } from '@/src/redux/hooks';
 import { generateRandomColors } from '@/src/utils/colorUtils';
 
-
 const ActivityPieChart = ({ goal }) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
@@ -27,7 +26,7 @@ const ActivityPieChart = ({ goal }) => {
 
   const timezone = cstTimezone;
 
-  const dailyActivities = goal?.activities.filter((activity) => {
+  const dailyActivities = goal?.activities?.filter((activity) => {
     const activityDate = moment(activity.createdAt).tz(timezone).startOf('day');
     return activityDate.isBetween(startMoment, endMoment, null, '[]'); // Update the filtering condition
   });

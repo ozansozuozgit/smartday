@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type UserState = {
-  completedGoals: string[] | null | undefined;
+  completedGoals: string[] | null | undefined | any;
   createdAt: Date | string;
   email: string;
   id: string;
@@ -54,7 +54,11 @@ export const userSlice = createSlice({
       state.goals = action.payload;
     },
     removeGoal: (state, action: PayloadAction<string>) => {
-      state.goals = state.goals.filter(
+      state.goals = state.goals?.filter(
+        (goal: any) => goal.id !== action.payload
+      );
+      // if it's in completedgoals, remove it
+      state.completedGoals = state.completedGoals?.filter(
         (goal: any) => goal.id !== action.payload
       );
     },
@@ -67,6 +71,19 @@ export const userSlice = createSlice({
     updateSelectedGoalPercentage: (state, action: PayloadAction<any>) => {
       state.selectedGoal.percentage = action.payload;
     },
+    updateSelectedGoalCompleted: (state, action: PayloadAction<any>) => {
+      state.selectedGoal.completed = action.payload.completed;
+      state.selectedGoal.percentage = action.payload.percentage;
+      state.selectedGoal.completedAt = action.payload.completedAt;
+      state.goals = state.goals.map((goal: any) => {
+        if (goal.id === action.payload.id) {
+          goal.completed = action.payload.completed;
+          goal.percentage = action.payload.percentage;
+          goal.completedAt = action.payload.completedAt;
+        }
+        return goal;
+      });
+    },
     addActivityToSelectedGoal: (state, action: PayloadAction<any>) => {
       // Add it to the selected goals activity
       state.selectedGoal.activities = [
@@ -76,7 +93,7 @@ export const userSlice = createSlice({
     },
     removeActivityFromSelectedGoal: (state, action: PayloadAction<any>) => {
       // Remove it from the selected goals activity
-      state.selectedGoal.activities = state.selectedGoal.activities.filter(
+      state.selectedGoal.activities = state.selectedGoal.activities?.filter(
         (activity: any) => activity.id !== action.payload
       );
     },
@@ -94,7 +111,7 @@ export const userSlice = createSlice({
     },
     removeActivityFromAllActivities: (state, action: PayloadAction<any>) => {
       // Remove it from the selected goals activity
-      state.allActivities = state.allActivities.filter(
+      state.allActivities = state.allActivities?.filter(
         (activity: any) => activity.id !== action.payload
       );
     },
@@ -113,6 +130,9 @@ export const userSlice = createSlice({
     },
     setCompletedGoals: (state, action: PayloadAction<any>) => {
       state.completedGoals = action.payload;
+    },
+    addGoalToCompletedGoals: (state, action: PayloadAction<any>) => {
+      state.completedGoals = [action.payload, ...state.completedGoals];
     },
   },
 });
@@ -134,6 +154,8 @@ export const {
   removeActivityFromAllActivities,
   addActivityToAllActivities,
   editGoalName,
-  setCompletedGoals
+  setCompletedGoals,
+  updateSelectedGoalCompleted,
+  addGoalToCompletedGoals,
 } = userSlice.actions;
 export default userSlice.reducer;

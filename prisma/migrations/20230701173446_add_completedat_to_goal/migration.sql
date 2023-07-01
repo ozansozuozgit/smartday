@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Goal" ADD COLUMN     "completedAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP;

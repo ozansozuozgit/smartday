@@ -26,7 +26,7 @@ const EditGoal = ({ closeEditGoal, goal }: any) => {
         `${getBaseUrl()}/api/goal/?goalId=${goal.id}&action=update`,
         {
           method: 'PATCH',
-          body: JSON.stringify({ goalName }),
+          body: JSON.stringify({ goalName, type: goal.type.toLowerCase() }),
         }
       );
       const editedGoal = await res.json();

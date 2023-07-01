@@ -27,6 +27,7 @@
     "chart.js": "^4.3.0",
     "clsx": "^1.2.1",
     "inngest": "^2.1.0",
+    "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",

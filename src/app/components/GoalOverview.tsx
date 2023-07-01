@@ -10,7 +10,9 @@ import AlignWithGoalPieChart from '../components/AlignWithGoalPieChart';
 import CalendarChartSingle from '../components/CalendarChartSingle';
 import CategoryChart from '../components/CategoryChart';
 import ChartLine from '../components/ChartLine';
+import ActivitiesAlignmentChart from './ActivitiesAlignmentChartProps';
 import ActivityPieChart from './ActivityPieChart';
+import CompleteGoal from './CompleteGoal';
 import DateLabel from './DateLabel';
 
 const GoalOverview = () => {
@@ -34,50 +36,53 @@ const GoalOverview = () => {
       <div className='col-span-1 w-full xl:col-span-3'>
         {selectedGoal && (
           <div className='flex max-w-full items-center justify-between px-6 py-4 font-roboto text-gray-800 shadow-warm'>
-            <h2 className='text-sm font-bold md:text-xl xl:text-2xl'>
-              {selectedGoal?.name}
-            </h2>
-            <div className='flex flex-col items-end'>
+            <div>
+              <h5>
+                {selectedGoal?.type.charAt(0).toUpperCase() +
+                  selectedGoal?.type.slice(1)}
+              </h5>
+              <h2 className='text-sm font-bold md:text-xl xl:text-2xl'>
+                {selectedGoal?.name}
+              </h2>
+            </div>
+
+            <div className='flex flex-col items-end gap-y-2'>
+              {selectedGoal?.type === 'single' && <CompleteGoal />}
+
               <DateLabel />
-              {isToday(startDate) && (
-                <div className='flex items-center'>
-                  <span className='lg:text-md mr-2 text-sm font-semibold xl:text-lg'>
-                    {selectedGoal?.percentage}%
-                  </span>
-                  <span className='inline-block h-2 w-[100px] rounded-full bg-gray-300 md:w-[200px]'>
-                    <div
-                      className={clsx(
-                        'h-full rounded-full',
-                        getProgressBarColor(selectedGoal?.percentage)
-                      )}
-                      style={{ width: `${selectedGoal?.percentage}%` }}
-                    ></div>
-                  </span>
-                </div>
-              )}
+              <div className='flex items-center'>
+                <span className='lg:text-md mr-2 text-sm font-semibold xl:text-lg'>
+                  {selectedGoal?.percentage}%
+                </span>
+                <span className='inline-block h-2 w-[100px] rounded-full bg-gray-300 md:w-[200px]'>
+                  <div
+                    className={clsx(
+                      'h-full rounded-full',
+                      getProgressBarColor(selectedGoal?.percentage)
+                    )}
+                    style={{ width: `${selectedGoal?.percentage}%` }}
+                  ></div>
+                </span>
+              </div>
             </div>
           </div>
         )}
       </div>
-
       {selectedGoal && <Activities goal={selectedGoal} />}
-
       <div className='col-span-1 w-full  lg:col-span-1 xl:col-span-2 2xl:col-span-2'>
         {selectedGoal && <AiActivityChat goal={selectedGoal} />}
       </div>
-
       {selectedGoal && <ActivityPieChart goal={selectedGoal} />}
-
       {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
-
-      {selectedGoal && <CategoryChart goal={selectedGoal} />}
-
-      <div className='col-span-1 w-full xl:col-span-3 '>
+      {selectedGoal && <CategoryChart goal={selectedGoal} />}{' '}
+      {selectedGoal && <ActivitiesAlignmentChart goal={selectedGoal} />}
+      <div className='col-span-1 w-full xl:col-span-2 '>
         {selectedGoal && <ChartLine goal={selectedGoal} />}
       </div>
-
       <div className='col-span-1 w-full  xl:col-span-3 '>
-        {selectedGoal && <CalendarChartSingle goal={selectedGoal} />}
+        {selectedGoal?.type === 'daily' && (
+          <CalendarChartSingle goal={selectedGoal} />
+        )}
       </div>
     </div>
   );

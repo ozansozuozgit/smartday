@@ -5,7 +5,6 @@ import { currentUser } from '@clerk/nextjs';
 
 export async function GET(req: NextRequest) {
   try {
-
     const startDate = req.nextUrl.searchParams.get('startDate') as string;
     const endDate = req.nextUrl.searchParams.get('endDate') as string;
     const goalId = req.nextUrl.searchParams.get('goalId') as string;
@@ -25,6 +24,7 @@ export async function GET(req: NextRequest) {
           gte: new Date(startDate),
           lte: new Date(endDate),
         },
+        deletedAt: null,
         goalId: goalId, // Add a check for the goal ID
       },
       orderBy: { completedAt: 'desc' },
@@ -39,6 +39,42 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     // Handle database or other errors
     console.error('Error fetching completed goals:', error);
+
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const { goalId, goalName,goalType } = await req.json();
+
+    const user = await currentUser();
+
+    if (!user) throw new Error('Unauthorized');
+
+    if (!user?.id || !goalId) {
+      return NextResponse.json(
+        { error: 'Invalid parameters' },
+        { status: 400 }
+      );
+    }
+
+    const completedGoal = await prisma.completedGoal.create({
+      data: {
+        userId: user?.id,
+        goalId: goalId,
+        completedAt: new Date(),
+        name: goalName,
+        type:goalType
+      },
+    });
+
+    return NextResponse.json(completedGoal);
+  } catch (error) {
+    console.error('Error creating completed goal:', error);
 
     return NextResponse.json(
       { error: 'Internal Server Error' },

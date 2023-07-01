@@ -47,7 +47,7 @@ const Goal = ({ goal }: { goal: GoalType }) => {
         backgroundColor: goal?.id === selectedGoal?.id ? '#FDE68A' : '',
       }}
     >
-      {goal.percentage === 100 ? (
+      {goal?.completed ? (
         <MdTaskAlt
           className='h-3 w-3 min-w-[12px] text-yellow-500'
           aria-hidden='true'

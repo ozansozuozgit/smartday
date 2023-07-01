@@ -2,9 +2,9 @@
 import { getBaseUrl } from '@/lib/getBaseUrl';
 import { useAppSelector } from '@/src/redux/hooks';
 import { isToday } from '@/src/utils/timeHelpers';
+import * as Sentry from '@sentry/nextjs';
 import { useEffect, useState } from 'react';
 import { PiRobotBold } from 'react-icons/pi';
-import * as Sentry from '@sentry/nextjs';
 
 export default function AiActivityChat({ goal }: any) {
   const [messages, setMessages] = useState<any>([]);
@@ -25,7 +25,7 @@ export default function AiActivityChat({ goal }: any) {
     const goalName = goal?.name || 'N/A';
     const goalPercentage = goal?.percentage || 0;
     const goalActivities = goal?.activities || [];
-    const todayActivities = goalActivities.filter((activity: any) =>
+    const todayActivities = goalActivities?.filter((activity: any) =>
       isToday(activity.createdAt)
     );
 
@@ -36,21 +36,27 @@ export default function AiActivityChat({ goal }: any) {
     if (allActivities.length === 0) return;
 
     const alignedActivities = todayActivities
-      .filter((activity: any) => activity.alignsWithGoal)
+      ?.filter((activity: any) => activity.alignsWithGoal)
       .map((activity: any) => activity.name)
       .join(', ');
     const unalignedActivities = todayActivities
-      .filter((activity: any) => !activity.alignsWithGoal)
+      ?.filter((activity: any) => !activity.alignsWithGoal)
       .map((activity: any) => activity.name)
       .join(', ');
 
-    const message = `My daily goal is: ${goalName} and I am ${goalPercentage}% complete with my daily goal. My daily activities towards this goal so far have been: ${allActivities}.${
+    const message = `My ${
+      goal.type === 'daily' ? 'daily' : ''
+    } goal is: ${goalName} and I am ${goalPercentage}% complete with my ${
+      goal.type === 'daily' ? 'daily' : ''
+    } goal. My daily activities towards this goal so far have been: ${allActivities}.${
       alignedActivities
         ? ` Out of these activities, the ones that align with this goal are: ${alignedActivities}.`
         : ''
     }${
       unalignedActivities
-        ? ` The activities that don't align with my daily goal are: ${unalignedActivities}.`
+        ? ` The activities that don't align with my ${
+            goal.type === 'daily' ? 'daily' : ''
+          } goal are: ${unalignedActivities}.`
         : ''
     } Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`;
 

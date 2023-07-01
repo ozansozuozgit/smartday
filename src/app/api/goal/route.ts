@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { currentUser } from '@clerk/nextjs';
+import { type } from 'os';
 
 export async function GET(req: NextRequest) {
   try {
@@ -57,7 +58,7 @@ export async function POST(req: Request) {
   const user = await currentUser();
   if (!user) throw new Error('Unauthorized');
 
-  const { goalName } = await req.json();
+  const { goalName, type } = await req.json();
 
   const newGoal = await prisma.goal.create({
     data: {
@@ -65,6 +66,7 @@ export async function POST(req: Request) {
       percentage: 0,
       userId: user?.id as any,
       activities: {},
+      type: type,
     },
   });
   return NextResponse.json(newGoal);
@@ -73,6 +75,13 @@ export async function POST(req: Request) {
 export async function PATCH(req: NextRequest) {
   const goalId = req.nextUrl.searchParams.get('goalId') as string;
   const action = req.nextUrl.searchParams.get('action') as string;
+  const user = await currentUser();
+  const { goalName = 'default', type = 'default' } = await req.json();
+
+  console.log('goalId', goalId);
+  console.log('action', action);
+  console.log('goalName', goalName);
+  console.log('type', type);
 
   if (action === 'delete') {
     const goal = await prisma.goal.findUnique({
@@ -83,22 +92,65 @@ export async function PATCH(req: NextRequest) {
       throw new Error('Goal not found');
     }
 
-    // delete the activity
+    // delete the goal
     const response = await prisma.goal.update({
       where: { id: goalId },
       data: { deletedAt: new Date() },
     });
+    // delete the completed goal
+    const completedGoal = await prisma.completedGoal.findFirst({
+      where: { goalId: goalId },
+    });
+
+    console.log('completedGoal', completedGoal);
+
+    if (completedGoal) {
+      // Mark the completed goal as deleted
+      const responseDeleted = await prisma.completedGoal.update({
+        where: { id: completedGoal.id },
+        data: { deletedAt: new Date() },
+      });
+
+      console.log('responseDeleted', responseDeleted);
+    }
 
     return NextResponse.json(response);
   }
 
   if (action === 'update') {
-    const { goalName } = await req.json();
+    console.log('updating');
     const response = await prisma.goal.update({
       where: { id: goalId },
       data: { name: goalName },
     });
+    return NextResponse.json(response);
+  }
 
+  if (action === 'complete') {
+    const response = await prisma.goal.update({
+      where: { id: goalId },
+      data: { completed: true, completedAt: new Date(), percentage: 100 },
+    });
+
+    if (type === 'single') {
+      const completedGoal = await prisma.completedGoal.create({
+        data: {
+          goal: { connect: { id: goalId } },
+          userId: user?.id as any,
+          completedAt: new Date(), // Set the completion date to the current date and time
+          name: goalName,
+          type: type,
+        },
+      });
+    }
+
+    return NextResponse.json(response);
+  }
+  if (action === 'uncomplete') {
+    const response = await prisma.goal.update({
+      where: { id: goalId },
+      data: { completed: false },
+    });
     return NextResponse.json(response);
   }
 }

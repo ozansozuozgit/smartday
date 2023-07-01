@@ -1,6 +1,5 @@
-import { inngest } from './client';
 import { prisma } from '@/lib/prisma';
-
+import { inngest } from './client';
 
 export const resetGoal = inngest.createFunction(
   {
@@ -12,8 +11,10 @@ export const resetGoal = inngest.createFunction(
   },
   async ({ event }) => {
     try {
-      // Retrieve all goals
-      const goals = await prisma.goal.findMany();
+      // Retrieve all goals that have a type of 'daily'
+      const goals = await prisma.goal.findMany({
+        where: { type: 'daily' },
+      });
 
       // Iterate through each goal
       for (const goal of goals) {
@@ -32,7 +33,7 @@ export const resetGoal = inngest.createFunction(
           // Reset the goal percentage
           await prisma.goal.update({
             where: { id: goal.id },
-            data: { percentage: 0 },
+            data: { percentage: 0, completed: false },
           });
         } else {
           // If the goal is not complete, reset the goal percentage

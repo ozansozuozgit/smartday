@@ -2,15 +2,24 @@
 import { formatDatetime, isToday } from '@/src/utils/timeHelpers';
 import React, { useState } from 'react';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import { RiDeleteBinLine } from 'react-icons/ri';
 import DeleteActivity from './DeleteActivity';
 
 const Activity = ({ activity }) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
 
   return (
-    <li key={activity.id} className='flex justify-between gap-x-4 py-3'>
+    <li
+      key={activity.id}
+      className='flex items-center justify-between gap-x-4 py-3'
+    >
+      {activity?.alignsWithGoal ? (
+        <AiOutlineCheckCircle className='h-4 w-4 min-w-[8px] text-green-500 sm:h-6 sm:w-6' />
+      ) : (
+        <AiOutlineCloseCircle className='h-4 w-4 min-w-[8px] text-red-500 sm:h-6 sm:w-6' />
+      )}
       <div className='flex-grow'>
-        <p className='text-gray-700 text-md font-semibold leading-6'>
+        <p className='text-md font-semibold leading-6 text-gray-700'>
           {activity.name}
         </p>
         {activity?.goal && activity?.goal?.name && (
@@ -25,27 +34,20 @@ const Activity = ({ activity }) => {
           {formatDatetime(activity.createdAt)}
         </time>
       </div>
-      <div className='flex items-center'>
-        {activity?.percentage && (
-          <p className='mr-2 text-sm font-semibold text-teal-500 sm:mr-4'>
-            {activity.percentage}%
-          </p>
-        )}
-        {activity?.alignsWithGoal ? (
-          <AiOutlineCheckCircle className='h-4 w-4 min-w-[8px] text-green-500 sm:h-6 sm:w-6' />
-        ) : (
-          <AiOutlineCloseCircle className='h-4 w-4 min-w-[8px] text-red-500 sm:h-6 sm:w-6' />
-        )}
-      </div>
-      {!activity?.goal && isToday(activity.createdAt) && (
-        <button
-          className={`text-xs font-medium text-red-500 hover:text-red-700 sm:text-sm`}
-          onClick={() => setIsDeleteActivityOpen(true)}
-        >
-          Delete
-        </button>
+      {activity?.percentage && (
+        <p className='mr-2 text-sm font-semibold text-teal-500 sm:mr-4'>
+          {activity.percentage}%
+        </p>
       )}
-
+      {!activity?.goal && (
+        <div className='flex items-center gap-x-2'>
+          <RiDeleteBinLine
+            className='h-4 w-4 min-w-[8px] cursor-pointer text-red-500 hover:text-red-900 sm:h-5 sm:w-5'
+            aria-hidden='true'
+            onClick={() => setIsDeleteActivityOpen(true)}
+          />
+        </div>
+      )}
       {isDeleteActivityOpen && (
         <DeleteActivity
           closeDeleteActivity={() => setIsDeleteActivityOpen(false)}

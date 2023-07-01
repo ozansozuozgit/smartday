@@ -17,6 +17,9 @@ const CompletedGoal = ({ goal }) => {
         >
           {formatDateTimeDateOnly(goal.createdAt)}
         </time>
+        <p className='text-md font-semibold leading-6 text-indigo-400'>
+          {goal.type}
+        </p>{' '}
       </div>
 
       <AiOutlineCheckCircle className='h-4 w-4 min-w-[8px] text-green-500 sm:h-6 sm:w-6' />

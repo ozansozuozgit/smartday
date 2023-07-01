@@ -2,16 +2,17 @@
 // import { NextRequest, NextResponse } from 'next/server';
 
 // export default async function handler(req: any, res: any) {
-
 //   try {
 //     // Retrieve all goals
-//     const goals = await prisma.goal.findMany();
+//     const goals = await prisma.goal.findMany({
+//       where: { type: 'daily' },
+//     });
 
 //     // Iterate through each goal
 //     for (const goal of goals) {
 //       // Check if the goal is complete
 //       if (goal?.percentage === 100) {
-//         console.log('goal', goal?.percentage)
+//         console.log('goal', goal?.percentage);
 //         // If the goal is complete, create a completed goal and associate it with the user
 //         const completedGoal = await prisma.completedGoal.create({
 //           data: {
@@ -25,7 +26,7 @@
 //         // Reset the goal percentage
 //         await prisma.goal.update({
 //           where: { id: goal.id },
-//           data: { percentage: 0 },
+//           data: { percentage: 0,completed: false },
 //         });
 //       } else {
 //         // If the goal is not complete, reset the goal percentage

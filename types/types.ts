@@ -4,4 +4,5 @@ export type GoalType = {
     name: string;
     percentage: number;
     userId: string;
+    completed: boolean;
   };

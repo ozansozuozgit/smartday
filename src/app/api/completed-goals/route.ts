@@ -24,6 +24,7 @@ export async function GET(req: NextRequest) {
           gte: new Date(startDate),
           lte: new Date(endDate),
         },
+        deletedAt: null,
       },
       orderBy: { completedAt: 'desc' },
     });

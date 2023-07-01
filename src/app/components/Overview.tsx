@@ -27,6 +27,7 @@ const Overview = () => {
       ? moment(state.user.endDate).toISOString()
       : getTimes().endOfToday
   );
+  const goals = useAppSelector((state) => state.user.goals);
   const allActivities = useAppSelector((state) => state.user.allActivities);
   const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
   const completedGoals = useAppSelector((state) => state.user.completedGoals);
@@ -97,7 +98,7 @@ const Overview = () => {
           </div>
 
           <div className='col-span-1 w-full  xl:col-span-3'>
-            <CalendarChart completedGoals={completedGoals}/>
+            <CalendarChart completedGoals={completedGoals} />
           </div>
         </>
       )}

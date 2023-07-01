@@ -10,7 +10,7 @@ datasource db {
 model Activity {
   id             String    @id @default(cuid())
   name           String
-  percentage     Float
+  percentage     Float?  @default(0)
   goalId         String
   goal           Goal      @relation(fields: [goalId], references: [id])
   categoryId     String?
@@ -40,6 +40,9 @@ model Goal {
   deletedAt  DateTime?
   CompletedGoal CompletedGoal[]
   AiMessage     AiMessage[]
+  completed    Boolean   @default(false)
+  completedAt DateTime? @default(now())
+  type        String?   @default("daily")
 }
 
 model CompletedGoal {
@@ -49,6 +52,8 @@ model CompletedGoal {
   completedAt DateTime @default(now())
   userId      String
   name        String?  @default("")
+  type        String?   @default("daily")
+  deletedAt  DateTime?
 }
 
 model AiMessage {

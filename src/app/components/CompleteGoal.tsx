@@ -1,32 +1,56 @@
 'use client';
 import { getBaseUrl } from '@/lib/getBaseUrl';
-import { removeGoal, setSelectedGoal } from '@/src/redux/features/userSlice';
-import { useAppDispatch } from '@/src/redux/hooks';
+import {
+  addGoalToCompletedGoals,
+  setActivityFlag,
+  updateSelectedGoalCompleted,
+} from '@/src/redux/features/userSlice';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { showErrorToast, showSuccessToast } from '@/src/utils/toast';
 import { Dialog, Transition } from '@headlessui/react';
 import * as Sentry from '@sentry/nextjs';
-import { Fragment, useState } from 'react';
+import clsx from 'clsx';
+import React, { Fragment, useState } from 'react';
 
-const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
-  const [isOpen, setIsOpen] = useState(true);
+const CompleteGoal = () => {
   const dispatch = useAppDispatch();
+  const selectedGoal = useAppSelector((state) => state.user.selectedGoal);
+  const activityFlag = useAppSelector((state) => state.user.activityFlag);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const deleteGoal = async () => {
+  const handleComplete = async () => {
     try {
       const res = await fetch(
-        `${getBaseUrl()}/api/goal/?goalId=${goal.id}&action=delete`,
+        `${getBaseUrl()}/api/goal/?goalId=${selectedGoal.id}&action=${
+          selectedGoal.completed ? 'uncomplete' : 'complete'
+        }`,
         {
           method: 'PATCH',
           body: JSON.stringify({
-            goalName: goal.name,
-            type: goal.type.toLowerCase(),
+            goalName: selectedGoal.name,
+            type: selectedGoal.type.toLowerCase(),
           }),
+
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
-      const deletedGoal = await res.json();
-      dispatch(removeGoal(deletedGoal?.id));
-      dispatch(setSelectedGoal(null));
-      showSuccessToast('Goal deleted successfully');
+      const updatedGoal = await res.json();
+      console.log('updatedGoal', updatedGoal);
+      dispatch(
+        updateSelectedGoalCompleted({
+          completed: updatedGoal.completed,
+          percentage: updatedGoal.percentage,
+          id: updatedGoal.id,
+          completedAt: updatedGoal.completedAt,
+        })
+      );
+      dispatch(addGoalToCompletedGoals(updatedGoal));
+      dispatch(setActivityFlag(!activityFlag));
+
+      showSuccessToast('Goal updated successfully');
+      setIsOpen(false);
     } catch (err) {
       console.log(err);
       Sentry.captureException(err);
@@ -35,9 +59,27 @@ const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
   };
 
   return (
-    <>
+    <div>
+      <div
+        className={clsx(
+          'flex cursor-pointer items-center justify-around gap-2 rounded-md  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75',
+          {
+            'bg-blue': selectedGoal.completed,
+            'bg-orange-500': !selectedGoal.completed,
+          }
+        )}
+        onClick={() => setIsOpen(true)}
+      >
+        <span>
+          {selectedGoal.completed ? 'Completed Goal' : 'Complete Goal'}
+        </span>
+      </div>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as='div' className='relative z-10' onClose={closeDeleteGoal}>
+        <Dialog
+          as='div'
+          className='relative z-10'
+          onClose={() => setIsOpen(false)}
+        >
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -66,12 +108,12 @@ const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
                     as='h3'
                     className='text-lg font-medium leading-6 text-gray-900'
                   >
-                    Delete {goal.name}
+                    Complete {selectedGoal.name}
                   </Dialog.Title>
                   <div className='mt-2'>
                     <p className='text-sm text-gray-800'>
                       This action is irreversible. Are you sure you want to
-                      delete this activity?
+                      complete this goal?
                     </p>
                   </div>
 
@@ -79,14 +121,14 @@ const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
                     <button
                       type='button'
                       className='inline-flex justify-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
-                      onClick={deleteGoal}
+                      onClick={handleComplete}
                     >
                       Yes
                     </button>
                     <button
                       type='button'
                       className='inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
-                      onClick={closeDeleteGoal}
+                      onClick={() => setIsOpen(false)}
                     >
                       No
                     </button>
@@ -97,8 +139,8 @@ const DeleteGoal = ({ closeDeleteGoal, goal }: any) => {
           </div>
         </Dialog>
       </Transition>
-    </>
+    </div>
   );
 };
 
-export default DeleteGoal;
+export default CompleteGoal;

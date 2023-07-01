@@ -7,16 +7,28 @@ import {
   showSuccessToast,
   showWarningToast,
 } from '@/src/utils/toast';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, RadioGroup, Transition } from '@headlessui/react';
 import * as Sentry from '@sentry/nextjs';
 import React, { Fragment, useState } from 'react';
-import { FaPlus } from 'react-icons/fa';
+import { FaCheck, FaPlus } from 'react-icons/fa';
 import { GoalType } from '../../../types/types';
+
+const plans = [
+  {
+    name: 'Daily',
+    ram: 'Goals Will Reset Everyday at 12:00 AM CST',
+  },
+  {
+    name: 'Single',
+    ram: 'Goals will be completed once',
+  },
+];
 
 const CreateGoal = () => {
   const [goalName, setGoalName] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const [selected, setSelected] = useState(plans[0]);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -27,15 +39,14 @@ const CreateGoal = () => {
   };
 
   const createGoal = async () => {
-    if (!goalName) {
+    if (!goalName || selected === null) {
       showWarningToast('Please enter a goal name');
       return;
     }
-
     try {
       const res = await fetch(`${getBaseUrl()}/api/goal`, {
         method: 'POST',
-        body: JSON.stringify({ goalName }),
+        body: JSON.stringify({ goalName, type: selected.name.toLowerCase() }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -90,7 +101,7 @@ const CreateGoal = () => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-full max-w-[300px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='w-full max-w-[500px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
                     className='font-roboto text-lg font-medium'
@@ -114,7 +125,64 @@ const CreateGoal = () => {
                       placeholder='100k per month'
                     />
                   </div>
-
+                  <RadioGroup value={selected} onChange={setSelected}>
+                    <RadioGroup.Label className='sr-only'>
+                      Server size
+                    </RadioGroup.Label>
+                    <div className='space-y-2'>
+                      {plans.map((plan) => (
+                        <RadioGroup.Option
+                          key={plan.name}
+                          value={plan}
+                          className={({ active, checked }) =>
+                            `${
+                              active
+                                ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
+                                : ''
+                            }
+                  ${
+                    checked ? 'bg-sky-900 bg-opacity-75 text-white' : 'bg-white'
+                  }
+                    relative flex cursor-pointer rounded-lg px-2 py-2 shadow-md focus:outline-none`
+                          }
+                        >
+                          {({ active, checked }) => (
+                            <>
+                              <div className='flex w-full items-center justify-between'>
+                                <div className='flex items-center'>
+                                  <div className='text-sm'>
+                                    <RadioGroup.Label
+                                      as='p'
+                                      className={`font-medium  ${
+                                        checked ? 'text-white' : 'text-teal-900'
+                                      }`}
+                                    >
+                                      {plan.name}
+                                    </RadioGroup.Label>
+                                    <RadioGroup.Description
+                                      as='span'
+                                      className={`inline ${
+                                        checked
+                                          ? 'text-sky-100'
+                                          : 'text-gray-800'
+                                      }`}
+                                    >
+                                      <span>{plan.ram}</span>{' '}
+                                    </RadioGroup.Description>
+                                  </div>
+                                </div>
+                                {checked && (
+                                  <div className='shrink-0 text-white'>
+                                    <FaCheck className='h-4 w-4' />
+                                  </div>
+                                )}
+                              </div>
+                            </>
+                          )}
+                        </RadioGroup.Option>
+                      ))}
+                    </div>
+                  </RadioGroup>
                   <div className='mt-4 flex justify-end space-x-2'>
                     <button
                       type='button'
