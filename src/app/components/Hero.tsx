@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import logo from '../../../public/smart-day-logo.svg';
 
 export default function Hero() {
   const { userId } = auth();
@@ -37,8 +38,10 @@ export default function Hero() {
       </svg>
       <div className='mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40'>
         <div className='mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8'>
-          <h1 className='mt-10 font-roboto text-4xl font-bold !leading-tight tracking-tight text-blue-800 sm:text-6xl'>
-          Maximize Productivity, Spend Your Day Smart
+          <Image src={logo} alt='logo' width={150} height={100} />
+
+          <h1 className='mt-2 font-roboto text-4xl font-bold !leading-tight tracking-tight text-orange-800 sm:text-6xl'>
+            Maximize Productivity, Spend Your Day Smart
           </h1>
           <p className='mt-6 font-open_sans text-lg leading-8 text-gray-600'>
             Smart Day leverages AI technology to analyze your activities,
@@ -51,7 +54,7 @@ export default function Hero() {
           <div className='mt-10 flex items-center gap-x-6'>
             <Link
               href='/sign-up'
-              className='rounded-md bg-blue px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue'
+              className='rounded-md bg-teal-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue'
             >
               Get started
             </Link>

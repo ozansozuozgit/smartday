@@ -59,7 +59,7 @@ const AllAlignWithGoalPieChart: React.FC<Props> = ({ activities }) => {
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
+        arcLabelsTextColor="white" // Set the text color to white
         arcLabel={({ data }: any) => `${data.value}`}
         colors={(d: any) => d.data.color} // Use the assigned color for each data point
       />

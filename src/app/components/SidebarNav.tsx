@@ -67,7 +67,7 @@ export default function SidebarNav() {
       >
         <nav className='h-full space-y-3 px-2 py-5'>
           <DatePicker />
-
+          
           <Goals goals={goals} />
           <NavAuth />
         </nav>

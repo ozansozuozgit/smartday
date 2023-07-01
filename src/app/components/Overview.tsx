@@ -76,9 +76,9 @@ const Overview = () => {
   }, [startDate, endDate]);
   return (
     <div className='m-auto grid max-w-full place-items-center gap-8 lg:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-[450px]'>
-      <div className='col-span-1 w-full xl:col-span-3'>
+      <div className='col-span-1 w-full rounded-lg bg-indigo-500  xl:col-span-3'>
         {!selectedGoal && (
-          <div className='flex max-w-full items-center justify-between px-6 py-4 font-roboto text-gray-800 shadow-warm'>
+          <div className=' flex max-w-full items-center justify-between px-6 py-6 font-roboto text-white shadow-warm lg:min-h-[140px]'>
             <h2 className='text-xl font-bold xl:text-3xl'>
               Overview Dashboard{' '}
             </h2>

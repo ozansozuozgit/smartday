@@ -77,7 +77,7 @@ const AllActivitiesBarChart: React.FC<Props> = ({ activities }) => {
           legendOffset: -40,
         }}
         labelSkipWidth={12}
-        labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+        labelTextColor="white"
         animate={true}
         groupMode='grouped'
       />

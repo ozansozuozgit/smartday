@@ -8,7 +8,7 @@ import React from 'react';
 const CategoryChart = ({ goal }: any) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full justify-center rounded-xl bg-white p-4 shadow-warm'>
+      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full rounded-xl bg-white p-4 shadow-warm'>
         <h2 className='mb-0 mt-2 self-baseline font-roboto text-lg font-semibold text-gray-900 sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
         </h2>

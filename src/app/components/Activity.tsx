@@ -5,9 +5,8 @@ import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import DeleteActivity from './DeleteActivity';
 
-const Activity = ({ activity }) => {
+const Activity = ({ activity, type }: any) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
-
   return (
     <li
       key={activity.id}
@@ -39,7 +38,16 @@ const Activity = ({ activity }) => {
           {activity.percentage}%
         </p>
       )}
-      {!activity?.goal && (
+      {!activity?.goal && isToday(activity.createdAt) && type === 'daily' && (
+        <div className='flex items-center gap-x-2'>
+          <RiDeleteBinLine
+            className='h-4 w-4 min-w-[8px] cursor-pointer text-red-500 hover:text-red-900 sm:h-5 sm:w-5'
+            aria-hidden='true'
+            onClick={() => setIsDeleteActivityOpen(true)}
+          />
+        </div>
+      )}
+      {!activity?.goal && type === 'single' && (
         <div className='flex items-center gap-x-2'>
           <RiDeleteBinLine
             className='h-4 w-4 min-w-[8px] cursor-pointer text-red-500 hover:text-red-900 sm:h-5 sm:w-5'

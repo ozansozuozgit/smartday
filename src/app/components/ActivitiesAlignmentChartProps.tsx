@@ -46,18 +46,18 @@ const ActivitiesAlignmentChart: React.FC<ActivitiesAlignmentChartProps> = ({
 
   if (!data.length) {
     return (
-      <div className='h-[400px] max-h-[400px] max-w-full rounded-xl bg-white p-6 shadow-warm '>
-        <h3 className='mb-4 font-roboto text-lg font-semibold text-gray-900 sm:mb-6 sm:text-xl md:text-2xl'>
+      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full rounded-xl bg-white p-4 shadow-warm'>
+        <h2 className='mb-0 mt-2 self-baseline font-roboto text-lg font-semibold text-gray-900 sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
-        </h3>
+        </h2>
       </div>
     );
   }
 
   return (
-    <div className='h-[400px] max-w-full rounded-xl bg-white p-6 shadow-warm'>
+    <div className='pie-chart-container mx-2 flex h-[400px] w-full max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-warm'>
       <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
-        Activities Alignment per Category for Goal
+        Category Activity Alignment
       </h2>
       <ResponsiveBar
         data={data}

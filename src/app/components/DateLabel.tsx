@@ -13,7 +13,7 @@ const DateLabel = () => {
   };
 
   return (
-    <div className='text-sm lg:text-md  text-gray-700 font-roboto'>
+    <div className='text-sm lg:text-lg  text-white font-roboto'>
       <span className='font-semibold'>{formatDate(startDate)} -</span>{' '}
       <span className='font-semibold'>{formatDate(endDate)}</span>
     </div>

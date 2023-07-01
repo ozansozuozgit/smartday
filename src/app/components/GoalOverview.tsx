@@ -35,9 +35,9 @@ const GoalOverview = () => {
     <div className='m-auto grid max-w-full place-items-center gap-8 lg:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-[450px]'>
       <div className='col-span-1 w-full xl:col-span-3'>
         {selectedGoal && (
-          <div className='flex max-w-full items-center justify-between px-6 py-4 font-roboto text-gray-800 shadow-warm'>
+          <div className='flex max-w-full items-center justify-between rounded-lg bg-indigo-500 px-6 py-4 font-roboto text-white shadow-warm lg:min-h-[140px]'>
             <div>
-              <h5>
+              <h5 className='text-teal-300 text-md'>
                 {selectedGoal?.type.charAt(0).toUpperCase() +
                   selectedGoal?.type.slice(1)}
               </h5>
@@ -54,7 +54,7 @@ const GoalOverview = () => {
                 <span className='lg:text-md mr-2 text-sm font-semibold xl:text-lg'>
                   {selectedGoal?.percentage}%
                 </span>
-                <span className='inline-block h-2 w-[100px] rounded-full bg-gray-300 md:w-[200px]'>
+                <span className='inline-block h-2 w-[100px] rounded-full bg-slate-200 md:w-[200px]'>
                   <div
                     className={clsx(
                       'h-full rounded-full',
@@ -70,7 +70,7 @@ const GoalOverview = () => {
       </div>
       {selectedGoal && <Activities goal={selectedGoal} />}
       <div className='col-span-1 w-full  lg:col-span-1 xl:col-span-2 2xl:col-span-2'>
-        {/* {selectedGoal && <AiActivityChat goal={selectedGoal} />} */}
+        {selectedGoal && <AiActivityChat goal={selectedGoal} />}
       </div>
       {selectedGoal && <ActivityPieChart goal={selectedGoal} />}
       {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}

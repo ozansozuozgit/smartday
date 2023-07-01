@@ -64,7 +64,7 @@ const CompleteGoal = () => {
         className={clsx(
           'flex cursor-pointer items-center justify-around gap-2 rounded-md  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75',
           {
-            'bg-blue': selectedGoal.completed,
+            'bg-teal-500': selectedGoal.completed,
             'bg-orange-500': !selectedGoal.completed,
           }
         )}

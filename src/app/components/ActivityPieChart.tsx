@@ -9,8 +9,8 @@ import { generateRandomColors } from '@/src/utils/colorUtils';
 const ActivityPieChart = ({ goal }) => {
   if (!goal.activities || goal.activities.length === 0) {
     return (
-      <div className='pie-chart-container mx-2 flex h-[400px] w-full max-w-full flex-col rounded-xl bg-white p-4 shadow-warm'>
-        <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
+      <div className='pie-chart-container mx-2 flex h-[400px] w-full  max-w-full rounded-xl bg-white p-4 shadow-warm'>
+        <h2 className='mb-0 mt-2 self-baseline font-roboto text-lg font-semibold text-gray-900 sm:mb-6 sm:text-xl md:text-2xl'>
           No Activities
         </h2>
       </div>

@@ -36,56 +36,41 @@ const OnboardingModal = ({ onClose }: any) => {
             >
               <div className='relative w-full max-w-md rounded-xl bg-white px-6 py-8 shadow-xl'>
                 <Dialog.Title className='mb-6 text-xl font-medium text-gray-900'>
-                  Welcome To Smart Day! 👋
+                  Welcome to Smart Day! 👋
                 </Dialog.Title>
                 <div className='mb-8 text-sm text-gray-800'>
-                  <p className='mb-4'>
-                    Welcome to our app designed to help you track your time
-                    spent on achieving your goals, smarter!. While the app is versatile
-                    and adaptable to your needs, we have some tips to maximize
-                    its potential:
-                  </p>
-                  <ol className='mb-4 list-decimal pl-6'>
-                    <li className='mb-2'>
-                      Activities should exclude sleep. Concentrate on your
-                      waking hours and what you accomplish during them.
-                    </li>
-                    <li className='mb-2'>
-                      Activities can only be deleted within the same day.
-                    </li>
-                    <li className='mb-2'>
-                      Focus on one goal for an extended period of time.
-                    </li>
-                    <li className='mb-2'>
-                      Estimate the time spent on each activity and enter
-                      percentages accordingly. Exact figures are not necessary.
-                    </li>
-                    <li className='mb-2'>
-                      Be honest with yourself throughout the process.
-                    </li>
-
-                    <li className='mb-2'>
-                      Consistently track your progress to gain a comprehensive
-                      understanding of how you spend your time and its
-                      correlation to your goal.
-                    </li>
-                    <li className='mb-2'>
-                      Our AI coach will provide feedback based on your
-                      activities and progress. Although it may come off as
-                      quirky at times, remember that it has good intentions.
-                    </li>
-                    <li className='mb-2'>
-                      You can access your profile by clicking on the avatar in
-                      the bottom left corner.
-                    </li>
-                  </ol>
                   <p>
-                    <span className='font-semibold'>Note:</span> When you reach
-                    100% progress or the day comes to an end{' '}
-                    <strong>(12 AM CST)</strong>, our system will acknowledge
-                    and mark your goal as completed. This ensures that your hard
-                    work and dedication are recognized and saved for future
-                    reference.
+                    Welcome to Smart Day! Our app helps you track your time
+                    towards achieving your goals effectively. Here are a few
+                    tips:
+                  </p>
+                  <ul className='mt-4 list-disc pl-6 space-y-2'>
+                    <li>
+                      Distinguish between Single and Daily Goals. Single Goals
+                      have no time limit, while Daily Goals reset each day{' '}
+                      <strong>(12AM CST)</strong>.
+                    </li>
+                    <li>Focus on your active hours and exclude sleep.</li>
+                    <li>
+                      Estimate the time spent on each activity and enter the
+                      percentages accordingly.
+                    </li>
+                    <li>
+                      Be honest with yourself when logging activities and track
+                      your progress consistently.
+                    </li>
+                    <li>
+                      Our AI Coach provides feedback to support and motivate you
+                      along your journey.
+                    </li>
+                    <li>
+                      Access your profile by clicking on the avatar in the
+                      bottom left corner.
+                    </li>
+                  </ul>
+                  <p className='mt-4'>
+                    Note: Completing a goal is within your control for single goals. Mark it as
+                    completed when you achieve it.
                   </p>
                 </div>
 

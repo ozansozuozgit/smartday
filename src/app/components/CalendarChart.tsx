@@ -5,7 +5,6 @@ import { ResponsiveCalendar } from '@nivo/calendar';
 import moment from 'moment-timezone';
 
 const CalendarChart = ({ completedGoals }: any) => {
-  console.log('completedGoals', completedGoals);
   const startDate = useAppSelector((state) =>
     state.user.startDate
       ? moment(state.user.startDate).toISOString()
@@ -42,7 +41,7 @@ const CalendarChart = ({ completedGoals }: any) => {
   return (
     <div className='m-auto flex h-[450px] flex-col rounded-xl bg-white p-6 shadow-warm sm:h-[400px] xl:max-w-[1500px] '>
       <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
-        Daily Goal Completion Calendar
+        Goal Completion Calendar
       </h2>
       <ResponsiveCalendar
         data={goalData}

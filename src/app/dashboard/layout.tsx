@@ -5,13 +5,14 @@ import SidebarNav from '../components/SidebarNav';
 export const metadata = {
   title: 'Dashboard',
   description: 'Dashboard',
+  keywords: ['dashboard', 'time tracking', 'productivity', 'time management'],
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <SidebarNav />
-      <div className='2xl:pl-56'>{children}</div>
+      <div className='bg-slate-100 2xl:pl-56'>{children}</div>
       <ToastContainer />
     </div>
   );

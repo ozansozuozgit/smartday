@@ -59,6 +59,10 @@ const CreateGoal = () => {
       dispatch(setSelectedGoal(goal));
       closeModal();
       showSuccessToast('Goal added!');
+      //reset state to default
+      setGoalName('');
+      setSelected(plans[0]);
+      
     } catch (err) {
       console.log(err);
       Sentry.captureException(err);
