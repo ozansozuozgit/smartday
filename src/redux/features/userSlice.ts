@@ -61,6 +61,10 @@ export const userSlice = createSlice({
       state.completedGoals = state.completedGoals?.filter(
         (goal: any) => goal.id !== action.payload
       );
+      //remove any activities related to the goal
+      state.allActivities = state.allActivities?.filter(
+        (activity: any) => activity.goalId !== action.payload
+      );
     },
     addGoal: (state, action: PayloadAction<any>) => {
       state.goals = [action.payload, ...state.goals];

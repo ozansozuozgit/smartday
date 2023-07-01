@@ -70,7 +70,7 @@ const GoalOverview = () => {
       </div>
       {selectedGoal && <Activities goal={selectedGoal} />}
       <div className='col-span-1 w-full  lg:col-span-1 xl:col-span-2 2xl:col-span-2'>
-        {selectedGoal && <AiActivityChat goal={selectedGoal} />}
+        {/* {selectedGoal && <AiActivityChat goal={selectedGoal} />} */}
       </div>
       {selectedGoal && <ActivityPieChart goal={selectedGoal} />}
       {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
