@@ -62,7 +62,7 @@ const CreateGoal = () => {
       //reset state to default
       setGoalName('');
       setSelected(plans[0]);
-      
+
     } catch (err) {
       console.log(err);
       Sentry.captureException(err);
@@ -94,8 +94,8 @@ const CreateGoal = () => {
             <div className='fixed inset-0 bg-black bg-opacity-25' />
           </Transition.Child>
 
-          <div className='fixed inset-0 overflow-y-auto'>
-            <div className='flex min-h-full items-center justify-center p-4 text-center'>
+          <div className='fixed inset-0 overflow-y-auto '>
+            <div className='flex min-h-full items-center justify-center p-4 text-center '>
               <Transition.Child
                 as={Fragment}
                 enter='ease-out duration-300'
@@ -105,10 +105,10 @@ const CreateGoal = () => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-full max-w-[500px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='w-full max-w-[500px] transform overflow-hidden rounded-2xl  p-6 text-left align-middle shadow-xl transition-all bg-slate-100'>
                   <Dialog.Title
                     as='h3'
-                    className='font-roboto text-lg font-medium'
+                    className='font-roboto text-xl font-medium'
                   >
                     Enter Goal Name
                   </Dialog.Title>
@@ -145,7 +145,7 @@ const CreateGoal = () => {
                                 : ''
                             }
                   ${
-                    checked ? 'bg-sky-900 bg-opacity-75 text-white' : 'bg-white'
+                    checked ? 'bg-teal-800 bg-opacity-75 text-white' : 'bg-white'
                   }
                     relative flex cursor-pointer rounded-lg px-2 py-2 shadow-md focus:outline-none`
                           }
@@ -168,7 +168,7 @@ const CreateGoal = () => {
                                       className={`inline ${
                                         checked
                                           ? 'text-sky-100'
-                                          : 'text-gray-800'
+                                          : 'text-teal-800'
                                       }`}
                                     >
                                       <span>{plan.ram}</span>{' '}
