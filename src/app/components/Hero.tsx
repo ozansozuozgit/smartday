@@ -54,7 +54,7 @@ export default function Hero() {
           <div className='mt-10 flex items-center gap-x-6'>
             <Link
               href='/sign-up'
-              className='rounded-md bg-teal-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue'
+              className='rounded-md bg-teal-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-teal-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700'
             >
               Get started
             </Link>
@@ -62,7 +62,7 @@ export default function Hero() {
               href='/sign-in'
               className='group text-lg font-semibold leading-6 text-teal'
             >
-              <span className='group-hover:text-blue-800'>
+              <span className='group-hover:text-teal-800'>
                 Sign in <span aria-hidden='true'>→</span>
               </span>
             </Link>
