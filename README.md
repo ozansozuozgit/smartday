@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Smart Day
 
-## Getting Started
+An app designed to help you track your goals and monitor your progress. It features a built-in AI coach that is as funny as it is useful!
 
-First, run the development server:
+The app utilizes Next.js, Supabase, Prisma, Clerk.js, Tailwind, Redux Toolkit, Vercel AI, and Nivo Charts.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+[![Smart Day Screenshot](https://i.ibb.co/s1LdScS/Screenshot-2023-07-02-at-2-11-52-PM.png)](https://ibb.co/pKCBDND)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Website:** [https://www.smartday.app/](https://www.smartday.app/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
 
-## Learn More
+- Goal tracking: Set and manage your goals effectively.
+- Progress monitoring: Keep track of your progress with visual representations.
+- AI coach: Get guidance and motivation from a built-in AI coach that adds a touch of humor.
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js
+- Supabase
+- Prisma
+- Clerk.js
+- Tailwind CSS
+- Redux Toolkit
+- Vercel AI
+- Nivo Charts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+We welcome contributions from the community! If you'd like to contribute to Smart Day, please follow our [contributing guidelines](CONTRIBUTING.md).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Feel free to explore the app and provide feedback. We hope you enjoy using Smart Day to stay motivated and achieve your goals!
