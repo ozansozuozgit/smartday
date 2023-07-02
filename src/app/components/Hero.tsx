@@ -72,7 +72,7 @@ export default function Hero() {
           <div className='max-w-3xl flex-none sm:max-w-5xl lg:max-w-none'>
             <div className='-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4'>
               <Image
-                src='https://res.cloudinary.com/dbyigmrto/image/upload/v1688094690/Screenshot_2023-06-29_at_10.11.14_PM_moaewu.png'
+                src='https://res.cloudinary.com/dbyigmrto/image/upload/v1688271084/Screenshot_2023-07-01_at_11.11.03_PM_ut4sqs.png'
                 alt='App screenshot'
                 width={2432}
                 height={1442}
