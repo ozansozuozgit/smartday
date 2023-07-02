@@ -15,12 +15,20 @@ import { GoalType } from '../../../types/types';
 
 const plans = [
   {
-    name: 'Daily',
-    ram: 'Goals Will Reset Everyday at 12:00 AM CST',
+    name: 'Single (No Percentage)',
+    description: 'Goals can be completed once and will not have a percentage',
+    type: 'singleNoPercentage',
   },
+
   {
     name: 'Single',
-    ram: 'Goals will be completed once',
+    description: 'Goals can be completed once, but will have a percentage',
+    type: 'single',
+  },
+  {
+    name: 'Daily',
+    description: 'Recurring Goals That Will Reset Everyday at 12:00 AM CST',
+    type: 'daily',
   },
 ];
 
@@ -46,7 +54,7 @@ const CreateGoal = () => {
     try {
       const res = await fetch(`${getBaseUrl()}/api/goal`, {
         method: 'POST',
-        body: JSON.stringify({ goalName, type: selected.name.toLowerCase() }),
+        body: JSON.stringify({ goalName, type: selected.type }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -62,7 +70,6 @@ const CreateGoal = () => {
       //reset state to default
       setGoalName('');
       setSelected(plans[0]);
-
     } catch (err) {
       console.log(err);
       Sentry.captureException(err);
@@ -105,7 +112,7 @@ const CreateGoal = () => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-full max-w-[500px] transform overflow-hidden rounded-2xl  p-6 text-left align-middle shadow-xl transition-all bg-slate-100'>
+                <Dialog.Panel className='w-full max-w-[500px] transform overflow-hidden rounded-2xl  bg-slate-100 p-6 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
                     className='font-roboto text-xl font-medium'
@@ -145,7 +152,9 @@ const CreateGoal = () => {
                                 : ''
                             }
                   ${
-                    checked ? 'bg-teal-800 bg-opacity-75 text-white' : 'bg-white'
+                    checked
+                      ? 'bg-teal-800 bg-opacity-75 text-white'
+                      : 'bg-white'
                   }
                     relative flex cursor-pointer rounded-lg px-2 py-2 shadow-md focus:outline-none`
                           }
@@ -171,7 +180,7 @@ const CreateGoal = () => {
                                           : 'text-teal-800'
                                       }`}
                                     >
-                                      <span>{plan.ram}</span>{' '}
+                                      <span>{plan.description}</span>{' '}
                                     </RadioGroup.Description>
                                   </div>
                                 </div>

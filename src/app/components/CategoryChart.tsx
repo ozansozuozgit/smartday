@@ -50,7 +50,7 @@ const CategoryChart = ({ goal }: any) => {
   });
 
   return (
-    <div className='pie-chart-container-2 mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-warm'>
+    <div className='mx-2 flex h-[400px] w-full  max-w-full flex-col items-center justify-center rounded-xl bg-white p-4 shadow-warm'>
       <h2 className='text-md sm:text-md mb-2 font-roboto font-semibold sm:mb-2 md:text-xl'>
         Category Distribution Overview
       </h2>

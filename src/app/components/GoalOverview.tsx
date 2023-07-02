@@ -31,15 +31,24 @@ const GoalOverview = () => {
     }
   };
 
+  const formatType = (type: string) => {
+    if (type === 'daily') {
+      return 'Daily Recurring';
+    } else if (type === 'single') {
+      return 'Single (Percentage)';
+    } else if (type === 'singleNoPercentage') {
+      return 'Single (No Percentage)';
+    }
+  };
+
   return (
     <div className='m-auto grid max-w-full place-items-center gap-8 lg:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-[450px]'>
       <div className='col-span-1 w-full xl:col-span-3'>
         {selectedGoal && (
           <div className='flex max-w-full items-center justify-between rounded-lg bg-indigo-500 px-6 py-4 font-roboto text-white shadow-warm lg:min-h-[140px]'>
             <div>
-              <h5 className='text-teal-300 text-md'>
-                {selectedGoal?.type.charAt(0).toUpperCase() +
-                  selectedGoal?.type.slice(1)}
+              <h5 className='text-md text-teal-300'>
+                {formatType(selectedGoal?.type)}
               </h5>
               <h2 className='text-sm font-bold md:text-xl xl:text-2xl'>
                 {selectedGoal?.name}
@@ -47,23 +56,26 @@ const GoalOverview = () => {
             </div>
 
             <div className='flex flex-col items-end gap-y-2'>
-              {selectedGoal?.type === 'single' && <CompleteGoal />}
+              {(selectedGoal?.type === 'single' ||
+                selectedGoal.type === 'singleNoPercentage') && <CompleteGoal />}
 
               <DateLabel />
-              <div className='flex items-center'>
-                <span className='lg:text-md mr-2 text-sm font-semibold xl:text-lg'>
-                  {selectedGoal?.percentage}%
-                </span>
-                <span className='inline-block h-2 w-[100px] rounded-full bg-slate-200 md:w-[200px]'>
-                  <div
-                    className={clsx(
-                      'h-full rounded-full',
-                      getProgressBarColor(selectedGoal?.percentage)
-                    )}
-                    style={{ width: `${selectedGoal?.percentage}%` }}
-                  ></div>
-                </span>
-              </div>
+              {selectedGoal.type !== 'singleNoPercentage' && (
+                <div className='flex items-center'>
+                  <span className='lg:text-md mr-2 text-sm font-semibold xl:text-lg'>
+                    {selectedGoal?.percentage}%
+                  </span>
+                  <span className='inline-block h-2 w-[100px] rounded-full bg-slate-200 md:w-[200px]'>
+                    <div
+                      className={clsx(
+                        'h-full rounded-full',
+                        getProgressBarColor(selectedGoal?.percentage)
+                      )}
+                      style={{ width: `${selectedGoal?.percentage}%` }}
+                    ></div>
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -72,7 +84,9 @@ const GoalOverview = () => {
       <div className='col-span-1 w-full  lg:col-span-1 xl:col-span-2 2xl:col-span-2'>
         {selectedGoal && <AiActivityChat goal={selectedGoal} />}
       </div>
-      {selectedGoal && <ActivityPieChart goal={selectedGoal} />}
+      {selectedGoal && selectedGoal?.type !== 'singleNoPercentage' && (
+        <ActivityPieChart goal={selectedGoal} />
+      )}
       {selectedGoal && <AlignWithGoalPieChart goal={selectedGoal} />}
       {selectedGoal && <CategoryChart goal={selectedGoal} />}{' '}
       {selectedGoal && <ActivitiesAlignmentChart goal={selectedGoal} />}

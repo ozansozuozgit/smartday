@@ -43,22 +43,14 @@ export default function AiActivityChat({ goal }: any) {
       ?.filter((activity: any) => !activity.alignsWithGoal)
       .map((activity: any) => activity.name)
       .join(', ');
+    const goalPromptMessages: any = {
+      daily: `My daily goal is: ${goalName} and I am ${goalPercentage}% complete with my daily goal. My daily activities towards this goal so far have been: ${allActivities}. Out of these activities, the ones that align with this goal are: ${alignedActivities}. The activities that don't align with my daily goal are: ${unalignedActivities}. Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`,
+      single: `My goal is: ${goalName} and I am ${goalPercentage}% complete with my goal. My activities towards this goal so far have been: ${allActivities}. Out of these activities, the ones that align with this goal are: ${alignedActivities}. The activities that don't align with my goal are: ${unalignedActivities}. Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`,
+      singleNoPercentage: `My goal is: ${goalName}. My activities towards this goal so far have been: ${allActivities}. Out of these activities, the ones that align with this goal are: ${alignedActivities}. The activities that don't align with my goal are: ${unalignedActivities}. Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`,
+    };
 
-    const message = `My ${
-      goal.type === 'daily' ? 'daily' : ''
-    } goal is: ${goalName} and I am ${goalPercentage}% complete with my ${
-      goal.type === 'daily' ? 'daily' : ''
-    } goal. My daily activities towards this goal so far have been: ${allActivities}.${
-      alignedActivities
-        ? ` Out of these activities, the ones that align with this goal are: ${alignedActivities}.`
-        : ''
-    }${
-      unalignedActivities
-        ? ` The activities that don't align with my ${
-            goal.type === 'daily' ? 'daily' : ''
-          } goal are: ${unalignedActivities}.`
-        : ''
-    } Please evaluate my progress and provide suggestions to help me achieve my goal effectively.`;
+    const goalType = goal.type || '';
+    const message = goalPromptMessages[goalType] || '';
 
     fetch(`${getBaseUrl()}/api/chat`, {
       method: 'POST',

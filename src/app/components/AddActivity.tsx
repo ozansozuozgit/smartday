@@ -71,15 +71,24 @@ const AddActivity = ({ goal }: any) => {
   };
 
   const addActivity = async () => {
-    if (!activityName || !percentage) {
-      showWarningToast('Please enter a activity name and percentage');
+    if (
+      goal.type !== 'singleNoPercentage' &&
+      (!percentage || percentage > 100)
+    ) {
+      showWarningToast('Please enter a valid percentage');
       return;
     }
-    if (percentage > 100) {
+    if (
+      goal.type !== 'singleNoPercentage' &&
+      (percentage === null || percentage > 100)
+    ) {
       showWarningToast('Percentage cannot be greater than 100');
       return;
     }
-    if (percentage + goal?.percentage > 100) {
+    if (
+      goal.type !== 'singleNoPercentage' &&
+      percentage + goal?.percentage > 100
+    ) {
       showWarningToast('Percentage cannot be greater than 100');
       return;
     }
@@ -192,51 +201,61 @@ const AddActivity = ({ goal }: any) => {
                       setSelectedCategoryHandler={setSelectedCategoryHandler}
                       selectedCategory={selectedCategoryId}
                     />
-                    <div className='flex items-center gap-3'>
-                      <input
-                        type='text'
-                        name='percentage'
-                        id='percentage'
-                        className='sm:text-md my-5 block  w-[70%] rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:leading-6'
-                        value={percentage ?? 0}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          // Only allow numbers (integer or decimal)
-                          if (/^\d*\.?\d*$/.test(value)) {
-                            const inputPercentage = Number(value);
-                            const maxPercentage = 100 - (goal?.percentage ?? 0);
-                            // Limit the input value to be between 0 and maxPercentage
-                            const clampedPercentage = Math.min(
-                              Math.max(inputPercentage, 0),
-                              maxPercentage
-                            );
-                            setPercentage(clampedPercentage);
-                          }
-                        }}
-                        placeholder='Percentage of your day'
-                      />
-                      <div className='flex w-[30%] flex-col gap-y-1 text-sm'>
-                        <span>
-                          Remaining:{' '}
-                          <span className='font-semibold text-blue-500'>
-                            {100 - goal?.percentage}%
-                          </span>
-                        </span>
-                        <button
-                          className='rounded-lg bg-teal-500 px-2 py-1 text-sm text-white hover:opacity-50'
-                          onClick={() => {
-                            setPercentage(100 - goal?.percentage);
+                    {goal?.type !== 'singleNoPercentage' && (
+                      <div className='flex items-center gap-3'>
+                        <input
+                          type='text'
+                          name='percentage'
+                          id='percentage'
+                          className='sm:text-md my-5 block  w-[70%] rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:leading-6'
+                          value={percentage ?? 0}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            // Only allow numbers (integer or decimal)
+                            if (/^\d*\.?\d*$/.test(value)) {
+                              const inputPercentage = Number(value);
+                              const maxPercentage =
+                                100 - (goal?.percentage ?? 0);
+                              // Limit the input value to be between 0 and maxPercentage
+                              const clampedPercentage = Math.min(
+                                Math.max(inputPercentage, 0),
+                                maxPercentage
+                              );
+                              setPercentage(clampedPercentage);
+                            }
                           }}
-                        >
-                          Add Remaining
-                        </button>
+                          placeholder='Percentage of your day'
+                        />
+                        <div className='flex w-[30%] flex-col gap-y-1 text-sm'>
+                          <span>
+                            Remaining:{' '}
+                            <span className='font-semibold text-blue-500'>
+                              {100 - goal?.percentage}%
+                            </span>
+                          </span>
+                          <button
+                            className='rounded-lg bg-teal-500 px-2 py-1 text-sm text-white hover:opacity-50'
+                            onClick={() => {
+                              setPercentage(100 - goal?.percentage);
+                            }}
+                          >
+                            Add Remaining
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                   <fieldset>
                     <legend className='sr-only'>Notifications</legend>
                     <div className='space-y-5'>
-                      <div className='relative flex items-start'>
+                      <div
+                        className={clsx(
+                          'relative flex items-start',
+                          goal?.type === 'singleNoPercentage'
+                            ? 'mt-5'
+                            : 'mt-auto'
+                        )}
+                      >
                         <div className='flex h-6 items-center '>
                           <div
                             className={clsx(

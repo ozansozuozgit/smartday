@@ -20,7 +20,7 @@ const Activities = ({ goal }: any) => {
       {goal?.activities && (
         <div className='max-h-[300px] divide-y divide-gray-200 overflow-y-auto pl-2 pr-2 font-open_sans sm:max-h-[500px] sm:pl-2 sm:pr-4'>
           {goal.activities.map((activity: any) => (
-            <Activity activity={activity} key={activity.id} type={goal.type} />
+            <Activity activity={activity} key={activity.id} type={goal.type} completed={goal.completed}/>
           ))}
         </div>
       )}

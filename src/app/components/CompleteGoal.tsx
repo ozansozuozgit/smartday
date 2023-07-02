@@ -36,6 +36,17 @@ const CompleteGoal = () => {
           },
         }
       );
+      const resCreatedGoal = await fetch(
+        `${getBaseUrl()}/api/completed-goal/`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            goalId: selectedGoal.id,
+            goalName: selectedGoal.name,
+            goalType: selectedGoal.type,
+          }),
+        }
+      );
       const updatedGoal = await res.json();
       console.log('updatedGoal', updatedGoal);
       dispatch(
@@ -64,7 +75,7 @@ const CompleteGoal = () => {
         className={clsx(
           'flex cursor-pointer items-center justify-around gap-2 rounded-md  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75',
           {
-            'bg-teal-500': selectedGoal.completed,
+            'pointer-events-none bg-teal-500': selectedGoal.completed,
             'bg-orange-500': !selectedGoal.completed,
           }
         )}
