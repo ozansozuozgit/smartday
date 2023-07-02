@@ -3,7 +3,7 @@ import { SignedIn, UserButton, useClerk } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { AiOutlineMail } from 'react-icons/ai';
-import { BiHelpCircle } from 'react-icons/bi';
+import { BiHelpCircle, BiLogOut } from 'react-icons/bi';
 import ContactModal from './ContactModal';
 import OnboardingModal from './OnboardingModal';
 export default function NavAuth() {
@@ -37,6 +37,10 @@ export default function NavAuth() {
             <BiHelpCircle
               className='inline-block h-5 w-5 cursor-pointer text-blue-500 hover:opacity-50'
               onClick={() => setShowOnboarding(true)}
+            />
+            <BiLogOut
+              className='inline-block h-5 w-5 cursor-pointer text-red-500 hover:opacity-50'
+              onClick={handleSignOut}
             />
           </div>
 
