@@ -37,7 +37,6 @@ export async function POST(req: NextRequest) {
     activityData.categoryName = categoryName;
   }
 
-  
   const newActivity = await prisma.activity.create({
     data: activityData,
   });
@@ -56,38 +55,59 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(newActivity);
 }
 
-export async function DELETE(req: NextRequest) {
-  const activityId = req.nextUrl.searchParams.get('activityId') as string;
+export async function PATCH(req: NextRequest) {
+  const {
+    activityId,
+    newPercentage,
+    goalId,
+    name,
+    alignWithGoal,
+    categoryId,
+    categoryName,
+    goalPercentage
+  } = await req.json();
 
-  // get the activity and its associated goal
-  const activity = await prisma.activity.findUnique({
-    where: { id: activityId },
-    include: { goal: true },
+  const activityData: ActivityData = {
+    name: name,
+    percentage: newPercentage,
+    goalId: goalId,
+    alignsWithGoal: alignWithGoal,
+  };
+
+  if (categoryId !== undefined && categoryId !== null && categoryId !== '') {
+    activityData.categoryId = categoryId;
+  }
+  if (
+    categoryName !== undefined &&
+    categoryName !== null &&
+    categoryName !== ''
+  ) {
+    activityData.categoryName = categoryName;
+  }
+
+  await prisma.goal.update({
+    where: { id: goalId },
+    data: { percentage: Number(goalPercentage) },
   });
 
-  if (!activity) {
-    throw new Error('Activity not found');
-  }
+  // update the activity
+  const response = await prisma.activity.update({
+    where: { id: activityId },
+    data: activityData,
+  });
 
-  // check if the activity is from a past day
-  const activityDate = activity.createdAt;
-  const today = new Date();
+  return NextResponse.json(response);
+}
 
-  if (
-    activityDate.getDate() === today.getDate() &&
-    activityDate.getMonth() === today.getMonth() &&
-    activityDate.getFullYear() === today.getFullYear()
-  ) {
-    if (!activity?.goal?.percentage) {
-      throw new Error('No percentage found for this goal');
-    }
-    // if the activity is from today, subtract its percentage from the goal
-    const newPercentage = activity?.goal?.percentage - activity?.percentage;
-    await prisma.goal.update({
-      where: { id: activity.goal.id },
-      data: { percentage: newPercentage },
-    });
-  }
+export async function DELETE(req: NextRequest) {
+  const activityId = req.nextUrl.searchParams.get('activityId') as any;
+  const newPercentage = req.nextUrl.searchParams.get('newPercentage') as any;
+  const goalId = req.nextUrl.searchParams.get('goalId') as any;
+  // if the activity is from today, subtract its percentage from the goal
+  await prisma.goal.update({
+    where: { id: goalId },
+    data: { percentage: Number(newPercentage) },
+  });
 
   // delete the activity
   const response = await prisma.activity.delete({

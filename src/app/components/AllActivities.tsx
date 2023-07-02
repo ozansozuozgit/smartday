@@ -16,7 +16,7 @@ const AllActivities = ({ activities }: any) => {
       {activities && (
         <div className='max-h-[400px] w-full divide-y divide-gray-200 overflow-y-auto  pl-2 pr-2 font-open_sans sm:pl-2 sm:pr-4'>
           {activities.map((activity: any) => (
-            <Activity activity={activity} key={activity.id} />
+            <Activity activity={activity} key={activity?.id} />
           ))}
         </div>
       )}

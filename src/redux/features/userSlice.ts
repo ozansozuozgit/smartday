@@ -95,6 +95,21 @@ export const userSlice = createSlice({
         ...state.selectedGoal.activities,
       ];
     },
+    updateActivityToSelectedGoal: (state, action: PayloadAction<any>) => {
+      // Add it to the selected goals activity
+      state.selectedGoal.activities = state.selectedGoal.activities?.map(
+        (activity: any) => {
+          if (activity.id === action.payload.id) {
+            activity.percentage = action.payload.percentage;
+            activity.name = action.payload.name;
+            activity.alignsWithGoal = action.payload.alignsWithGoal;
+            activity.categoryId = action.payload.categoryId;
+            activity.categoryName = action.payload.categoryName;
+          }
+          return activity;
+        }
+      );
+    },
     removeActivityFromSelectedGoal: (state, action: PayloadAction<any>) => {
       // Remove it from the selected goals activity
       state.selectedGoal.activities = state.selectedGoal.activities?.filter(
@@ -138,6 +153,18 @@ export const userSlice = createSlice({
     addGoalToCompletedGoals: (state, action: PayloadAction<any>) => {
       state.completedGoals = [action.payload, ...state.completedGoals];
     },
+    updateActivityInAllActivities: (state, action: PayloadAction<any>) => {
+      state.allActivities = state.allActivities.map((activity: any) => {
+        if (activity.id === action.payload.id) {
+          activity.percentage = action.payload.percentage;
+          activity.name = action.payload.name;
+          activity.alignsWithGoal = action.payload.alignsWithGoal;
+          activity.categoryId = action.payload.categoryId;
+          activity.categoryName = action.payload.categoryName;
+        }
+        return activity;
+      });
+    },
   },
 });
 
@@ -161,5 +188,7 @@ export const {
   setCompletedGoals,
   updateSelectedGoalCompleted,
   addGoalToCompletedGoals,
+  updateActivityInAllActivities,
+  updateActivityToSelectedGoal,
 } = userSlice.actions;
 export default userSlice.reducer;

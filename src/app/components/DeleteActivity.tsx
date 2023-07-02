@@ -23,8 +23,9 @@ const DeleteActivity = ({
 
   const deleteActivity = async () => {
     try {
+      const newPercentage = goal.percentage - activity?.percentage;
       const res = await fetch(
-        `${getBaseUrl()}/api/activity?activityId=${activity.id}`,
+        `${getBaseUrl()}/api/activity?activityId=${activity.id}&goalId=${goal.id}&newPercentage=${newPercentage}`,
         {
           method: 'DELETE',
           headers: {
@@ -33,7 +34,6 @@ const DeleteActivity = ({
         }
       );
       const deletedActivity = await res.json();
-      const newPercentage = goal.percentage - activity?.percentage;
       dispatch(updateSelectedGoalPercentage(newPercentage));
       dispatch(removeActivityFromSelectedGoal(deletedActivity?.id));
       dispatch(setActivityFlag(!activityFlag));

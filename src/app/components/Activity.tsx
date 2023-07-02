@@ -2,11 +2,13 @@
 import { formatDatetime, isToday } from '@/src/utils/timeHelpers';
 import React, { useState } from 'react';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import DeleteActivity from './DeleteActivity';
-
+import EditActivity from './EditActivity';
 const Activity = ({ activity, type }: any) => {
   const [isDeleteActivityOpen, setIsDeleteActivityOpen] = useState(false);
+  const [isEditActivityOpen, setIsEditActivityOpen] = useState(false);
   return (
     <li
       key={activity.id}
@@ -40,6 +42,15 @@ const Activity = ({ activity, type }: any) => {
       )}
       {!activity?.goal && isToday(activity.createdAt) && type === 'daily' && (
         <div className='flex items-center gap-x-2'>
+          <FaEdit
+            className='h-4 w-4 min-w-[8px] cursor-pointer text-teal-500 hover:text-red-900 sm:h-5 sm:w-5'
+            aria-hidden='true'
+            onClick={() => setIsEditActivityOpen(true)}
+          />
+        </div>
+      )}
+      {!activity?.goal && isToday(activity.createdAt) && type === 'daily' && (
+        <div className='flex items-center gap-x-2'>
           <RiDeleteBinLine
             className='h-4 w-4 min-w-[8px] cursor-pointer text-red-500 hover:text-red-900 sm:h-5 sm:w-5'
             aria-hidden='true'
@@ -52,6 +63,15 @@ const Activity = ({ activity, type }: any) => {
           <RiDeleteBinLine
             className='h-4 w-4 min-w-[8px] cursor-pointer text-red-500 hover:text-red-900 sm:h-5 sm:w-5'
             aria-hidden='true'
+            onClick={() => setIsEditActivityOpen(true)}
+          />
+        </div>
+      )}
+      {!activity?.goal && type === 'single' && (
+        <div className='flex items-center gap-x-2'>
+          <FaEdit
+            className='h-4 w-4 min-w-[8px] cursor-pointer text-teal-500 hover:text-red-900 sm:h-5 sm:w-5'
+            aria-hidden='true'
             onClick={() => setIsDeleteActivityOpen(true)}
           />
         </div>
@@ -61,6 +81,13 @@ const Activity = ({ activity, type }: any) => {
           closeDeleteActivity={() => setIsDeleteActivityOpen(false)}
           activity={activity}
           isDeleteActivityOpen={isDeleteActivityOpen}
+        />
+      )}
+      {isEditActivityOpen && (
+        <EditActivity
+          closeEditActivity={() => setIsEditActivityOpen(false)}
+          activity={activity}
+          isEditActivityOpen={isEditActivityOpen}
         />
       )}
     </li>
