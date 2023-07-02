@@ -60,15 +60,6 @@ const Activity = ({ activity, type }: any) => {
       )}
       {!activity?.goal && type === 'single' && (
         <div className='flex items-center gap-x-2'>
-          <RiDeleteBinLine
-            className='h-4 w-4 min-w-[8px] cursor-pointer text-red-500 hover:text-red-900 sm:h-5 sm:w-5'
-            aria-hidden='true'
-            onClick={() => setIsEditActivityOpen(true)}
-          />
-        </div>
-      )}
-      {!activity?.goal && type === 'single' && (
-        <div className='flex items-center gap-x-2'>
           <FaEdit
             className='h-4 w-4 min-w-[8px] cursor-pointer text-teal-500 hover:text-red-900 sm:h-5 sm:w-5'
             aria-hidden='true'
@@ -76,6 +67,16 @@ const Activity = ({ activity, type }: any) => {
           />
         </div>
       )}
+      {!activity?.goal && type === 'single' && (
+        <div className='flex items-center gap-x-2'>
+          <RiDeleteBinLine
+            className='h-4 w-4 min-w-[8px] cursor-pointer text-red-500 hover:text-red-900 sm:h-5 sm:w-5'
+            aria-hidden='true'
+            onClick={() => setIsEditActivityOpen(true)}
+          />
+        </div>
+      )}
+
       {isDeleteActivityOpen && (
         <DeleteActivity
           closeDeleteActivity={() => setIsDeleteActivityOpen(false)}
