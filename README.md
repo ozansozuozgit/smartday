@@ -2,8 +2,6 @@
 
 An app designed to help you track your goals and monitor your progress. It features a built-in AI coach that is as funny as it is useful!
 
-The app utilizes Next.js, Supabase, Prisma, Clerk.js, Tailwind, Redux Toolkit, Vercel AI, and Nivo Charts.
-
 [![Smart Day Screenshot](https://i.ibb.co/s1LdScS/Screenshot-2023-07-02-at-2-11-52-PM.png)](https://ibb.co/pKCBDND)
 
 **Website:** [https://www.smartday.app/](https://www.smartday.app/)
