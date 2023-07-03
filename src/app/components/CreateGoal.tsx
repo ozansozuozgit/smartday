@@ -15,19 +15,22 @@ import { GoalType } from '../../../types/types';
 
 const plans = [
   {
-    name: 'Single (No Percentage)',
-    description: 'Goals can be completed once and will not have a percentage',
+    name: 'One-Time (No Percentage)',
+    description:
+      'Set goals that can be completed at any time without progress tracking',
     type: 'singleNoPercentage',
   },
 
   {
-    name: 'Single',
-    description: 'Goals can be completed once, but will have a percentage',
+    name: 'One-Time',
+    description:
+      'Set goals that can be completed at your own pace and track progress with a percentage indicator.',
     type: 'single',
   },
   {
     name: 'Daily',
-    description: 'Recurring Goals That Will Reset Everyday at 12:00 AM CST',
+    description:
+      'Recurring goals that reset every day at 12:00 AM CST, helping you build consistent habits',
     type: 'daily',
   },
 ];

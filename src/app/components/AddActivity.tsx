@@ -26,7 +26,7 @@ const AddActivity = ({ goal }: any) => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('');
   const [selectedCategoryName, setSelectedCategoryName] = useState<string>('');
   const [percentage, setPercentage] = useState<number | null>(0);
-  const [alignsWithGoal, setAlignsWithGoal] = useState<boolean>(false);
+  const [alignsWithGoal, setAlignsWithGoal] = useState<boolean>(true);
   let [isOpen, setIsOpen] = useState(false);
 
   const activityFlag = useAppSelector((state) => state.user.activityFlag);

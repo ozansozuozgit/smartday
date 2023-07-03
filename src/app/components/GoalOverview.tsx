@@ -35,9 +35,9 @@ const GoalOverview = () => {
     if (type === 'daily') {
       return 'Daily Recurring';
     } else if (type === 'single') {
-      return 'Single (Percentage)';
+      return 'One-Time ';
     } else if (type === 'singleNoPercentage') {
-      return 'Single (No Percentage)';
+      return 'One-Time (No Progress Tracking)';
     }
   };
 
