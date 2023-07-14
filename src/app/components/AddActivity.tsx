@@ -129,7 +129,6 @@ const AddActivity = ({ goal }: any) => {
       showSuccessToast('Activity added!');
       setActivityName('');
       setPercentage(0);
-      setAlignsWithGoal(false);
       closeModal();
     } catch (err) {
       console.log(err);
