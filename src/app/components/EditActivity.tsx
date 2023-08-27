@@ -196,7 +196,7 @@ const EditActivity = ({
                       className='sm:text-md my-1 block w-full rounded-md border-0 py-4 pl-4 pr-20 text-lg text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6'
                       value={activityName}
                       onChange={(e) => setActivityName(e.target.value)}
-                      placeholder='100k per month'
+                      placeholder=''
                     />
                     <Categories
                       setSelectedCategoryHandler={setSelectedCategoryHandler}

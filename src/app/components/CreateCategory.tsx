@@ -107,7 +107,7 @@ const CreateCategory = ({ addCategoryToState }: any) => {
                             createCategory();
                           }
                         }}
-                        placeholder='100k per month'
+                        placeholder='Fitness'
                       />
                     </div>
 
